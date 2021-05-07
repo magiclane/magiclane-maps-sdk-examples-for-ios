@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:CalculateRoute/CalculateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SimulateRoute/SimulateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">
+   </FileRef>
+</Workspace>

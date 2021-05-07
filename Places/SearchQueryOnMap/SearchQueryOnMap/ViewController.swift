@@ -1,0 +1,145 @@
+// Copyright (C) 2019-2021, General Magic B.V.
+// All rights reserved.
+//
+// This software is confidential and proprietary information of General Magic
+// ("Confidential Information"). You shall not disclose such Confidential
+// Information and shall use it only in accordance with the terms of the
+// license agreement you entered into with General Magic.
+
+import UIKit
+import GEMKit
+
+class ViewController: UIViewController {
+    
+    var mapViewController: MapViewController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        self.createMapView()
+        
+        self.mapViewController!.startRender()
+        
+        self.addSearch()
+    }
+    
+    // MARK: - Map View
+    
+    func createMapView() {
+        
+        self.mapViewController = MapViewController.init()
+        self.mapViewController!.view.backgroundColor = UIColor.systemBackground
+        
+        self.addChild(self.mapViewController!)
+        self.view.addSubview(self.mapViewController!.view)
+        self.mapViewController!.didMove(toParent: self)
+        
+        self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraintTop = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
+                                                relatedBy: NSLayoutConstraint.Relation.equal,
+                                                toItem: self.view, attribute: NSLayoutConstraint.Attribute.top,
+                                                multiplier: 1.0, constant: 0)
+        
+        let constraintLeft = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 relatedBy: NSLayoutConstraint.Relation.equal,
+                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 multiplier: 1.0, constant: 0)
+        
+        let constraintBottom = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.bottom,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: self.view, attribute: NSLayoutConstraint.Attribute.bottom,
+                                                   multiplier: 1.0, constant: -0)
+        
+        let constraintRight = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
+                                                  relatedBy: NSLayoutConstraint.Relation.equal,
+                                                  toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
+                                                  multiplier: 1.0, constant: -0)
+        
+        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
+    }
+    
+    // MARK: - Search
+    
+    func addSearch() {
+        
+        let image1 = UIImage.init(systemName: "magnifyingglass")
+        let image2 = UIImage.init(systemName: "clear")
+        let image3 = UIImage.init(systemName: "mappin.and.ellipse")
+        let image4 = UIImage.init(systemName: "line.horizontal.3")
+        
+        let barButton1 = UIBarButtonItem.init(image: image1, style: .done, target: self, action: #selector(searchButton));
+        
+        let barButton2 = UIBarButtonItem.init(image: image2, style: .done, target: self, action: #selector(cleanMap));
+        
+        let barButton3 = UIBarButtonItem.init(image: image3, style: .done, target: self, action: #selector(searchNearbyButton));
+        
+        let barButton4 = UIBarButtonItem.init(image: image4, style: .done, target: self, action: #selector(searchInParallelButton));
+        
+        self.navigationItem.rightBarButtonItems = [barButton1, barButton3, barButton4]
+        self.navigationItem.leftBarButtonItems = [barButton2]
+    }
+    
+    @objc func searchButton() {
+        
+        weak var weakSelf = self
+        
+        self.mapViewController!.search(withQuery: "Paris") { (results: [LandmarkObject]) in
+            
+            guard let strongSelf = weakSelf else { return }
+            
+            if let landmark = results.first {
+                
+                strongSelf.mapViewController!.presentHighlights([landmark], onCenter: true, contourColor: UIColor.orange)
+            }
+        }
+    }
+    
+    @objc func searchNearbyButton() {
+        
+        weak var weakSelf = self
+        
+        self.mapViewController!.searchArround { (results: [LandmarkObject]) in
+            
+            guard let strongSelf = weakSelf else { return }
+            
+            if let landmark = results.first {
+                
+                strongSelf.mapViewController!.presentHighlights([landmark], onCenter: true, contourColor: UIColor.orange)
+            }
+        }
+    }
+    
+    @objc func searchInParallelButton() {
+        
+        self.mapViewController!.search(withQuery: "Starbucks") { (results: [LandmarkObject]) in
+            
+            for landmark in results {
+                
+                NSLog("landmark name:%@", landmark.getLandmarkName())
+            }
+        }
+        
+        self.mapViewController!.search(withQuery: "Hotels") { (results: [LandmarkObject]) in
+            
+            for landmark in results {
+                
+                NSLog("landmark name:%@", landmark.getLandmarkName())
+            }
+        }
+        
+        self.mapViewController!.searchArround { (results: [LandmarkObject]) in
+            
+            for landmark in results {
+                
+                NSLog("landmark name:%@", landmark.getLandmarkName())
+            }
+        }
+    }
+    
+    @objc func cleanMap(item: UIBarButtonItem) {
+        
+        self.mapViewController!.removeHighlights()
+    }
+}
+

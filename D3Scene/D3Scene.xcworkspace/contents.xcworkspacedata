@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MapView/MapView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MultiMapView/MultiMapView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapCompass/MapCompass.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapStyle/MapStyle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapPerspective/MapPerspective.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CenterMap/CenterMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Polylines/Polylines.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FollowingPosition/FollowingPosition.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
+   </FileRef>
+</Workspace>
