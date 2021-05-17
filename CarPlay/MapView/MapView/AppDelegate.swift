@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ApplicationContext.shared().activateDebugLogger()
         }
         
-        NSLog("GEMNativeKit init with success:%@", String(success))
+        NSLog("GEMKit init with success:%@", String(success))
         
         self.addSkipBackupAttribute()
         

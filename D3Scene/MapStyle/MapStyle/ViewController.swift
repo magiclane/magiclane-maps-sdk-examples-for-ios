@@ -70,7 +70,7 @@ class ViewController: UIViewController {
     
     func addLabelText() {
         
-        self.label.font = UIFont.boldSystemFont(ofSize: 20)
+        self.label.font = UIFont.boldSystemFont(ofSize: 18)
         self.label.numberOfLines = 0
         self.label.backgroundColor = UIColor.systemBackground
         self.label.isHidden = true
@@ -120,47 +120,55 @@ class ViewController: UIViewController {
     }
     
     @objc func changeMapStyle() {
+        
+        let count = self.onlineMapStyleList.count
+        
+        guard count > 0 else {
             
-            let count = self.onlineMapStyleList.count
+            self.loadOnlineMapStyleList()
             
-            guard count > 0 else {
+            return
+        }
+        
+        let random = Int.random(in: 0..<count)
+        
+        let randomObject = self.onlineMapStyleList[random]
+        
+        let localObjects = self.mapStyleContext?.getLocalList()
+        
+        for item in localObjects! {
+            
+            if item.getIdentifier() == randomObject.getIdentifier() {
                 
-                self.loadOnlineMapStyleList()
+                self.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier())
+                
+                self.label.text = item.getName() + ", id:\(item.getIdentifier())"
+                self.label.isHidden = false
                 
                 return
             }
+        }
+        
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+        
+        randomObject.download(withAllowCellularNetwork: true) { [weak self] (success: Bool) in
             
-            let random = Int.random(in: 0..<count)
+            guard let strongSelf = self else { return }
             
-            let randomObject = self.onlineMapStyleList[random]
+            let status = randomObject.getStatus()
             
-            let localObjects = self.mapStyleContext?.getLocalList()
-            
-            for item in localObjects! {
+            if success && status == .completed {
                 
-                if item.getIdentifier() == randomObject.getIdentifier() {
-                    
-                    self.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier())
-                    
-                    return;
-                }
+                strongSelf.mapViewController!.applyStyle(withStyleIdentifier: randomObject.getIdentifier())
+                
+                strongSelf.label.text = randomObject.getName() + ", id:\(randomObject.getIdentifier())"
+                strongSelf.label.isHidden = false
             }
             
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
-            
-            self.mapStyleContext?.downloadStyle(withIdentifier: randomObject.getIdentifier(), allowCellularNetwork: true, completionHandler: { [weak self] success in
-
-                guard let strongSelf = self else { return }
-
-                let status = randomObject.getStatus()
-                
-                if success && status == .completed {
-
-                    strongSelf.mapViewController!.applyStyle(withStyleIdentifier: randomObject.getIdentifier())
-                }
-                
-                strongSelf.navigationItem.leftBarButtonItem?.isEnabled = true
-            })
+            strongSelf.navigationItem.leftBarButtonItem?.isEnabled = true
         }
+        
+        
+    }
 }
 

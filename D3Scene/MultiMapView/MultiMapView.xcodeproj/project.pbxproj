@@ -32,7 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CE025FAF261F391B00A956C9 /* GEMNativeKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMNativeKit.xcframework; path = ../../Frameworks/GEMNativeKit.xcframework; sourceTree = "<group>"; };
 		CE24A36126384A6200688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CE8073BD2600AA45004EE10E /* MultiMapView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiMapView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8073C02600AA45004EE10E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				CE24A36126384A6200688A63 /* GEMKit.xcframework */,
-				CE025FAF261F391B00A956C9 /* GEMNativeKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

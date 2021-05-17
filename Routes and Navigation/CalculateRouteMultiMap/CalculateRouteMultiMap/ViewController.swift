@@ -110,13 +110,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
     func addRouteButton() {
         
         var image = UIImage.init(systemName: "point.topleft.down.curvedto.point.bottomright.up")
-        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(route1ButtonAction))
+        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(route1ButtonAction(item:)))
         
         image = UIImage.init(systemName: "point.topleft.down.curvedto.point.bottomright.up")
-        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(route2ButtonAction))
+        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(route2ButtonAction(item:)))
         
         image = UIImage.init(systemName: "clear")
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction))
+        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction(item:)))
         
         self.navigationItem.rightBarButtonItems = [barButton1, barButton2]
         self.navigationItem.leftBarButtonItems = [barButton]
@@ -161,15 +161,18 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             for route in results {
                 
-                let time     = route.getRouteTimeFormatted() + route.getRouteTimeUnitFormatted()
-                let distance = route.getRouteDistanceFormatted() + route.getRouteDistanceUnitFormatted()
-                
-                NSLog("route time:%@, distance:%@", time, distance)
+                if let timeDuration = route.getTimeDistance() {
+                    
+                    let time     = timeDuration.getTotalTimeFormatted() + timeDuration.getTotalTimeUnitFormatted()
+                    let distance = timeDuration.getTotalDistanceFormatted() + timeDuration.getTotalDistanceUnitFormatted()
+                    
+                    NSLog("route time:%@, distance:%@", time, distance)
+                }
             }
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController1?.presentRoutes(results, withSummary: true, animationDuration: 1000)
+                strongSelf.mapViewController1?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1000)
             }
             
             item.isEnabled = true
@@ -215,15 +218,18 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             for route in results {
                 
-                let time     = route.getRouteTimeFormatted() + route.getRouteTimeUnitFormatted()
-                let distance = route.getRouteDistanceFormatted() + route.getRouteDistanceUnitFormatted()
-                
-                NSLog("route time:%@, distance:%@", time, distance)
+                if let timeDuration = route.getTimeDistance() {
+                    
+                    let time     = timeDuration.getTotalTimeFormatted() + timeDuration.getTotalTimeUnitFormatted()
+                    let distance = timeDuration.getTotalDistanceFormatted() + timeDuration.getTotalDistanceUnitFormatted()
+                    
+                    NSLog("route time:%@, distance:%@", time, distance)
+                }
             }
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController2?.presentRoutes(results, withSummary: true, animationDuration: 1200)
+                strongSelf.mapViewController2?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1200)
             }
             
             item.isEnabled = true

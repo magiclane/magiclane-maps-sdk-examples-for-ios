@@ -41,7 +41,6 @@
 		CE0EF7F62616F7A5005B45E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE0EF7F82616F7A5005B45E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE24A3A226384D1100688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
-		CE339161261F448900B35765 /* GEMNativeKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMNativeKit.xcframework; path = ../../Frameworks/GEMNativeKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				CE24A3A226384D1100688A63 /* GEMKit.xcframework */,
-				CE339161261F448900B35765 /* GEMNativeKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

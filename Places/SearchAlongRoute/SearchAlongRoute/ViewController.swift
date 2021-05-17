@@ -125,17 +125,20 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             
             for route in results {
                 
-                let time     = route.getRouteTimeFormatted() + route.getRouteTimeUnitFormatted()
-                let distance = route.getRouteDistanceFormatted() + route.getRouteDistanceUnitFormatted()
-                
-                NSLog("route time:%@, distance:%@", time, distance)
+                if let timeDistance = route.getTimeDistance() {
+                    
+                    let time = timeDistance.getTotalTimeFormatted() + timeDistance.getTotalTimeUnitFormatted()
+                    let distance = timeDistance.getTotalDistanceFormatted() + timeDistance.getTotalDistanceUnitFormatted()
+                    
+                    NSLog("route time:%@, distance:%@", time, distance)
+                }
             }
             
             if results.count > 0 {
                 
                 strongSelf.mainRoute = results.first
                 
-                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, animationDuration: 1000)
+                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1000)
             }
             
             item.isEnabled = true
@@ -244,6 +247,18 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         mapViewController.setMainRoute(route)
     }
     
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
+        
+    }
+
     // MARK: - NavigationContextDelegate
     
     func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationStatusChanged status: NavigationStatus) {

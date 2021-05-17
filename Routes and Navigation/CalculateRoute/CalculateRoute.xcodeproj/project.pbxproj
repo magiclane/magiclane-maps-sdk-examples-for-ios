@@ -33,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		CE24A3A626384D1600688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
-		CE339165261F449400B35765 /* GEMNativeKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMNativeKit.xcframework; path = ../../Frameworks/GEMNativeKit.xcframework; sourceTree = "<group>"; };
 		CEABA9A9261646D100463F16 /* CalculateRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculateRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEABA9AC261646D100463F16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEABA9AE261646D100463F16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				CE24A3A626384D1600688A63 /* GEMKit.xcframework */,
-				CE339165261F449400B35765 /* GEMNativeKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

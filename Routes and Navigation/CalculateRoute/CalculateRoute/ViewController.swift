@@ -15,6 +15,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     var navigationContext: NavigationContext?
     
+    var trafficContext: TrafficContext?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -68,10 +70,10 @@ class ViewController: UIViewController, UISearchBarDelegate {
     func addRouteButton() {
         
         var image = UIImage.init(systemName: "point.topleft.down.curvedto.point.bottomright.up")
-        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(routeButtonAction))
+        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(routeButtonAction(item:)))
 
         image = UIImage.init(systemName: "clear")
-        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction))
+        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction(item:)))
         
         self.navigationItem.rightBarButtonItems = [barButton1, barButton2]
     }
@@ -93,6 +95,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
             self.navigationContext?.setAvoidUnpavedRoads(true)
         }
         
+        if self.trafficContext == nil {
+            
+            self.trafficContext = TrafficContext.init()
+            self.trafficContext?.setUseTraffic(.useOnline)
+        }
+        
         let waypoints = [
             
             LandmarkObject.landmark(withName: "San Francisco", location: GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991) ),
@@ -111,15 +119,18 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             for route in results {
                 
-                let time     = route.getRouteTimeFormatted()     + route.getRouteTimeUnitFormatted()
-                let distance = route.getRouteDistanceFormatted() + route.getRouteDistanceUnitFormatted()
-                
-                NSLog("route time:%@, distance:%@", time, distance)
+                if let timeDuration = route.getTimeDistance() {
+                    
+                    let time     = timeDuration.getTotalTimeFormatted() + timeDuration.getTotalTimeUnitFormatted()
+                    let distance = timeDuration.getTotalDistanceFormatted() + timeDuration.getTotalDistanceUnitFormatted()
+                    
+                    NSLog("route time:%@, distance:%@", time, distance)
+                }
             }
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, animationDuration: 1000)
+                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, traffic: self.trafficContext, animationDuration: 1000)
             }
             
             item.isEnabled = true

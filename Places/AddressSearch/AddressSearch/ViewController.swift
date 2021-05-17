@@ -175,6 +175,18 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
     }
     
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
+        
+    }
+    
     // MARK: - Address Search
     
     func addSearchButton() {

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let success = ApplicationContext.shared().initSdk(token)
         
-        NSLog("GEMNativeKit init with success:%@", String(success))
+        NSLog("GEMKit init with success:%@", String(success))
         
         return true
     }

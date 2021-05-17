@@ -21,10 +21,7 @@ class RootViewController: UIViewController {
         
         self.title = "GEM Map View"
         self.view.backgroundColor = UIColor.systemBackground
-        
-        // let success = ApplicationContext.shared().initSdk(withAuthorizationKey: "")
-        // NSLog("GEMNativeKit init with success:%@", String(success))
-        
+                
         createImageDrawer()
         
         let startStopRecBtn = UIBarButtonItem(title: "Record", style: UIBarButtonItem.Style.done, target: self, action: #selector(startStopRecording))
