@@ -130,7 +130,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, traffic: self.trafficContext, animationDuration: 1000)
+                strongSelf.mapViewController?.presentRoutes(results, withTraffic: self.trafficContext, showSummary: true, animationDuration: 1000)
             }
             
             item.isEnabled = true

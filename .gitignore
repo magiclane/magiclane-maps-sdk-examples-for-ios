@@ -2,26 +2,8 @@
 # ----------------------------------------------------------------------------
 
 *~
-*.a
-*.core
-*.moc
-*.o
-*.obj
-*.orig
-*.rej
-*.so
-*_pch.h.cpp
-*_resource.rc
-*.qm
-.#*
-*.*#
-core
-!core/
 tags
 .DS_Store
-*.debug
-Makefile*
-*.prl
 *.app
 moc_*.cpp
 ui_*.h
@@ -39,6 +21,9 @@ Thumbs.db
 *.vcproj
 *vcproj.*.*.user
 *.ncb
+*.rcc
+*.pch
+prebuild.log
 
 # MinGW generated files
 *.Debug
@@ -47,11 +32,9 @@ Thumbs.db
 # Directories to ignore
 # ---------------------
 
-#Data
-.rcc
-.pch
 DerivedData
-prebuild.log
+!Frameworks
+!**/Data
 
 # Binaries
 # --------

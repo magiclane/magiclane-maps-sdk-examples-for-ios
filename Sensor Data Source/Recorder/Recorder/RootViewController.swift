@@ -58,7 +58,7 @@ class RootViewController: UIViewController {
     @objc func startStopRecording() {
         if(recorderViewController?.isRecording() == true){
             startStopRecBtn?.image = UIImage(systemName: "play")
-            recorderViewController?.stopRecording()
+            recorderViewController?.stop()
         } else {
             requestCameraPermission()
         }
@@ -73,10 +73,47 @@ class RootViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.startStopRecBtn?.image = UIImage(systemName: "stop")
-                self.recorderViewController?.starRecording()
+                self.recorderViewController?.startRecording(self.getRecorderConfig())
             }
         }
     }
+    
+    func getRecorderConfig() ->(RecorderConfiguration) {
+        let documentsDir = self.getDocumentsDirectory()
+        let logsDirPath = NSString.path(withComponents: [documentsDir.absoluteString, "videologs"])
+        
+        let types : [NSNumber] = [
+            NSNumber.init(value: EDataType.acceleration.rawValue),
+            NSNumber.init(value: EDataType.activity.rawValue),
+            NSNumber.init(value: EDataType.attitude.rawValue),
+            NSNumber.init(value: EDataType.battery.rawValue),
+            NSNumber.init(value: EDataType.camera.rawValue),
+            NSNumber.init(value: EDataType.compass.rawValue),
+            NSNumber.init(value: EDataType.magneticField.rawValue),
+            NSNumber.init(value: EDataType.orientation.rawValue),
+            NSNumber.init(value: EDataType.position.rawValue),
+            NSNumber.init(value: EDataType.improvedPosition.rawValue),
+            NSNumber.init(value: EDataType.rotationRate.rawValue),
+            //                    NSNumber.init(value: EDataType.temperature.rawValue),
+            //                    NSNumber.init(value: EDataType.notification.rawValue),
+            //                    NSNumber.init(value: EDataType.mountInformation.rawValue)
+        ]
+        
+//        let types = NSArray.init(objects: EDataType.camera.rawValue, EDataType.position.rawValue) as! [NSObject]
+        
+        let result = RecorderConfiguration(logsDir: logsDirPath, dataTypes: types)
+        result.enableAudio = true
+        result.videoQuality = EResolution.hd_720p
+        
+        return result
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+
     
     // MARK: - Render
     

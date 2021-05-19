@@ -138,7 +138,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
                 
                 strongSelf.mainRoute = results.first
                 
-                strongSelf.mapViewController?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1000)
+                strongSelf.mapViewController?.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1000)
             }
             
             item.isEnabled = true
@@ -268,7 +268,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200)
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200) { success in }
     }
     
     func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {

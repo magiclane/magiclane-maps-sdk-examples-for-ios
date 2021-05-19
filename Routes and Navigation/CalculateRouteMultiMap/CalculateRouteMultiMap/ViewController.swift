@@ -172,7 +172,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController1?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1000)
+                strongSelf.mapViewController1?.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1000)
             }
             
             item.isEnabled = true
@@ -229,7 +229,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController2?.presentRoutes(results, withSummary: true, traffic: nil, animationDuration: 1200)
+                strongSelf.mapViewController2?.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1000)
             }
             
             item.isEnabled = true

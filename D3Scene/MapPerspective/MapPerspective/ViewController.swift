@@ -81,7 +81,7 @@ class ViewController: UIViewController {
             
             item.image = UIImage.init(systemName: "view.2d")
             
-            self.mapViewController!.set3DPerspective(withAnimationDuration: 1000)
+            self.mapViewController!.set3DPerspective(withAnimationDuration: 1000) { success in }
             
         } else {
             
@@ -89,13 +89,13 @@ class ViewController: UIViewController {
             
             item.image = UIImage.init(systemName: "view.3d")
             
-            self.mapViewController!.set2DPerspective(withAnimationDuration: 1000)
+            self.mapViewController!.set2DPerspective(withAnimationDuration: 1000) { success in }
         }
     }
     
     @objc func mapAlighNorthUp() {
         
-        self.mapViewController!.alignNorthUp(withAnimationDuration: 1000)
+        self.mapViewController!.alignNorthUp(withAnimationDuration: 1000) { success in }
     }
 }
 

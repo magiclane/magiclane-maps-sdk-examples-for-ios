@@ -91,7 +91,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
         } else {
             
-            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000)
+            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000) { success in }
         }
     }
     
