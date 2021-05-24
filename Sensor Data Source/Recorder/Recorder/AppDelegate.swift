@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Project API token is available at:
         //
-        // https://www.generalmagic.com/api/projects
+        // https://www.generalmagic.com/developers/?pg=projects
         //
         
         let string = "YOUR_TOKEN"
