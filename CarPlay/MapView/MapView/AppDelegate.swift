@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Project API token is available at:
         //
-        // https://www.generalmagic.com/developers/?pg=projects
+        // https://developer.generalmagic.com/api/projects
         //
         
         let string = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIyYTI2MDA0Zi0zYjE0LTRkMTYtOWY1Ny1kMDY1NDg1NGZjM2UiLCJleHAiOjE2MTk3NDA4MDAsImlzcyI6IkdlbmVyYWwgTWFnaWMiLCJqdGkiOiI2YjNkYjQwZS1kNjdkLTQ5OGQtOTc4Ny1mZmVkMWVkNzUyMTUiLCJuYmYiOjE2MTcyOTg0MDB9.4UTLU14EoIQw6HZt7wXuxkNIRgRjV1Nk813ueisbxXYQH8qcp1zIlhrRkfc63UnK4xp72dVdvPMSMP1ttagUxw"

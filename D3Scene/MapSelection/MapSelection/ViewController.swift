@@ -156,7 +156,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlights([landmark], onCenter: true, contourColor: UIColor.systemBlue)
+        mapViewController.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: true, animationDuration: 600)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
@@ -170,7 +170,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlights([landmark], onCenter: false, contourColor: UIColor.systemBlue)
+        mapViewController.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: false, animationDuration: 0)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {

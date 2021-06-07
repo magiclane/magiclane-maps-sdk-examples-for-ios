@@ -9,7 +9,7 @@
 import UIKit
 import GEMKit
 
-class ViewController: UIViewController, MapViewControllerDelegate, NavigationContextDelegate, AlarmContextDelegate {
+class ViewController: UIViewController, MapViewControllerDelegate, NavigationContextDelegate {
     
     var mapViewController: MapViewController?
     
@@ -26,54 +26,21 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     var label = UILabel.init()
     
-    let navigationPanel = UIView.init()
-    let turnView        = UIView.init()
-    let turnImage       = UIImageView.init()
-    let turnDistance    = UILabel.init()
-    let turnInstruction = UILabel.init()
-    let stopButton      = UIButton.init(type: .system)
-    let navigationPanelHeight: CGFloat = 110.0
+    var navigationViewController: NavigationViewController?
     
-    let turnDistFontSize: CGFloat = 24
-    let turnDistUnitFontSize: CGFloat = 14
-
-    let turnImageSize: CGFloat = 80
-    let turnDistHeight: CGFloat = 30
-    let roadCodeSize: CGFloat = 40
-    
-    let lanePanel   = UIView.init()
-    let laneImage   = UIImageView.init()
-    let lanePanelHeight: CGFloat = 60.0
-    
-    let trafficPanel   = UIView.init()
-    let trafficImage   = UIImageView.init()
-    let trafficTitle   = UILabel.init()
-    let trafficDetails = UILabel.init()
-    let trafficPanelHeight: CGFloat = 60.0
-    let trafficImageSize: CGFloat = 50.0
-    
-    let signPostImage = UIImageView.init()
-
-    let safetyPanel   = UIView.init()
-    let safetyImage   = UIImageView.init()
-    let safetyDetails = UILabel.init()
-    let safetyPanelHeight: CGFloat = 60.0
-    let safetyImageSize: CGFloat = 50.0
-
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         self.title = "Simulate Route"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
         
         self.createMapView()
-
+        
         self.mapViewController!.startRender()
         
         self.addRouteButton()
-        self.addNavigationPanel()
     }
     
     // MARK: - Map View
@@ -128,492 +95,6 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.navigationItem.rightBarButtonItems = [barButton1, barButton2, barButton3]
     }
     
-    // MARK: - Panel
-    
-    func addNavigationPanel() {
-        
-        let buttonSize: CGFloat = 44
-        let configuration = UIImage.SymbolConfiguration(pointSize: 40, weight: .semibold)
-        let image = UIImage.init(systemName: "xmark.circle", withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate)
-        self.stopButton.tintColor = UIColor.red
-        self.stopButton.backgroundColor = UIColor.black
-        self.stopButton.setImage(image, for: .normal)
-        self.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
-        self.stopButton.layer.cornerRadius = buttonSize / 2.0
-        self.stopButton.layer.shadowColor = UIColor.gray.cgColor
-        self.stopButton.layer.shadowOpacity = 0.8
-        
-        let font = UIFont.boldSystemFont(ofSize: 20)
-        
-        self.turnImage.contentMode = .center
-        
-        self.turnDistance.font = font
-        self.turnDistance.textColor = UIColor.white
-        self.turnDistance.numberOfLines = 1
-        self.turnDistance.textAlignment = .center
-        
-        self.turnInstruction.font = font
-        self.turnInstruction.textColor = UIColor.white
-        self.turnInstruction.numberOfLines = 3
-        self.turnInstruction.textAlignment = .center
-        self.turnInstruction.lineBreakMode = .byTruncatingTail
-        
-        self.turnView.addSubview(self.turnImage)
-        self.turnView.addSubview(self.turnDistance)
-        
-        self.lanePanel.backgroundColor = self.navigationPanel.backgroundColor
-        self.lanePanel.isHidden = true
-        self.lanePanel.layer.masksToBounds = true
-        self.lanePanel.layer.cornerRadius = 8
-        self.lanePanel.layer.borderWidth = 1.0
-        self.lanePanel.layer.borderColor = UIColor.darkGray.cgColor
-        
-        self.laneImage.contentMode = .scaleAspectFit
-        
-        self.lanePanel.addSubview(self.laneImage)
-        
-        self.trafficImage.contentMode = .scaleAspectFit
-        self.trafficTitle.numberOfLines = 1
-        self.trafficTitle.textAlignment = .natural
-        self.trafficDetails.numberOfLines = 1
-        self.trafficDetails.textAlignment = .natural
-        self.trafficPanel.layer.cornerRadius = 8
-        self.trafficPanel.isHidden = true
-        self.trafficPanel.addSubview(self.trafficTitle)
-        self.trafficPanel.addSubview(self.trafficDetails)
-        self.trafficPanel.addSubview(self.trafficImage)
-        
-        self.safetyImage.contentMode = .center
-        self.safetyDetails.numberOfLines = 2
-        self.safetyDetails.textAlignment = .natural
-        self.safetyPanel.backgroundColor = UIColor.white
-        self.safetyPanel.layer.masksToBounds = true
-        self.safetyPanel.layer.cornerRadius = 8
-        self.safetyPanel.isHidden = true
-        self.safetyPanel.addSubview(self.safetyImage)
-        self.safetyPanel.addSubview(self.safetyDetails)
-        
-        self.signPostImage.contentMode = .scaleAspectFit
-        self.signPostImage.isHidden = true
-        self.signPostImage.layer.masksToBounds = true
-        self.signPostImage.backgroundColor = UIColor.black
-        self.turnInstruction.addSubview(self.signPostImage)
-        
-        self.navigationPanel.isHidden = true
-        self.navigationPanel.backgroundColor = UIColor.init(red: 20/255, green: 20/255, blue: 20/255, alpha: 1.0)
-        self.navigationPanel.layer.cornerRadius = 8.0
-        self.navigationPanel.layer.shadowColor = UIColor.gray.cgColor
-        self.navigationPanel.layer.shadowOpacity = 0.8
-        
-        self.navigationPanel.addSubview(self.turnView)
-        self.navigationPanel.addSubview(self.lanePanel)
-        self.navigationPanel.addSubview(self.trafficPanel)
-        self.navigationPanel.addSubview(self.safetyPanel)
-        self.navigationPanel.addSubview(self.turnInstruction)
-        self.navigationPanel.addSubview(self.stopButton)
-        
-        self.view.addSubview(self.navigationPanel)
-        
-        
-        self.navigationPanel.translatesAutoresizingMaskIntoConstraints = false
-        var constraintTop = NSLayoutConstraint( item: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                                relatedBy: NSLayoutConstraint.Relation.equal,
-                                                toItem: self.view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.top,
-                                                multiplier: 1.0, constant: 5.0)
-        
-        var constraintLeft = NSLayoutConstraint(item: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                                relatedBy: NSLayoutConstraint.Relation.equal,
-                                                toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
-                                                multiplier: 1.0, constant: 10.0)
-        
-        var constraintRight = NSLayoutConstraint( item: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                  relatedBy: NSLayoutConstraint.Relation.equal,
-                                                  toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                  multiplier: 1.0, constant: -10.0)
-        
-        var constraintHeight = NSLayoutConstraint( item: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.height,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                   multiplier: 1.0, constant: self.viewHeight())
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintHeight])
-        
-        
-        self.stopButton.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.stopButton, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                            multiplier: 1.0, constant: -8.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.stopButton, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 8.0)
-        
-        var constraintWidth = NSLayoutConstraint( item: self.stopButton, attribute: NSLayoutConstraint.Attribute.width,
-                                                  relatedBy: NSLayoutConstraint.Relation.equal,
-                                                  toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                  multiplier: 1.0, constant: buttonSize)
-        
-        constraintHeight = NSLayoutConstraint( item: self.stopButton, attribute: NSLayoutConstraint.Attribute.height,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                               multiplier: 1.0, constant: buttonSize)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintRight, constraintWidth, constraintHeight])
-        
-        
-        self.turnImage.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint(item: self.turnImage, attribute: NSLayoutConstraint.Attribute.top,
-                                           relatedBy: NSLayoutConstraint.Relation.equal,
-                                           toItem: self.turnView, attribute: NSLayoutConstraint.Attribute.top,
-                                           multiplier: 1.0, constant: 0.0)
-        
-        constraintLeft = NSLayoutConstraint(item: self.turnImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.turnView, attribute: NSLayoutConstraint.Attribute.leading,
-                                            multiplier: 1.0, constant: 0.0)
-        
-        constraintWidth = NSLayoutConstraint(item: self.turnImage, attribute: NSLayoutConstraint.Attribute.width,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                             multiplier: 1.0, constant: self.turnImageSize)
-        
-        constraintHeight = NSLayoutConstraint(item: self.turnImage, attribute: NSLayoutConstraint.Attribute.height,
-                                              relatedBy: NSLayoutConstraint.Relation.equal,
-                                              toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                              multiplier: 1.0, constant: self.turnImageSize)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintWidth, constraintHeight])
-        
-        
-        self.turnDistance.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint(item: self.turnDistance, attribute: NSLayoutConstraint.Attribute.top,
-                                           relatedBy: NSLayoutConstraint.Relation.equal,
-                                           toItem: self.turnImage, attribute: NSLayoutConstraint.Attribute.bottom,
-                                           multiplier: 1.0, constant: -2.5)
-        
-        constraintLeft = NSLayoutConstraint(item: self.turnDistance, attribute: NSLayoutConstraint.Attribute.leading,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.turnImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                            multiplier: 1.0, constant: 0.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.turnDistance, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.turnImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 0.0)
-        
-        constraintHeight = NSLayoutConstraint(item: self.turnDistance, attribute: NSLayoutConstraint.Attribute.height,
-                                              relatedBy: NSLayoutConstraint.Relation.equal,
-                                              toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                              multiplier: 1.0, constant: self.turnDistHeight)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintHeight])
-        
-        
-        self.turnView.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint(item: self.turnView, attribute: NSLayoutConstraint.Attribute.top,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                                   multiplier: 1.0, constant: 0.0)
-
-        constraintLeft = NSLayoutConstraint(item: self.turnView, attribute: NSLayoutConstraint.Attribute.leading,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                            multiplier: 1.0, constant: 0.0)
-
-        constraintWidth = NSLayoutConstraint(item: self.turnView, attribute: NSLayoutConstraint.Attribute.width,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                             multiplier: 1.0, constant: self.turnImageSize)
-
-        constraintHeight = NSLayoutConstraint(item: self.turnView, attribute: NSLayoutConstraint.Attribute.height,
-                                              relatedBy: NSLayoutConstraint.Relation.equal,
-                                              toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                              multiplier: 1.0, constant: self.turnImageSize + self.turnDistHeight)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintWidth, constraintHeight])
-
-        
-        self.turnInstruction.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                            multiplier: 1.0, constant: 0.0)
-
-        constraintLeft = NSLayoutConstraint( item: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: self.turnImageSize)
-
-        constraintRight = NSLayoutConstraint(item: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -0.0)
-
-        var constraintBottom = NSLayoutConstraint( item: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: self.turnView, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   multiplier: 1.0, constant: -0.0)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintBottom])
-        
-        self.turnInstruction.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.turnInstruction.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-
-        self.turnInstruction.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.turnInstruction.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-        
-        
-        self.laneImage.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.laneImage, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.lanePanel, attribute: NSLayoutConstraint.Attribute.top,
-                                            multiplier: 1.0, constant: 5.0)
-        
-        constraintLeft = NSLayoutConstraint( item: self.laneImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.lanePanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: 0.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.laneImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.lanePanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -0.0)
-        
-        constraintBottom = NSLayoutConstraint( item: self.laneImage, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: self.lanePanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               multiplier: 1.0, constant: -5.0)
-
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintBottom])
-        
-        
-        self.lanePanel.translatesAutoresizingMaskIntoConstraints = false
-        constraintBottom = NSLayoutConstraint( item: self.lanePanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            multiplier: 1.0, constant: -2.5)
-        
-        constraintLeft = NSLayoutConstraint( item: self.lanePanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: 2.5)
-        
-        constraintRight = NSLayoutConstraint(item: self.lanePanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -2.5)
-        
-        constraintHeight = NSLayoutConstraint( item: self.lanePanel, attribute: NSLayoutConstraint.Attribute.height,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                               multiplier: 1.0, constant: self.lanePanelHeight)
-        
-        NSLayoutConstraint.activate([constraintBottom, constraintLeft, constraintRight, constraintHeight])
-        
-        self.trafficImage.translatesAutoresizingMaskIntoConstraints = false
-        constraintLeft = NSLayoutConstraint( item: self.trafficImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 multiplier: 1.0, constant: 5.0)
-
-        var constraintCenterY = NSLayoutConstraint( item: self.trafficImage, attribute: NSLayoutConstraint.Attribute.centerY,
-                                                    relatedBy: NSLayoutConstraint.Relation.equal,
-                                                    toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.centerY,
-                                                    multiplier: 1.0, constant: 0.0)
-
-        constraintWidth = NSLayoutConstraint(item: self.trafficImage, attribute: NSLayoutConstraint.Attribute.width,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                 multiplier: 1.0, constant: self.trafficImageSize)
-
-        constraintHeight = NSLayoutConstraint( item: self.trafficImage, attribute: NSLayoutConstraint.Attribute.height,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                   multiplier: 1.0, constant: self.trafficImageSize)
-
-        NSLayoutConstraint.activate([constraintLeft, constraintCenterY, constraintWidth, constraintHeight])
-
-
-        self.trafficTitle.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.trafficTitle, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                            multiplier: 1.0, constant: 0.0)
-        
-        constraintLeft = NSLayoutConstraint( item: self.trafficTitle, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.trafficImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 5.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.trafficTitle, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 0.0)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight])
-        
-        
-        self.trafficDetails.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.trafficDetails, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.trafficTitle, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            multiplier: 1.0, constant: 0.0)
-        
-        constraintLeft = NSLayoutConstraint( item: self.trafficDetails, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.trafficImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 5.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.trafficDetails, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 0.0)
-        
-        constraintBottom = NSLayoutConstraint( item: self.trafficDetails, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               multiplier: 1.0, constant: 0.0)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintBottom])
-        
-        
-        self.trafficPanel.translatesAutoresizingMaskIntoConstraints = false
-        constraintBottom = NSLayoutConstraint( item: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            multiplier: 1.0, constant: -2.5)
-
-        constraintLeft = NSLayoutConstraint( item: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: 2.5)
-
-        constraintRight = NSLayoutConstraint(item: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -2.5)
-        
-        constraintHeight = NSLayoutConstraint( item: self.trafficPanel, attribute: NSLayoutConstraint.Attribute.height,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                               multiplier: 1.0, constant: self.trafficPanelHeight)
-
-        NSLayoutConstraint.activate([constraintBottom, constraintLeft, constraintRight, constraintHeight])
-
-        
-        self.trafficTitle.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.trafficTitle.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-        self.trafficDetails.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.trafficDetails.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-
-        self.trafficTitle.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.trafficTitle.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-        self.trafficDetails.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.trafficDetails.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-        
-        
-        self.signPostImage.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.signPostImage, attribute: NSLayoutConstraint.Attribute.top,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.top,
-                                            multiplier: 1.0, constant: 2.5)
-        
-        constraintLeft = NSLayoutConstraint( item: self.signPostImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: 0.0)
-        
-        constraintRight = NSLayoutConstraint(item: self.signPostImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -5.0)
-        
-        constraintBottom = NSLayoutConstraint( item: self.signPostImage, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: self.turnInstruction, attribute: NSLayoutConstraint.Attribute.bottom,
-                                               multiplier: 1.0, constant: -2.5)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintBottom])
-        
-        self.safetyImage.translatesAutoresizingMaskIntoConstraints = false
-        constraintLeft = NSLayoutConstraint( item: self.safetyImage, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 multiplier: 1.0, constant: 5.0)
-
-        constraintCenterY = NSLayoutConstraint( item: self.safetyImage, attribute: NSLayoutConstraint.Attribute.centerY,
-                                                    relatedBy: NSLayoutConstraint.Relation.equal,
-                                                    toItem: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.centerY,
-                                                    multiplier: 1.0, constant: 0.0)
-
-        constraintWidth = NSLayoutConstraint(item: self.safetyImage, attribute: NSLayoutConstraint.Attribute.width,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                 multiplier: 1.0, constant: self.safetyImageSize)
-
-        constraintHeight = NSLayoutConstraint( item: self.safetyImage, attribute: NSLayoutConstraint.Attribute.height,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                   multiplier: 1.0, constant: self.safetyImageSize)
-
-        NSLayoutConstraint.activate([constraintLeft, constraintCenterY, constraintWidth, constraintHeight])
-        
-        self.safetyDetails.translatesAutoresizingMaskIntoConstraints = false
-        constraintTop = NSLayoutConstraint( item: self.safetyDetails, attribute: NSLayoutConstraint.Attribute.top,
-                                                relatedBy: NSLayoutConstraint.Relation.equal,
-                                                toItem: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.top,
-                                                multiplier: 1.0, constant: 0.0)
-
-        constraintLeft = NSLayoutConstraint( item: self.safetyDetails, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.safetyImage, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: 5.0)
-
-        constraintRight = NSLayoutConstraint(item: self.safetyDetails, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                 multiplier: 1.0, constant: 0.0)
-
-        constraintBottom = NSLayoutConstraint( item: self.safetyDetails, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   multiplier: 1.0, constant: 0.0)
-
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintBottom])
-        
-        self.safetyPanel.translatesAutoresizingMaskIntoConstraints = false
-        constraintBottom = NSLayoutConstraint( item: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            relatedBy: NSLayoutConstraint.Relation.equal,
-                                            toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.bottom,
-                                            multiplier: 1.0, constant: -2.5)
-
-        constraintLeft = NSLayoutConstraint( item: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.leading,
-                                             multiplier: 1.0, constant: 2.5)
-
-        constraintRight = NSLayoutConstraint(item: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             relatedBy: NSLayoutConstraint.Relation.equal,
-                                             toItem: self.navigationPanel, attribute: NSLayoutConstraint.Attribute.trailing,
-                                             multiplier: 1.0, constant: -2.5)
-        
-        constraintHeight = NSLayoutConstraint( item: self.safetyPanel, attribute: NSLayoutConstraint.Attribute.height,
-                                               relatedBy: NSLayoutConstraint.Relation.equal,
-                                               toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                               multiplier: 1.0, constant: self.safetyPanelHeight)
-
-        NSLayoutConstraint.activate([constraintBottom, constraintLeft, constraintRight, constraintHeight])
-
-        
-        self.safetyDetails.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.safetyDetails.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-        
-        self.safetyDetails.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
-        self.safetyDetails.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
-    }
-    
     @objc func stopButtonAction() {
         
         if let array = self.navigationItem.rightBarButtonItems, array.count > 1 {
@@ -632,14 +113,16 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         self.label.font = UIFont.boldSystemFont(ofSize: 20)
         self.label.numberOfLines = 0
-        self.label.backgroundColor = UIColor.systemBackground
+        self.label.backgroundColor = UIColor.white
         self.label.isHidden = true
         self.label.textAlignment = .center
         self.label.isUserInteractionEnabled = true
         self.label.addGestureRecognizer(tapGesture)
         
-        self.label.layer.shadowColor = UIColor.lightGray.cgColor
-        self.label.layer.shadowOpacity = 0.8
+        self.label.layer.borderColor = UIColor.systemBlue.cgColor
+        self.label.layer.borderWidth = 1.4
+        self.label.layer.cornerRadius = 8.0
+        self.label.layer.masksToBounds = true
         
         self.view.addSubview(self.label)
         
@@ -699,17 +182,21 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         if self.soundContext == nil {
             
             self.soundContext = SoundContext.init()
-            self.soundContext!.setUseTts(true)
+            self.soundContext?.setUseTtsWithCompletionHandler({ success in })
         }
         
         if self.alarmContext == nil {
             
             self.alarmContext = AlarmContext.init()
-            self.alarmContext?.delegate = self
             self.alarmContext?.setAlarmDistance(600)
             self.alarmContext?.setMonitorWithoutRoute(false)
             
             self.alarmContext?.registerSafetyCameraNotifications(completionHandler: { success in
+                
+                NSLog("AlarmContext: registerSafetyCamera with success:%@", String(success))
+            })
+            
+            self.alarmContext?.registerSocialReportNotifications(completionHandler: { success in
                 
                 NSLog("AlarmContext: registerSafetyCamera with success:%@", String(success))
             })
@@ -718,11 +205,11 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         // self.departure   = LandmarkObject.landmark(withName: "San Francisco", location: GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991) )
         // self.destination = LandmarkObject.landmark(withName: "San Jose",      location: GeoLocation.coordinates(withLatitude: 37.33619, longitude: -121.89058) )
         
-        // self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: GeoLocation.coordinates(withLatitude: 48.15741,  longitude: 11.53739))
-        // self.destination = LandmarkObject.landmark(withName: "Munich 2", location: GeoLocation.coordinates(withLatitude: 48.166730, longitude: 11.53687))
+        self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: GeoLocation.coordinates(withLatitude: 48.15741,  longitude: 11.53739))
+        self.destination = LandmarkObject.landmark(withName: "Munich 2", location: GeoLocation.coordinates(withLatitude: 48.166730, longitude: 11.53687))
         
-        self.departure = LandmarkObject.landmark(withName: "London 1", location: GeoLocation.coordinates(withLatitude: 51.53998, longitude: -0.1387) )
-        self.destination = LandmarkObject.landmark(withName: "London 2", location: GeoLocation.coordinates(withLatitude: 51.66105, longitude: -0.1687) )
+        // self.departure = LandmarkObject.landmark(withName: "London 1", location: GeoLocation.coordinates(withLatitude: 51.53998, longitude: -0.1387) )
+        // self.destination = LandmarkObject.landmark(withName: "London 2", location: GeoLocation.coordinates(withLatitude: 51.66105, longitude: -0.1687) )
         
         guard let start = self.departure, let stop = self.destination else {
             return
@@ -805,122 +292,33 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             
             self.mainRoute = nil
             
-            self.navigationPanel.isHidden = true
-            
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             
+            self.navigationViewController?.removeFromParent()
+            self.navigationViewController?.view.removeFromSuperview()
+            self.navigationViewController?.didMove(toParent: nil)
+            
+            self.navigationViewController = nil
+            
         } else {
+            
+            self.mapViewController!.removeAllRoutes()
             
             let image = UIImage.init(systemName: "stop")
             item.image = image
             
-            self.navigationContext!.simulateRoute(withRoute: self.mainRoute!, speedMultiplier: 1) { [weak self] (success) in
+            self.navigationContext!.simulateRoute(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
                 
                 guard let strongSelf = self else { return }
-                
-                NSLog("Simulation Route started with success:%@", String(success))
                 
                 if success {
                     
                     strongSelf.addLabelText()
                     
-                    strongSelf.mapViewController!.hideSummary(for: [strongSelf.mainRoute!])
+                    strongSelf.mapViewController!.presentRoutes([strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
                 }
             }
         }
-    }
-    
-    // MARK: - Layout
-    
-    func refreshContentLayout() {
-
-        var requestUpdateLayout: Bool = false
-
-        let array: [NSLayoutConstraint] = self.view.constraints + self.navigationPanel.constraints + self.lanePanel.constraints
-
-        for constraint in array {
-            
-            if constraint.isActive && constraint.firstItem === self.navigationPanel && constraint.firstAttribute == NSLayoutConstraint.Attribute.height && constraint.secondItem == nil {
-
-                // Default
-                let constant: CGFloat = self.viewHeight()
-
-                if constraint.constant != constant {
-
-                    // Mark
-                    requestUpdateLayout = true
-
-                    // Adjust
-                    constraint.constant = constant
-                }
-            }
-            
-            if constraint.isActive && constraint.firstItem === self.lanePanel && constraint.firstAttribute == NSLayoutConstraint.Attribute.bottom {
-                
-                var constant: CGFloat = -2.5
-                
-                if self.trafficPanel.isHidden == false {
-                    
-                    constant -= self.trafficPanelHeight + 2.5
-                }
-
-                if self.safetyPanel.isHidden == false {
-                    
-                    constant -= self.safetyPanelHeight + 2.5
-                }
-                
-                if constraint.constant != constant {
-                    
-                    requestUpdateLayout = true
-                    
-                    constraint.constant = constant
-                }
-            }
-            
-            if constraint.isActive && constraint.firstItem === self.trafficPanel && constraint.firstAttribute == NSLayoutConstraint.Attribute.bottom {
-                
-                var constant: CGFloat = -2.5
-                
-                if self.safetyPanel.isHidden == false {
-                    
-                    constant -= self.safetyPanelHeight + 2.5
-                }
-                
-                if constraint.constant != constant {
-                    
-                    requestUpdateLayout = true
-                    
-                    constraint.constant = constant
-                }
-            }
-        }
-        
-        if requestUpdateLayout {
-            
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func viewHeight() -> CGFloat {
-        
-        var height: CGFloat = self.navigationPanelHeight;
-        
-        if self.lanePanel.isHidden == false {
-            
-            height += self.lanePanelHeight + 2.5;
-        }
-
-        if self.trafficPanel.isHidden == false {
-            
-            height += self.trafficPanelHeight + 2.5;
-        }
-        
-        if self.safetyPanel.isHidden == false {
-            
-            height += self.safetyPanelHeight + 2.5
-        }
-        
-        return height
     }
     
     // MARK: - MapViewControllerDelegate
@@ -980,7 +378,10 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         if !self.navigationController!.isNavigationBarHidden {
             
-            self.navigationPanel.isHidden = false
+            if self.navigationViewController == nil {
+                
+                self.createNavigationPanel()
+            }
             
             self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
@@ -989,19 +390,21 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             
             if turnInstruction.hasNextTurnInfo() {
                 
-                self.updateTurnInformation(navigationContext: navigationContext)
+                self.navigationViewController?.updateTurnInformation(navigationContext: navigationContext)
                 
-                self.updateLaneInformation(navigationContext: navigationContext)
+                self.navigationViewController?.updateLaneInformation(navigationContext: navigationContext)
                 
-                self.updateTrafficInformation(navigationContext: navigationContext, route: route)
+                self.navigationViewController?.updateTrafficInformation(navigationContext: navigationContext, route: route)
                 
-                self.updateSignpostInformation(navigationContext: navigationContext)
+                self.navigationViewController?.updateSignpostInformation(navigationContext: navigationContext)
                 
-                self.updateRoadCodeInformation(navigationContext: navigationContext)
+                self.navigationViewController?.updateRoadCodeInformation(navigationContext: navigationContext)
                 
-                self.updateSafetyCameraInformation(navigationContext: navigationContext)
+                self.navigationViewController?.updateSafetyCameraInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
                 
-                self.refreshContentLayout()
+                self.navigationViewController?.updateSocialReportInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
+                
+                self.navigationViewController?.refreshContentLayout()
             }
         }
     }
@@ -1028,403 +431,50 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         return true
     }
     
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationSound text: String) {
+    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationSound sound: SoundObject) {
         
         // NSLog("NavigationContext: navigationSound text:%@", text)
         
         if let context = self.soundContext {
             
-            context.playText(text)
+            context.playSound(sound)
         }
     }
     
-    // MARK: - AlarmContextDelegate
+    // MARK: - Navigation Panel
     
-    func alarmContext(_ alarmContext: AlarmContext, onBoundaryCrossed crossed: Bool) {
+    func createNavigationPanel() {
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onMonitoringStateChanged changed: Bool) {
+        self.navigationViewController = NavigationViewController.init()
+        self.navigationViewController!.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onTunnelEntered entered: Bool) {
+        self.addChild(self.navigationViewController!)
+        self.view.addSubview(self.navigationViewController!.view)
+        self.navigationViewController!.didMove(toParent: self)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onTunnelLeft left: Bool) {
+        let height = self.navigationViewController!.viewHeight()
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onLandmarkAlarmsUpdated updated: Bool) {
+        self.navigationViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraintTop = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
+                                                relatedBy: NSLayoutConstraint.Relation.equal,
+                                                toItem: self.view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.top,
+                                                multiplier: 1.0, constant: 5.0)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onOverlayItemAlarmsUpdated updated: Bool) {
+        let constraintLeft = NSLayoutConstraint(item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
+                                                relatedBy: NSLayoutConstraint.Relation.equal,
+                                                toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
+                                                multiplier: 1.0, constant: 10.0)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onLandmarkAlarmsPassedOver over: Bool) {
+        let constraintRight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
+                                                  relatedBy: NSLayoutConstraint.Relation.equal,
+                                                  toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
+                                                  multiplier: 1.0, constant: -10.0)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onOverlayItemAlarmsPassedOver over: Bool) {
+        let constraintHeight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.height,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                                   multiplier: 1.0, constant: height)
         
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onHighSpeed limit: Double, insideCityArea: Bool) {
-        
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onNormalSpeed limit: Double, insideCityArea: Bool) {
-        
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onSpeedLimit speed: Double, limit: Double, insideCityArea: Bool) {
-        
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onEnterDayMode mode: Bool) {
-        
-    }
-    
-    func alarmContext(_ alarmContext: AlarmContext, onEnterNightMode mode: Bool) {
-        
-    }
-    
-    // MARK: - Utils
-    
-    func updateTurnInformation(navigationContext: NavigationContext) {
-        
-        var distance = ""
-        var distanceUnit = ""
-        var instruction = ""
-        var image: UIImage?
-        
-        if let turnInstruction = navigationContext.getNavigationInstruction() {
-            
-            let scale = UIScreen.main.scale
-            let size = CGSize.init(width: 60 * scale, height: 60 * scale)
-            image = turnInstruction.getNextTurnImage(size,
-                                                     colorActiveInner: UIColor.white,
-                                                     colorActiveOuter: UIColor.black,
-                                                     colorInactiveInner: UIColor.lightGray,
-                                                     colorInactiveOuter: UIColor.lightGray)
-            
-            distance  = turnInstruction.getDistanceToNextTurnFormatted()
-            distanceUnit = turnInstruction.getDistanceToNextTurnUnitFormatted()
-            instruction = turnInstruction.getNextTurnInstructionFormatted()
-        }
-        
-        self.turnImage.image = image
-        
-        let fontDist     = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
-        let fontDistUnit = UIFont.boldSystemFont(ofSize: self.turnDistUnitFontSize)
-
-        let attrDist     = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: fontDist]
-        let attrDistUnit = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: fontDistUnit]
-
-        let distStringAttr     = NSAttributedString(string: distance, attributes: attrDist)
-        let distUnitStringAttr = NSAttributedString(string: distanceUnit, attributes: attrDistUnit)
-        
-        var attributedText = NSMutableAttributedString.init()
-        attributedText.append(distStringAttr)
-        attributedText.append(distUnitStringAttr)
-        self.turnDistance.attributedText = attributedText
-        
-        attributedText = NSMutableAttributedString.init()
-        let attrInstr = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: fontDist]
-        let instructionAttr = NSAttributedString(string: instruction, attributes: attrInstr)
-        attributedText.append(instructionAttr)
-        self.turnInstruction.attributedText = attributedText
-    }
-    
-    func updateLaneInformation(navigationContext: NavigationContext) {
-        
-        var image: UIImage?
-        
-        if let turnInstruction = navigationContext.getNavigationInstruction() {
-            
-            let scale = UIScreen.main.scale
-            let laneSize = CGSize.init(width: self.lanePanel.frame.size.width * scale, height: self.lanePanel.frame.size.height * scale)
-            
-            image = turnInstruction.getLaneImage(laneSize, backgroundColor: UIColor.black, activeColor: UIColor.white, inactiveColor: UIColor.lightGray)
-        }
-        
-        self.laneImage.image = image
-        self.lanePanel.isHidden = !(image != nil)
-    }
-    
-    func updateTrafficInformation(navigationContext: NavigationContext, route: RouteObject) {
-                
-        var title = ""
-        var distance = ""
-        var distanceUnit = ""
-        var delay = ""
-        var delayUnit = ""
-        var delayDistance = ""
-        var delayDistanceUnit = ""
-        var image: UIImage?
-        let backgroundColor = UIColor.init(red: 255.0/255.0, green: 175/255.0, blue: 63.0/255.0, alpha: 1.0)
-        
-        let font     = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
-        let fontUnit = UIFont.boldSystemFont(ofSize: self.turnDistUnitFontSize)
-        
-        let attrValue = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: font]
-        let attrUnit  = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: fontUnit]
-        
-        
-        if let turnInstruction = navigationContext.getNavigationInstruction() {
-            
-            if let remainingTravelDistance = turnInstruction.getRemainingTravelTimeDistance()?.getTotalDistance() {
-                
-                let trafficEvents = route.getTrafficEvents()
-                
-                for event in trafficEvents {
-                    
-                    if event.hasTrafficEvent(onDistance: remainingTravelDistance) {
-                        
-                        let scale = UIScreen.main.scale
-                        let size = CGSize.init(width: 60 * scale, height: 60 * scale)
-                        
-                        if let img = event.getImage(size) {
-                            image = img
-                        }
-                        
-                        title = event.getDescription()
-                        distance = event.getDistanceFormatted()
-                        distanceUnit = event.getDistanceUnitFormatted()
-
-                        delay = event.getDelayTimeFormatted()
-                        delayUnit = event.getDelayTimeUnitFormatted()
-
-                        delayDistance = event.getDelayDistanceFormatted()
-                        delayDistanceUnit = event.getDelayDistanceUnitFormatted()
-                        
-                        break
-                    }
-                }
-            }
-        }
-        
-        self.trafficTitle.attributedText = NSAttributedString(string: title, attributes: attrValue)
-        
-        let attributedText = NSMutableAttributedString.init()
-        
-        let stringDoubleSpace = NSAttributedString(string: "  ", attributes: attrValue)
-        
-        if distance.count > 0 {
-            
-            let distanceAttr     = NSAttributedString(string: distance, attributes: attrValue)
-            let distanceUnitAttr = NSAttributedString(string: distanceUnit, attributes: attrUnit)
-            attributedText.append(distanceAttr)
-            attributedText.append(distanceUnitAttr)
-        }
-        
-        if delay.count > 0 {
-            
-            if attributedText.length > 0 {
-                
-                attributedText.append(stringDoubleSpace)
-            }
-
-            let delayAttr     = NSAttributedString(string: delay, attributes: attrValue)
-            let delayUnitAttr = NSAttributedString(string: delayUnit, attributes: attrUnit)
-            attributedText.append(delayAttr)
-            attributedText.append(delayUnitAttr)
-        }
-
-        if delayDistance.count > 0 {
-            
-            if attributedText.length > 0 {
-                
-                attributedText.append(stringDoubleSpace)
-            }
-
-            let delayDistanceAttr     = NSAttributedString(string: delayDistance, attributes: attrValue)
-            let delayDistanceUnitAttr = NSAttributedString(string: delayDistanceUnit, attributes: attrUnit)
-            attributedText.append(delayDistanceAttr)
-            attributedText.append(delayDistanceUnitAttr)
-        }
-
-        self.trafficImage.image = image
-        self.trafficDetails.attributedText = attributedText
-
-        let isHidden: Bool = !(image != nil)
-        self.trafficPanel.isHidden = isHidden
-        self.trafficPanel.backgroundColor = backgroundColor
-    }
-    
-    func updateSignpostInformation(navigationContext: NavigationContext) {
-        
-        var image: UIImage?
-        
-        if let turnInstruction = navigationContext.getNavigationInstruction() {
-            
-            var imgSizeWidth: CGFloat = 200.0
-            var imgSizeHeight: CGFloat = 100.0
-            
-            let panelSize = self.signPostImage.frame.size
-            
-            if panelSize.width > 0 && panelSize.height > 0 {
-                
-                imgSizeWidth  = panelSize.width
-                imgSizeHeight = panelSize.height
-            }
-            
-            let scale = UIScreen.main.scale
-            let size = CGSize.init(width: imgSizeWidth * scale, height: imgSizeHeight * scale)
-            
-            let border = Int(scale * 5)
-            image = turnInstruction.getSignpostImage(size, border: border, roundCorners: true, rows: 3)
-        }
-        
-        self.signPostImage.image = image
-        self.signPostImage.isHidden = !(image != nil)
-    }
-    
-    func updateRoadCodeInformation(navigationContext: NavigationContext) {
-        
-        if let turnInstruction = navigationContext.getNavigationInstruction() {
-            
-            var roadCodeSize: CGFloat = 80
-            
-            if let string = self.turnInstruction.attributedText, string.length > 0 {
-                
-                roadCodeSize = 40
-            }
-            
-            let scale = UIScreen.main.scale
-            let height = roadCodeSize * scale
-            
-            var image: UIImage?
-            
-            if turnInstruction.hasNextRoadInfo() {
-                
-                image = turnInstruction.getNextRoadCodeImage(height)
-                
-            } else  if turnInstruction.hasCurrentRoadInfo() {
-                
-                image = turnInstruction.getCurrentRoadCodeImage(height)
-            }
-            
-            if let img = image {
-                
-                // let font = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
-                let bounds = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
-                
-                let attachment = NSTextAttachment()
-                attachment.image = img
-                attachment.bounds = bounds
-                
-                if let string = self.turnInstruction.attributedText, string.length > 0 {
-                    
-                    let attributedText = NSMutableAttributedString.init()
-                    attributedText.append(NSAttributedString.init(attachment: attachment))
-                    attributedText.append(NSAttributedString.init(string: "\n"))
-                    attributedText.append(string)
-                    
-                    self.turnInstruction.attributedText = attributedText
-                    
-                } else {
-                    
-                    let attributedText = NSMutableAttributedString.init()
-                    attributedText.append(NSAttributedString.init(attachment: attachment))
-                    
-                    self.turnInstruction.attributedText = attributedText
-                }
-            }
-        }
-    }
-    
-    func updateSafetyCameraInformation(navigationContext: NavigationContext) {
-        
-        if let alarms = self.alarmContext?.getOverlayItemAlarms() {
-            
-            for item in alarms {
-                
-                let identifier = CommonOverlayIdentifier.init(rawValue: item.getOverlayUid())
-                
-                if identifier == .safety {
-                    
-                    let scale = UIScreen.main.scale
-                    let height: CGFloat = 50 * scale
-                    
-                    if let image = item.getImage(height) {
-                        
-                        let font     = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
-                        let fontUnit = UIFont.boldSystemFont(ofSize: self.turnDistUnitFontSize)
-                        
-                        let attrDist     = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: font]
-                        let attrDistUnit = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: fontUnit]
-                                                
-                        let value1 = self.alarmContext!.getDistanceFormatted(with: item)
-                        let value2 = self.alarmContext!.getDistanceUnitFormatted(with: item)
-                        
-                        let distStringAttr     = NSAttributedString(string: value1, attributes: attrDist)
-                        let distUnitStringAttr = NSAttributedString(string: value2, attributes: attrDistUnit)
-                        
-                        let attributedText = NSMutableAttributedString.init()
-                        attributedText.append(distStringAttr)
-                        attributedText.append(distUnitStringAttr)
-                        
-                        self.safetyImage.image = image
-                        self.safetyDetails.attributedText = attributedText
-                        self.safetyPanel.isHidden = false
-                        
-                        return
-                    }
-                }
-            }
-        }
-        
-        self.safetyImage.image = nil
-        self.safetyDetails.attributedText = NSAttributedString(string: "")
-        self.safetyPanel.isHidden = true
-    }
-    
-    // MARK: - Map Style
-    
-    func changeMapStyle() {
-        
-        let mapStyleContext = MapStyleContext.init()
-        
-        let localObjects = mapStyleContext.getLocalList()
-        
-        for item in localObjects {
-            
-            if item.getIdentifier() == 8589935278  { // Night Blues
-                
-                self.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier())
-                
-                return
-            }
-        }
-        
-        mapStyleContext.getOnlineList(completionHandler: { (array: [ContentStoreObject]) in
-            
-            for item in array {
-                
-                if item.getIdentifier() == 8589935246 {
-                    
-                    item.download(withAllowCellularNetwork: true) { [weak self] (success: Bool) in
-                        
-                        guard let strongSelf = self else { return }
-                        
-                        if item.getStatus() == .completed {
-                            
-                            strongSelf.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier())
-                        }
-                    }
-                }
-            }
-        })
-    }
-    
-    // MARK: - Status Bar
-    
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
-
-        return UIStatusBarStyle.default
-    }
+        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintHeight])
+    }    
 }

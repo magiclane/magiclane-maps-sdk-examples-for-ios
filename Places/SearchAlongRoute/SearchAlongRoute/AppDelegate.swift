@@ -17,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let token = self.getProjectApiToken()
         
-        let success = ApplicationContext.shared().initSdk(token)
+        let success = GEMSdk.shared().initSdk(token)
         
         if success {
             
-            ApplicationContext.shared().setUnitSystem(.metric)
+            GEMSdk.shared().setUnitSystem(.metric)
         }
 
-        NSLog("GEMKit init with success:%@", String(success))
+        NSLog("GEMSdk init with success:%@", String(success))
         
         self.addSkipBackupAttribute()
         
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Project API token is available at:
         //
-        // https://www.generalmagic.com/developers/?pg=projects
+        // https://developer.generalmagic.com/api/projects
         //
         
         let string = "YOUR_TOKEN"

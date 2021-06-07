@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        ApplicationContext.shared().appDidBecomeActive()
+        GEMSdk.shared().appDidBecomeActive()
         
         if let viewController = window?.rootViewController as? ViewController {
             
@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         
-        ApplicationContext.shared().appDidEnterBackground()
+        GEMSdk.shared().appDidEnterBackground()
         
         if let viewController = window?.rootViewController as? ViewController {
             

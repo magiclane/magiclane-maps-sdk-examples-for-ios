@@ -90,7 +90,7 @@ class ViewController: UIViewController {
             
             if let landmark = results.first {
                 
-                strongSelf.mapViewController!.presentHighlights([landmark], onCenter: true, contourColor: UIColor.orange)
+                strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
             }
         }
     }
@@ -105,7 +105,7 @@ class ViewController: UIViewController {
             
             if let landmark = results.first {
                 
-                strongSelf.mapViewController!.presentHighlights([landmark], onCenter: true, contourColor: UIColor.orange)
+                strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
             }
         }
     }

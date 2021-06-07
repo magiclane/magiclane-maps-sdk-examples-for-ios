@@ -75,16 +75,24 @@ class ViewController: UIViewController {
         if self.searchContext == nil {
             
             self.searchContext = SearchContext.init()
+            self.searchContext?.setMaxMatches(30)
             self.searchContext?.setSearchMapPOIs(true)
         }
         
         let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
         
-        self.searchContext?.search(withQuery: "hotels", location: location) { (results: [LandmarkObject]) in
+        self.mapViewController!.center(with: location, zoomLevel: 60, animationDuration: 1200)
+        
+        self.searchContext?.search(withQuery: "store", location: location) { (results: [LandmarkObject]) in
             
             for landmark in results {
                 
                 NSLog("results:%@", landmark.getLandmarkName())
+            }
+            
+            if results.count > 0 {
+                
+                self.mapViewController!.presentHighlights(results, animationDuration: 1200)
             }
         }
     }

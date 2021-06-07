@@ -140,7 +140,7 @@ class ViewController: UIViewController {
             
             if item.getIdentifier() == randomObject.getIdentifier() {
                 
-                self.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier())
+                self.mapViewController!.applyStyle(withStyleIdentifier: item.getIdentifier(), smoothTransition: true)
                 
                 self.label.text = item.getName() + ", id:\(item.getIdentifier())"
                 self.label.isHidden = false
@@ -159,7 +159,7 @@ class ViewController: UIViewController {
             
             if success && status == .completed {
                 
-                strongSelf.mapViewController!.applyStyle(withStyleIdentifier: randomObject.getIdentifier())
+                strongSelf.mapViewController!.applyStyle(withStyleIdentifier: randomObject.getIdentifier(), smoothTransition: true)
                 
                 strongSelf.label.text = randomObject.getName() + ", id:\(randomObject.getIdentifier())"
                 strongSelf.label.isHidden = false

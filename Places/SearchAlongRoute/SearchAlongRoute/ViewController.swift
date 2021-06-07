@@ -303,8 +303,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         return false
     }
     
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationSound text: String) {
+    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationSound sound: SoundObject) {
         
     }
-    
 }

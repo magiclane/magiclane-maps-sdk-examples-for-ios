@@ -64,6 +64,10 @@ class RouteInstructionsViewController: UITableViewController {
             return
         }
         
+        let scale = UIScreen.main.scale
+        let imgSize = CGSize.init(width: 40.0 * scale, height: 40.0 * scale)
+        
+        // 1
         let segmentList = self.route!.getSegments();
         
         for segment in segmentList {
@@ -89,12 +93,11 @@ class RouteInstructionsViewController: UITableViewController {
                     
                     item.statusText = timeDistance.getTotalDistanceFormatted()
                     item.statusDescription = timeDistance.getTotalDistanceUnitFormatted()
+                    
+                    item.sortKey = Int(timeDistance.getTotalDistance())
                 }
                 
-                let scale = UIScreen.main.scale
-                let size = CGSize.init(width: 40.0 * scale, height: 40.0 * scale)
-                
-                if let image = routeInstruction.getTurnImage(size,
+                if let image = routeInstruction.getTurnImage(imgSize,
                                                              colorActiveInner: UIColor.black,
                                                              colorActiveOuter: UIColor.white,
                                                              colorInactiveInner: UIColor.lightGray,
@@ -104,6 +107,63 @@ class RouteInstructionsViewController: UITableViewController {
                 }
                 
                 self.modelData.append(item)
+            }
+        }
+        
+        // 2
+        if let timeDistance = self.route!.getTimeDistance() {
+            
+            let routeLength = timeDistance.getTotalDistance()
+            
+            let trafficEvents = self.route!.getTrafficEvents()
+            
+            for event in trafficEvents {
+                
+                if event.hasTrafficEvent(onDistance: routeLength) {
+                    
+                    let item = ModelDataItem.init()
+                    item.routeTrafficEvent = event
+                    
+                    if let img = event.getImage(imgSize) {
+                        
+                        item.image = img
+                    }
+                    
+                    let title = event.getDescription()
+                    let distance = event.getDistanceFormatted()
+                    let distanceUnit = event.getDistanceUnitFormatted()
+                    
+                    let delay = event.getDelayTimeFormatted()
+                    let delayUnit = event.getDelayTimeUnitFormatted()
+                    
+                    let delayDistance = event.getDelayDistanceFormatted()
+                    let delayDistanceUnit = event.getDelayDistanceUnitFormatted()
+                    
+                    var description = ""
+                    
+                    if let from = event.getFromLandmark(), from.getLandmarkName().count > 0 {
+                        
+                        description = from.getLandmarkName()
+                    }
+                    
+                    if let to = event.getToLandmark(), to.getLandmarkName().count > 0 {
+                        
+                        description += "\n" + to.getLandmarkName()
+                    }
+                    
+                    item.title = delay + delayUnit + ", " + delayDistance + delayDistanceUnit + " (" + title + ")"
+                    item.description = description
+                    item.statusText = distance
+                    item.statusDescription = distanceUnit
+                    item.sortKey = Int(routeLength) - Int(event.getDistanceToDestination())
+                    
+                    self.modelData.append(item)
+                }
+            }
+            
+            if trafficEvents.count > 0 {
+                
+                self.modelData.sort(by: { $0.sortKey < $1.sortKey })
             }
         }
     }
@@ -225,6 +285,12 @@ class RouteInstructionsViewController: UITableViewController {
                     self.navigationController?.popToRootViewController(animated: true)
                     
                     mapView.center(withRouteInstruction: instruction, zoomLevel: -1, animationDuration: 2600)
+                    
+                } else if let event = item.routeTrafficEvent {
+                    
+                    self.navigationController?.popToRootViewController(animated: true)
+                    
+                    mapView.center(withRouteTrafficEvent: event, zoomLevel: -1, animationDuration: 2000)
                 }
             }
         }
@@ -234,12 +300,14 @@ class RouteInstructionsViewController: UITableViewController {
 private class ModelDataItem {
     
     var routeInstruction: RouteInstructionObject?
+    var routeTrafficEvent: RouteTrafficEventObject?
     
     var title: String = ""
     var description: String = ""
     var image: UIImage?
     var statusText: String = ""
     var statusDescription: String = ""
+    var sortKey: Int = 0
     
     deinit {
         

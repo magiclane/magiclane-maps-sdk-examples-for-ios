@@ -83,17 +83,17 @@ class RootViewController: UIViewController {
         let logsDirPath = NSString.path(withComponents: [documentsDir.absoluteString, "videologs"])
         
         let types : [NSNumber] = [
-            NSNumber.init(value: EDataType.acceleration.rawValue),
-            NSNumber.init(value: EDataType.activity.rawValue),
-            NSNumber.init(value: EDataType.attitude.rawValue),
-            NSNumber.init(value: EDataType.battery.rawValue),
-            NSNumber.init(value: EDataType.camera.rawValue),
-            NSNumber.init(value: EDataType.compass.rawValue),
-            NSNumber.init(value: EDataType.magneticField.rawValue),
-            NSNumber.init(value: EDataType.orientation.rawValue),
-            NSNumber.init(value: EDataType.position.rawValue),
-            NSNumber.init(value: EDataType.improvedPosition.rawValue),
-            NSNumber.init(value: EDataType.rotationRate.rawValue),
+            NSNumber.init(value: DataType.acceleration.rawValue),
+            NSNumber.init(value: DataType.activity.rawValue),
+            NSNumber.init(value: DataType.attitude.rawValue),
+            NSNumber.init(value: DataType.battery.rawValue),
+            NSNumber.init(value: DataType.camera.rawValue),
+            NSNumber.init(value: DataType.compass.rawValue),
+            NSNumber.init(value: DataType.magneticField.rawValue),
+            NSNumber.init(value: DataType.orientation.rawValue),
+            NSNumber.init(value: DataType.position.rawValue),
+            NSNumber.init(value: DataType.improvedPosition.rawValue),
+            NSNumber.init(value: DataType.rotationRate.rawValue),
             //                    NSNumber.init(value: EDataType.temperature.rawValue),
             //                    NSNumber.init(value: EDataType.notification.rawValue),
             //                    NSNumber.init(value: EDataType.mountInformation.rawValue)
@@ -103,7 +103,7 @@ class RootViewController: UIViewController {
         
         let result = RecorderConfiguration(logsDir: logsDirPath, dataTypes: types)
         result.enableAudio = true
-        result.videoQuality = EResolution.hd_720p
+        result.videoQuality = Resolution.hd_720p
         
         return result
     }

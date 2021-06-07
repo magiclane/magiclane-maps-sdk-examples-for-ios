@@ -23,10 +23,10 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.title = "GEM Routes"
+        self.title = "Route Instructions"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
-                
+        
         self.createMapView()
 
         self.mapViewController!.startRender()

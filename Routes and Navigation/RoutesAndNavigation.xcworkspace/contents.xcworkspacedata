@@ -8,7 +8,13 @@
       location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:HumanVoices/HumanVoices.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:RouteInstructions/RouteInstructions.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RoadBlock/RoadBlock.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SimulateRoute/SimulateRoute.xcodeproj">

@@ -15,6 +15,7 @@
 		CE72FBDE261D914900B19E72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE72FBDC261D914900B19E72 /* Main.storyboard */; };
 		CE72FBE0261D914A00B19E72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE72FBDF261D914A00B19E72 /* Assets.xcassets */; };
 		CE72FBE3261D914A00B19E72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE72FBE1261D914A00B19E72 /* LaunchScreen.storyboard */; };
+		CEE418E9265D2DEA006CB03A /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE418E8265D2DEA006CB03A /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		CE72FBDF261D914A00B19E72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE72FBE2261D914A00B19E72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE72FBE4261D914A00B19E72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEE418E8265D2DEA006CB03A /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				CE72FBD6261D914900B19E72 /* AppDelegate.swift */,
 				CE72FBD8261D914900B19E72 /* SceneDelegate.swift */,
 				CE72FBDA261D914900B19E72 /* ViewController.swift */,
+				CEE418E8265D2DEA006CB03A /* NavigationViewController.swift */,
 				CE72FBDC261D914900B19E72 /* Main.storyboard */,
 				CE72FBDF261D914A00B19E72 /* Assets.xcassets */,
 				CE72FBE1261D914A00B19E72 /* LaunchScreen.storyboard */,
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE418E9265D2DEA006CB03A /* NavigationViewController.swift in Sources */,
 				CE72FBDB261D914900B19E72 /* ViewController.swift in Sources */,
 				CE72FBD7261D914900B19E72 /* AppDelegate.swift in Sources */,
 				CE72FBD9261D914900B19E72 /* SceneDelegate.swift in Sources */,
