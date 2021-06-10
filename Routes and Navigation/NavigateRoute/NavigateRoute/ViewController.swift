@@ -28,7 +28,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     var label = UILabel.init()
     
-    var navigationViewController: NavigationViewController?
+    var panelNavigationViewController: NavigationViewController?
+    
+    var roadBlockButton: UIButton?
     
     override func viewDidLoad() {
         
@@ -43,6 +45,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.mapViewController!.startRender()
         
         self.addLocationButton()
+        self.addLabelText()
+        self.addInfoButton()
     }
     
     // MARK: - Map View
@@ -112,7 +116,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             self.addRouteButton()
             
-            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000) { success in }
+            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1) { success in }
         }
     }
     
@@ -147,12 +151,71 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(routeButtonAction(item:)))
         
         image = UIImage.init(systemName: "clear")
-        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction(item:)))
+        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearButtonAction))
         
         image = UIImage.init(systemName: "play")
-        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startStopNavigation(item:)))
+        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startNavigation(item:)))
         
         self.navigationItem.rightBarButtonItems = [barButton1, barButton2, barButton3]
+    }
+    
+    func addInfoButton() {
+        
+        let button = UIButton.init(type: .system)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(infoButtonAction), for: .touchUpInside)
+        button.backgroundColor = UIColor.systemBackground
+        button.tintColor = UIColor.red
+        
+        if let image = UIImage.init(systemName: "hand.raised.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize:20)) {
+            
+            button.setImage(image, for: .normal)
+        }
+        
+        let size: CGFloat = 50;
+        
+        button.layer.cornerRadius = size / 2.0
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        
+        self.view.addSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let constraintLeft = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 relatedBy: NSLayoutConstraint.Relation.equal,
+                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 multiplier: 1.0, constant: 10)
+        
+        let constraintBottom = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.bottom,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: self.label, attribute: NSLayoutConstraint.Attribute.top,
+                                                   multiplier: 1.0, constant: -10)
+        
+        let constraintWidth = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.width,
+                                                  relatedBy: NSLayoutConstraint.Relation.equal,
+                                                  toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                                  multiplier: 1.0, constant: size)
+        
+        let constraintHeight = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.height,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                                   multiplier: 1.0, constant: size)
+        
+        NSLayoutConstraint.activate([constraintLeft, constraintBottom, constraintWidth, constraintHeight])
+        
+        self.roadBlockButton = button
+    }
+    
+    @objc func infoButtonAction() {
+        
+        guard let navigationContext = self.navigationContext else { return }
+        
+        if navigationContext.isSimulationActive() || navigationContext.isNavigationActive() {
+            
+            let length = 100 //m
+            
+            navigationContext.setRoadBlockWithLength(length, starting: -1)
+        }
     }
     
     // MARK: - Label
@@ -202,11 +265,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     @objc func stopButtonAction() {
         
-        if let array = self.navigationItem.rightBarButtonItems, array.count > 1 {
+        guard self.panelNavigationViewController != nil else { return }
+        
+        self.mapViewController!.stopFollowingPosition()
+        
+        self.navigationContext!.cancelNavigateRoute()
+        
+        self.clearButtonAction()
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        self.panelNavigationViewController?.removeFromParent()
+        self.panelNavigationViewController?.view.removeFromSuperview()
+        self.panelNavigationViewController?.didMove(toParent: nil)
+        
+        self.panelNavigationViewController = nil
+        
+        self.mapViewController!.showCompass()
+        
+        self.mapViewController!.set2DPerspective(withAnimationDuration: 600) { (success) in
             
-            let item = array[2]
-            
-            self.startStopNavigation(item: item)
+            DispatchQueue.main.async {
+                
+                self.mapViewController!.alignNorthUp(withAnimationDuration: 1200) { (success) in }
+            }
         }
     }
     
@@ -306,78 +388,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         })
     }
     
-    @objc func clearRouteButtonAction(item: UIBarButtonItem) {
+    @objc func clearButtonAction() {
         
-        self.mapViewController!.removeHighlights()
-        
-        self.mapViewController?.removeAllRoutes()
+        self.mainRoute = nil
         
         self.destination = nil
         
-        self.mainRoute = nil
+        self.mapViewController?.removeHighlights()
+        
+        self.mapViewController?.removeAllRoutes()
+        
+        self.label.isHidden = true
+        self.roadBlockButton!.isHidden = true
     }
     
-    @objc func startStopNavigation(item: UIBarButtonItem) {
+    @objc func startNavigation(item: UIBarButtonItem) {
         
-        for route in self.myResults {
-            
-            if self.mapViewController!.isMainRoute(route) == false {
-                
-                self.mapViewController!.removeRoutes([route])
-            }
-        }
+        guard self.mainRoute != nil else { return }
         
-        self.myResults = []
+        self.mapViewController!.removeAllRoutes()
         
-        guard self.mainRoute != nil else {
-            return
-        }
-        
-        if self.navigationContext!.isNavigationActive() {
+        self.navigationContext!.navigateRoute(withRoute: self.mainRoute!) { [weak self] (success) in
             
-            let image = UIImage.init(systemName: "play")
-            item.image = image
+            guard let strongSelf = self else { return }
             
-            self.label.isHidden = true
-            self.label.removeFromSuperview()
-            
-            self.navigationContext!.cancelNavigateRoute()
-            
-            self.mapViewController!.stopFollowingPosition()
-            
-            self.mapViewController!.removeRoutes([self.mainRoute!])
-            
-            self.destination = nil
-            
-            self.mainRoute = nil
-            
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            
-            self.navigationViewController?.removeFromParent()
-            self.navigationViewController?.view.removeFromSuperview()
-            self.navigationViewController?.didMove(toParent: nil)
-            
-            self.navigationViewController = nil
-            
-        } else {
-            
-            let image = UIImage.init(systemName: "stop")
-            item.image = image
-            
-            self.navigationContext!.navigateRoute(withRoute: self.mainRoute!) { [weak self] (success) in
+            if success {
                 
-                guard let strongSelf = self else {
-                    return
-                }
+                strongSelf.mapViewController!.hideCompass()
                 
-                NSLog("Navigation Route started with success:%@", String(success))
-                
-                if success {
-                    
-                    strongSelf.addLabelText()
-                    
-                    strongSelf.mapViewController!.hideSummary(for: [strongSelf.mainRoute!])
-                }
+                strongSelf.mapViewController!.presentRoutes([strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
             }
         }
     }
@@ -392,7 +431,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         self.destination = landmark
         
-        self.showLandmark(landmark: landmark)
+        self.showLandmark(landmark: landmark, centerLayout: true)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
@@ -403,7 +442,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         self.destination = landmark
         
-        self.showLandmark(landmark: landmark)
+        self.showLandmark(landmark: landmark, centerLayout: false)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {
@@ -433,7 +472,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200) { (success: Bool) in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200, zoomLevel: -1) { (success: Bool) in }
     }
     
     func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {
@@ -450,10 +489,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         self.label.text = text
         self.label.isHidden = false
+        self.roadBlockButton?.isHidden = false
         
         if !self.navigationController!.isNavigationBarHidden {
             
-            if self.navigationViewController == nil {
+            if self.panelNavigationViewController == nil {
                 
                 self.createNavigationPanel()
             }
@@ -465,21 +505,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             if turnInstruction.hasNextTurnInfo() {
                 
-                self.navigationViewController?.updateTurnInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateTurnInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateLaneInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateLaneInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateTrafficInformation(navigationContext: navigationContext, route: route)
+                self.panelNavigationViewController?.updateTrafficInformation(navigationContext: navigationContext, route: route)
                 
-                self.navigationViewController?.updateSignpostInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateSignpostInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateRoadCodeInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateRoadCodeInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateSafetyCameraInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
+                self.panelNavigationViewController?.updateSafetyCameraInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
                 
-                self.navigationViewController?.updateSocialReportInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
+                self.panelNavigationViewController?.updateSocialReportInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
                 
-                self.navigationViewController?.refreshContentLayout()
+                self.panelNavigationViewController?.refreshContentLayout()
             }
         }
     }
@@ -518,32 +558,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     func createNavigationPanel() {
         
-        self.navigationViewController = NavigationViewController.init()
-        self.navigationViewController!.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
+        self.panelNavigationViewController = NavigationViewController.init()
+        self.panelNavigationViewController!.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
         
-        self.addChild(self.navigationViewController!)
-        self.view.addSubview(self.navigationViewController!.view)
-        self.navigationViewController!.didMove(toParent: self)
+        self.addChild(self.panelNavigationViewController!)
+        self.view.addSubview(self.panelNavigationViewController!.view)
+        self.panelNavigationViewController!.didMove(toParent: self)
         
-        let height = self.navigationViewController!.viewHeight()
+        let height = self.panelNavigationViewController!.viewHeight()
         
-        self.navigationViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        let constraintTop = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
+        self.panelNavigationViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraintTop = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
                                                 relatedBy: NSLayoutConstraint.Relation.equal,
                                                 toItem: self.view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.top,
                                                 multiplier: 1.0, constant: 5.0)
         
-        let constraintLeft = NSLayoutConstraint(item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
+        let constraintLeft = NSLayoutConstraint(item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
                                                 relatedBy: NSLayoutConstraint.Relation.equal,
                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
                                                 multiplier: 1.0, constant: 10.0)
         
-        let constraintRight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
+        let constraintRight = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   relatedBy: NSLayoutConstraint.Relation.equal,
                                                   toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   multiplier: 1.0, constant: -10.0)
         
-        let constraintHeight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.height,
+        let constraintHeight = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.height,
                                                    relatedBy: NSLayoutConstraint.Relation.equal,
                                                    toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
                                                    multiplier: 1.0, constant: height)
@@ -553,13 +593,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     // MARK: - Utils
     
-    func showLandmark(landmark: LandmarkObject) {
+    func showLandmark(landmark: LandmarkObject, centerLayout: Bool) {
         
         let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
         
         self.label.text = text
         self.label.isHidden = false
         
-        self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: true, animationDuration: 600)
+        self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: centerLayout, animationDuration: 600)
     }
 }

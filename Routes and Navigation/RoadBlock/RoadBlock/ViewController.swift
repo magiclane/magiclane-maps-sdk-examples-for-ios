@@ -169,7 +169,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     @objc func startFollowLocation() {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000) { (success: Bool) in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1) { (success: Bool) in }
     }
     
     @objc func routeButtonAction(item: UIBarButtonItem) {
@@ -345,7 +345,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200) { (success: Bool) in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200, zoomLevel: -1) { (success: Bool) in }
     }
     
     func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {

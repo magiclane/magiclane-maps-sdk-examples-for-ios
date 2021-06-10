@@ -26,7 +26,9 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     var label = UILabel.init()
     
-    var navigationViewController: NavigationViewController?
+    var panelNavigationViewController: NavigationViewController?
+    
+    var roadBlockButton: UIButton?
     
     override func viewDidLoad() {
         
@@ -41,6 +43,8 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.mapViewController!.startRender()
         
         self.addRouteButton()
+        self.addLabelText()
+        self.addInfoButton()
     }
     
     // MARK: - Map View
@@ -87,21 +91,99 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(routeButtonAction(item:)))
 
         image = UIImage.init(systemName: "clear")
-        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction(item:)))
+        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearButtonAction))
         
         image = UIImage.init(systemName: "play")
-        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startStopSimulation(item:)))
+        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startSimulation(item:)))
         
         self.navigationItem.rightBarButtonItems = [barButton1, barButton2, barButton3]
     }
     
     @objc func stopButtonAction() {
         
-        if let array = self.navigationItem.rightBarButtonItems, array.count > 1 {
+        guard self.panelNavigationViewController != nil else { return }
+        
+        self.mapViewController!.stopFollowingPosition()
+        
+        self.navigationContext!.cancelSimulateRoute()
+        
+        self.clearButtonAction()
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        self.panelNavigationViewController?.removeFromParent()
+        self.panelNavigationViewController?.view.removeFromSuperview()
+        self.panelNavigationViewController?.didMove(toParent: nil)
+        
+        self.panelNavigationViewController = nil
+        
+        self.mapViewController!.showCompass()
+        
+        self.mapViewController!.set2DPerspective(withAnimationDuration: 600) { (success) in
             
-            let item = array[2]
+            DispatchQueue.main.async {
+                
+                self.mapViewController!.alignNorthUp(withAnimationDuration: 1200) { (success) in }
+            }
+        }
+    }
+    
+    func addInfoButton() {
+        
+        let button = UIButton.init(type: .system)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(infoButtonAction), for: .touchUpInside)
+        button.backgroundColor = UIColor.systemBackground
+        button.tintColor = UIColor.red
+        
+        if let image = UIImage.init(systemName: "hand.raised.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize:20)) {
             
-            self.startStopSimulation(item: item)
+            button.setImage(image, for: .normal)
+        }
+        
+        let size: CGFloat = 50;
+        
+        button.layer.cornerRadius = size / 2.0
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowColor = UIColor.lightGray.cgColor
+        
+        self.view.addSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let constraintLeft = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 relatedBy: NSLayoutConstraint.Relation.equal,
+                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
+                                                 multiplier: 1.0, constant: 10)
+        
+        let constraintBottom = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.bottom,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: self.label, attribute: NSLayoutConstraint.Attribute.top,
+                                                   multiplier: 1.0, constant: -10)
+        
+        let constraintWidth = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.width,
+                                                  relatedBy: NSLayoutConstraint.Relation.equal,
+                                                  toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                                  multiplier: 1.0, constant: size)
+        
+        let constraintHeight = NSLayoutConstraint( item: button, attribute: NSLayoutConstraint.Attribute.height,
+                                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                                   multiplier: 1.0, constant: size)
+        
+        NSLayoutConstraint.activate([constraintLeft, constraintBottom, constraintWidth, constraintHeight])
+        
+        self.roadBlockButton = button
+    }
+    
+    @objc func infoButtonAction() {
+        
+        guard let navigationContext = self.navigationContext else { return }
+        
+        if navigationContext.isSimulationActive() || navigationContext.isNavigationActive() {
+            
+            let length = 100 //m
+            
+            navigationContext.setRoadBlockWithLength(length, starting: -1)
         }
     }
     
@@ -152,7 +234,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     @objc func startFollowLocation() {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000) { (success: Bool) in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1) { (success: Bool) in }
     }
     
     @objc func routeButtonAction(item: UIBarButtonItem) {
@@ -251,72 +333,33 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         })
     }
     
-    @objc func clearRouteButtonAction(item: UIBarButtonItem) {
+    @objc func clearButtonAction() {
+        
+        self.mainRoute = nil
+        
+        self.mapViewController?.removeHighlights()
         
         self.mapViewController?.removeAllRoutes()
         
-        self.mainRoute = nil
+        self.label.isHidden = true
+        self.roadBlockButton!.isHidden = true
     }
     
-    @objc func startStopSimulation(item: UIBarButtonItem) {
+    @objc func startSimulation(item: UIBarButtonItem) {
         
-        for route in self.myResults {
+        guard self.mainRoute != nil else { return }
+        
+        self.mapViewController!.removeAllRoutes()
+        
+        self.navigationContext!.simulateRoute(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
             
-            if self.mapViewController!.isMainRoute(route) == false {
+            guard let strongSelf = self else { return }
+            
+            if success {
                 
-                self.mapViewController!.removeRoutes([route])
-            }
-        }
-        
-        self.myResults = []
-        
-        guard self.mainRoute != nil else {
-            return
-        }
-        
-        if self.navigationContext!.isSimulationActive() {
-            
-            let image = UIImage.init(systemName: "play")
-            item.image = image
-            
-            self.label.isHidden = true
-            self.label.removeFromSuperview()
-            
-            self.navigationContext!.cancelSimulateRoute()
-            
-            self.mapViewController!.stopFollowingPosition()
-            
-            self.mapViewController!.removeRoutes([self.mainRoute!])
-            
-            self.destination = nil
-            
-            self.mainRoute = nil
-            
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            
-            self.navigationViewController?.removeFromParent()
-            self.navigationViewController?.view.removeFromSuperview()
-            self.navigationViewController?.didMove(toParent: nil)
-            
-            self.navigationViewController = nil
-            
-        } else {
-            
-            self.mapViewController!.removeAllRoutes()
-            
-            let image = UIImage.init(systemName: "stop")
-            item.image = image
-            
-            self.navigationContext!.simulateRoute(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
+                strongSelf.mapViewController!.hideCompass()
                 
-                guard let strongSelf = self else { return }
-                
-                if success {
-                    
-                    strongSelf.addLabelText()
-                    
-                    strongSelf.mapViewController!.presentRoutes([strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
-                }
+                strongSelf.mapViewController!.presentRoutes([strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
             }
         }
     }
@@ -358,7 +401,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200) { (success: Bool) in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200, zoomLevel: -1) { (success: Bool) in }
     }
     
     func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {
@@ -375,10 +418,11 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         self.label.text = text
         self.label.isHidden = false
+        self.roadBlockButton!.isHidden = false
         
         if !self.navigationController!.isNavigationBarHidden {
             
-            if self.navigationViewController == nil {
+            if self.panelNavigationViewController == nil {
                 
                 self.createNavigationPanel()
             }
@@ -390,21 +434,21 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             
             if turnInstruction.hasNextTurnInfo() {
                 
-                self.navigationViewController?.updateTurnInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateTurnInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateLaneInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateLaneInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateTrafficInformation(navigationContext: navigationContext, route: route)
+                self.panelNavigationViewController?.updateTrafficInformation(navigationContext: navigationContext, route: route)
                 
-                self.navigationViewController?.updateSignpostInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateSignpostInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateRoadCodeInformation(navigationContext: navigationContext)
+                self.panelNavigationViewController?.updateRoadCodeInformation(navigationContext: navigationContext)
                 
-                self.navigationViewController?.updateSafetyCameraInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
+                self.panelNavigationViewController?.updateSafetyCameraInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
                 
-                self.navigationViewController?.updateSocialReportInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
+                self.panelNavigationViewController?.updateSocialReportInformation(navigationContext: navigationContext, alarmContext: self.alarmContext!)
                 
-                self.navigationViewController?.refreshContentLayout()
+                self.panelNavigationViewController?.refreshContentLayout()
             }
         }
     }
@@ -445,32 +489,32 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     func createNavigationPanel() {
         
-        self.navigationViewController = NavigationViewController.init()
-        self.navigationViewController!.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
+        self.panelNavigationViewController = NavigationViewController.init()
+        self.panelNavigationViewController!.stopButton.addTarget(self, action: #selector(stopButtonAction), for: .touchUpInside)
         
-        self.addChild(self.navigationViewController!)
-        self.view.addSubview(self.navigationViewController!.view)
-        self.navigationViewController!.didMove(toParent: self)
+        self.addChild(self.panelNavigationViewController!)
+        self.view.addSubview(self.panelNavigationViewController!.view)
+        self.panelNavigationViewController!.didMove(toParent: self)
         
-        let height = self.navigationViewController!.viewHeight()
+        let height = self.panelNavigationViewController!.viewHeight()
         
-        self.navigationViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        let constraintTop = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
+        self.panelNavigationViewController?.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraintTop = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
                                                 relatedBy: NSLayoutConstraint.Relation.equal,
                                                 toItem: self.view.safeAreaLayoutGuide, attribute: NSLayoutConstraint.Attribute.top,
                                                 multiplier: 1.0, constant: 5.0)
         
-        let constraintLeft = NSLayoutConstraint(item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
+        let constraintLeft = NSLayoutConstraint(item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
                                                 relatedBy: NSLayoutConstraint.Relation.equal,
                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
                                                 multiplier: 1.0, constant: 10.0)
         
-        let constraintRight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
+        let constraintRight = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   relatedBy: NSLayoutConstraint.Relation.equal,
                                                   toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   multiplier: 1.0, constant: -10.0)
         
-        let constraintHeight = NSLayoutConstraint( item: self.navigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.height,
+        let constraintHeight = NSLayoutConstraint( item: self.panelNavigationViewController!.view!, attribute: NSLayoutConstraint.Attribute.height,
                                                    relatedBy: NSLayoutConstraint.Relation.equal,
                                                    toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
                                                    multiplier: 1.0, constant: height)

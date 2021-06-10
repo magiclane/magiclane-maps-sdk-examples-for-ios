@@ -268,7 +268,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     
     func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
         
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200) { success in }
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200, zoomLevel: -1) { success in }
     }
     
     func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {
