@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         
         let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
         
-        self.mapViewController!.center(with: location, zoomLevel: 60, animationDuration: 1200)
+        self.mapViewController!.center(on: location, zoomLevel: 60, animationDuration: 1200)
         
         self.searchContext?.search(withQuery: "store", location: location) { (results: [LandmarkObject]) in
             

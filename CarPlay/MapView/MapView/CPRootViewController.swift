@@ -123,7 +123,7 @@ class CPRootViewController: UIViewController, CPMapTemplateDelegate  {
             
             let level = strongSelf.mapViewController!.getZoomLevel() + 4
             
-            strongSelf.mapViewController?.center(withZoomLevel: level, animationDuration: 200)
+            strongSelf.mapViewController?.center(onZoomLevel: level, animationDuration: 200)
         }
         buttonZoomIn.image = UIImage.init(named: "CP_Plus")
         
@@ -134,7 +134,7 @@ class CPRootViewController: UIViewController, CPMapTemplateDelegate  {
             
             let level = strongSelf.mapViewController!.getZoomLevel() - 4
             
-            strongSelf.mapViewController?.center(withZoomLevel: level, animationDuration: 200)
+            strongSelf.mapViewController?.center(onZoomLevel: level, animationDuration: 200)
             
             /*let scale = strongSelf.getWindowScale()
             let x = ( strongSelf.mapViewController!.view.frame.size.width  / 2.0 ) * scale

@@ -165,7 +165,7 @@ class PoiCategoriesViewController: UITableViewController {
                 
                 mapViewController.removeHighlights()
                 
-                mapViewController.center(with: location, zoomLevel: 60, animationDuration: 1200)
+                mapViewController.center(on: location, zoomLevel: 60, animationDuration: 1200)
                 
                 self.searchContext.searchArround(with: location) { (results: [LandmarkObject]) in
                     

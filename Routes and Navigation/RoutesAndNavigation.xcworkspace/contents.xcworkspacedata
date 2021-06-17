@@ -5,6 +5,9 @@
       location = "group:CalculateRoute/CalculateRoute.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:GpxRoute/GpxRoute.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
    </FileRef>
    <FileRef
@@ -24,6 +27,9 @@
    </FileRef>
    <FileRef
       location = "group:SimulateRoute/SimulateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:BetterRouteNotification/BetterRouteNotification.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">

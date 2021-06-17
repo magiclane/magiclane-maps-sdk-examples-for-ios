@@ -71,45 +71,44 @@ class PTRouteDescriptionViewController: UITableViewController {
         
         for segment in segmentList {
             
+            guard let segmentPT = segment as? PTRouteSegmentObject else {
+                continue
+            }
+            
+            guard segmentPT.isSignificant() else {
+                continue
+            }
+            
             let section = ModelDataSection.init()
             section.area = segment.getGeographicArea()
             
-            if segment.getSegmentType() == .publicTransport {
+            if segment.isCommon() {
                 
-                if let segmentPT = segment as? PTRouteSegmentObject {
+                let t1 = segmentPT.getDepartureTimeFormatted()
+                let t2 = segmentPT.getDepartureTimeUnitFormatted()
+                
+                let transitType = segmentPT.getTransitType()
+                
+                var image = UIImage.init(systemName: "tram")
+                
+                if transitType == .bus {
                     
-                    let t1 = segmentPT.getDepartureTimeFormatted()
-                    let t2 = segmentPT.getDepartureTimeUnitFormatted()
+                    image = UIImage.init(systemName: "bus")
                     
-                    var image = UIImage.init(systemName: "tram")
+                } else if transitType == .underground {
                     
-                    if segmentPT.getTransitType() == .bus {
-                        
-                        image = UIImage.init(systemName: "bus")
-                    }
-                    
-                    section.departureTime = "Departure: " + t1 + t2
-                    section.image = image
-                    
-                    if let color = segmentPT.getLineColor() {
-                        
-                        section.color = color.withAlphaComponent(0.4)
-                    }
+                    image = UIImage.init(systemName: "tram.tunnel.fill")
                 }
                 
-            } else if segment.getSegmentType() == .route {
+                section.departureTime = "Departure: " + t1 + t2
+                section.image = image
                 
-                section.image = UIImage.init(systemName: "figure.walk")
+                if let color = segmentPT.getLineColor() {
+                    
+                    section.color = color.withAlphaComponent(0.4)
+                }
                 
-                let d1 = segment.getTimeDistance()!.getTotalDistanceFormatted()
-                let d2 = segment.getTimeDistance()!.getTotalDistanceUnitFormatted()
-                
-                let t1 = segment.getTimeDistance()!.getTotalTimeFormatted()
-                let t2 = segment.getTimeDistance()!.getTotalTimeUnitFormatted()
-                
-                section.departureTime = d1 + d2 + " (" + t1 + t2 + ")"
-                
-            } else if segment.getSegmentType() == .stationWalk {
+            } else {
                 
                 section.image = UIImage.init(systemName: "figure.walk")
                 
@@ -155,7 +154,7 @@ class PTRouteDescriptionViewController: UITableViewController {
                     
                     item.image = image
                 }
-                                
+                
                 section.dataItems.append(item)
             }
             
@@ -306,7 +305,7 @@ class PTRouteDescriptionViewController: UITableViewController {
                     
                     self.navigationController?.popToRootViewController(animated: true)
                     
-                    mapView.center(withRouteInstruction: instruction, zoomLevel: -1, animationDuration: 2000)
+                    mapView.center(onRouteInstruction: instruction, zoomLevel: -1, animationDuration: 2000)
                 }
             }
         }
@@ -329,7 +328,7 @@ class PTRouteDescriptionViewController: UITableViewController {
                     
                     self.navigationController?.popToRootViewController(animated: true)
                     
-                    mapView.center(withGeographicArea:area, zoomLevel: -1, animationDuration: 2000)
+                    mapView.center(onArea: area, zoomLevel: -1, animationDuration: 2000)
                 }
             }
         }

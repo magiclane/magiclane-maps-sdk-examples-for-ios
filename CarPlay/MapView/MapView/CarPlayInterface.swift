@@ -79,14 +79,14 @@ class CarPlayInterface: NSObject, CPInterfaceControllerDelegate, CPSessionConfig
     
     func sceneDidBecomeActive()
     {
-        ApplicationContext.shared().appDidBecomeActive()
+        GEMSdk.shared().appDidBecomeActive()
         
         self.rootViewController!.startRender()
     }
         
     func sceneDidEnterBackground()
     {
-        ApplicationContext.shared().appDidEnterBackground()
+        GEMSdk.shared().appDidEnterBackground()
         
         self.rootViewController!.stopRender()
     }

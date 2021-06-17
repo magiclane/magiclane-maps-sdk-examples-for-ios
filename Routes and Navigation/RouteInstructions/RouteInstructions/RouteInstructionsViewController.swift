@@ -284,13 +284,13 @@ class RouteInstructionsViewController: UITableViewController {
                     
                     self.navigationController?.popToRootViewController(animated: true)
                     
-                    mapView.center(withRouteInstruction: instruction, zoomLevel: -1, animationDuration: 2600)
+                    mapView.center(onRouteInstruction: instruction, zoomLevel: -1, animationDuration: 2600)
                     
                 } else if let event = item.routeTrafficEvent {
                     
                     self.navigationController?.popToRootViewController(animated: true)
                     
-                    mapView.center(withRouteTrafficEvent: event, zoomLevel: -1, animationDuration: 2000)
+                    mapView.center(onRouteTrafficEvent: event, zoomLevel: -1, animationDuration: 2000)
                 }
             }
         }

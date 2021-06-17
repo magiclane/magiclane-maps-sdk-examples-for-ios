@@ -37,7 +37,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         // Paris
         let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.381899)
         
-        self.mapViewController!.center(with: location, zoomLevel: 70, animationDuration: 1200)
+        self.mapViewController!.center(on: location, zoomLevel: 70, animationDuration: 1200)
     }
     
     // MARK: - Map View

@@ -129,7 +129,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
         
         let location = GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991)
         
-        self.mapViewController!.center(with: location, zoomLevel: 50, animationDuration: 1000)
+        self.mapViewController!.center(on: location, zoomLevel: 50, animationDuration: 1000)
     }
     
     // MARK: - Map View

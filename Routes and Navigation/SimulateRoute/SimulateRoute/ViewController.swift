@@ -485,6 +485,14 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         }
     }
     
+    func navigationContext(_ navigationContext: NavigationContext, onBetterRouteDetected route: RouteObject, travelTime: Int, delay: Int, timeGain: Int) {
+        
+    }
+    
+    func navigationContext(_ navigationContext: NavigationContext, onBetterRouteInvalidated state: Bool) {
+        
+    }
+    
     // MARK: - Navigation Panel
     
     func createNavigationPanel() {
