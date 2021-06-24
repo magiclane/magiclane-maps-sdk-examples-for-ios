@@ -29,6 +29,9 @@
       location = "group:Polylines/Polylines.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:WorldMapUpdate/WorldMapUpdate.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:FollowingPosition/FollowingPosition.xcodeproj">
    </FileRef>
    <FileRef

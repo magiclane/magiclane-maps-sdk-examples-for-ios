@@ -123,7 +123,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         self.myPositionButton?.isHidden = true
         
-        self.mapViewController!.set2DPerspective(withAnimationDuration: 600) { (success) in
+        self.mapViewController!.setPerspective(.view2D, animationDuration: 600) { (success) in
             
             DispatchQueue.main.async {
                 

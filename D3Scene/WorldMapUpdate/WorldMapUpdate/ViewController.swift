@@ -20,8 +20,6 @@ class ViewController: UIViewController {
         self.createMapView()
         
         self.mapViewController!.startRender()
-        
-        self.addMapPerspective()
     }
     
     // MARK: - Map View
@@ -58,44 +56,4 @@ class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
     }
-    
-    // MARK: - Perspective
-    
-    func addMapPerspective() {
-        
-        let image = UIImage.init(systemName: "view.3d")
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(changeMapPerspective))
-        barButton.tag = 1
-
-        let image2 = UIImage.init(systemName: "location.north.line")
-        let barButton2 = UIBarButtonItem.init(image: image2, style: .done, target: self, action: #selector(mapAlighNorthUp))
-        
-        self.navigationItem.rightBarButtonItems = [barButton, barButton2]
-    }
-    
-    @objc func changeMapPerspective(item: UIBarButtonItem) {
-        
-        if item.tag == 1 {
-           
-            item.tag = 2
-            
-            item.image = UIImage.init(systemName: "view.2d")
-            
-            self.mapViewController!.setPerspective(.view3D, animationDuration: 1000) { success in }
-            
-        } else {
-            
-            item.tag = 1
-            
-            item.image = UIImage.init(systemName: "view.3d")
-            
-            self.mapViewController!.setPerspective(.view2D, animationDuration: 1000) { success in }
-        }
-    }
-    
-    @objc func mapAlighNorthUp() {
-        
-        self.mapViewController!.alignNorthUp(withAnimationDuration: 1000) { success in }
-    }
 }
-
