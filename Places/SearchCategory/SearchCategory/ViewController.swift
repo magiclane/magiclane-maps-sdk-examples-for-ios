@@ -102,6 +102,8 @@ class ViewController: UIViewController {
             
             if results.count > 0 {
                 
+                strongSelf.mapViewController!.removeHighlights()
+                
                  strongSelf.mapViewController!.presentHighlights(results, animationDuration: 800)
             }
         }
@@ -121,7 +123,9 @@ class ViewController: UIViewController {
             
             if results.count > 0 {
                 
-                 strongSelf.mapViewController!.presentHighlights(results, animationDuration: 1200)
+                strongSelf.mapViewController!.removeHighlights()
+                
+                strongSelf.mapViewController!.presentHighlights(results, animationDuration: 1200)
             }
         }
     }

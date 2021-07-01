@@ -220,6 +220,8 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
         
         self.searchController!.isActive = false
         
+        self.mapViewController!.removeHighlights()
+        
         self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
     }
 }

@@ -20,6 +20,9 @@
       location = "group:MapDownload/MapDownload.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapUpdate/MapUpdate.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapPerspective/MapPerspective.xcodeproj">
    </FileRef>
    <FileRef

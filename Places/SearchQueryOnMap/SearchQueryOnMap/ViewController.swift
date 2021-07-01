@@ -90,6 +90,8 @@ class ViewController: UIViewController {
             
             if let landmark = results.first {
                 
+                strongSelf.mapViewController!.removeHighlights()
+                
                 strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
             }
         }
@@ -104,6 +106,8 @@ class ViewController: UIViewController {
             guard let strongSelf = weakSelf else { return }
             
             if let landmark = results.first {
+                
+                strongSelf.mapViewController!.removeHighlights()
                 
                 strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
             }

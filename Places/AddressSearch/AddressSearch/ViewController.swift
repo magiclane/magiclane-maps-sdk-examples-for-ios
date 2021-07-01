@@ -321,6 +321,8 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
                 
                 NSLog("address: street house number:%@", houseNumber.getLandmarkName())
                 
+                strongSelf.mapViewController!.removeHighlights()
+                
                 strongSelf.mapViewController!.presentHighlight(houseNumber, contourColor: UIColor.orange, centerLayout: true, animationDuration: 800)
             }
         }

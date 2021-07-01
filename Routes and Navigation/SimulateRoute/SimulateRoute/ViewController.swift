@@ -326,6 +326,8 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
                 
                 strongSelf.mainRoute = results.first
                 
+                self.mapViewController!.setEdgeAreaInsets(self.areaEdge(margin: 15))
+                
                 strongSelf.mapViewController?.presentRoutes(results, withTraffic: strongSelf.trafficContext, showSummary: true, animationDuration: 1000)
             }
             
@@ -528,5 +530,17 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
                                                    multiplier: 1.0, constant: height)
         
         NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintRight, constraintHeight])
-    }    
+    }
+    
+    func areaEdge(margin: CGFloat) -> UIEdgeInsets {
+        
+        let scale = UIScreen.main.scale
+        
+        let insets = UIEdgeInsets.init(top: (self.view.safeAreaInsets.top + margin) * scale,
+                                       left: margin * scale,
+                                       bottom: self.view.safeAreaInsets.bottom * scale,
+                                       right: margin * scale)
+        
+        return insets
+    }
 }

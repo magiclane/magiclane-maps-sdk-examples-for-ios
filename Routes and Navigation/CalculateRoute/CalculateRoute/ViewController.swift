@@ -130,7 +130,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             if results.count > 0 {
                 
-                strongSelf.mapViewController?.presentRoutes(results, withTraffic: self.trafficContext, showSummary: true, animationDuration: 1000)
+                let insets = strongSelf.areaEdge(margin: 70)
+                
+                strongSelf.showEdgeaArea(insets: insets)
+                
+                strongSelf.mapViewController?.setEdgeAreaInsets(insets)
+                
+                strongSelf.mapViewController?.presentRoutes(results, withTraffic: self.trafficContext, showSummary: true, animationDuration: 1600)
             }
             
             item.isEnabled = true
@@ -140,5 +146,102 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @objc func clearRouteButtonAction(item: UIBarButtonItem) {
         
         self.mapViewController?.removeAllRoutes()
+    }
+    
+    func areaEdge(margin: CGFloat) -> UIEdgeInsets {
+        
+        let scale = UIScreen.main.scale
+        
+        let insets = UIEdgeInsets.init(top: (self.view.safeAreaInsets.top + margin) * scale,
+                                       left: margin * scale,
+                                       bottom: self.view.safeAreaInsets.bottom * scale,
+                                       right: margin * scale)
+        
+        return insets
+    }
+    
+    func showEdgeaArea(insets: UIEdgeInsets) {
+        
+        let scale = UIScreen.main.scale
+        
+        let insetsPoints = UIEdgeInsets.init(top: insets.top/scale, left: insets.left/scale,
+                                             bottom: insets.bottom/scale, right: insets.right/scale)
+        
+        if let view = self.view.viewWithTag(10) {
+            view.removeFromSuperview()
+        }
+        
+        if let view = self.view.viewWithTag(11) {
+            view.removeFromSuperview()
+        }
+
+        if let view = self.view.viewWithTag(12) {
+            view.removeFromSuperview()
+        }
+
+        if let view = self.view.viewWithTag(13) {
+            view.removeFromSuperview()
+        }
+        
+        let color = UIColor.systemRed.withAlphaComponent(0.2)
+        
+        let viewTop = UIView.init()
+        viewTop.tag = 10
+        viewTop.backgroundColor = color
+        viewTop.isUserInteractionEnabled = false
+        
+        let viewBottom = UIView.init()
+        viewBottom.tag = 12
+        viewBottom.backgroundColor = color
+        viewBottom.isUserInteractionEnabled = false
+        
+        let viewLeft = UIView.init()
+        viewLeft.tag = 11
+        viewLeft.backgroundColor = color
+        viewLeft.isUserInteractionEnabled = false
+        
+        let viewRight = UIView.init()
+        viewRight.tag = 13
+        viewRight.backgroundColor = color
+        viewRight.isUserInteractionEnabled = false
+        
+        
+        self.view.addSubview(viewTop)
+        self.view.addSubview(viewLeft)
+        self.view.addSubview(viewBottom)
+        self.view.addSubview(viewRight)
+        
+        
+        viewTop.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewTop.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+            viewTop.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            viewTop.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            viewTop.heightAnchor.constraint(equalToConstant: insetsPoints.top)
+        ])
+        
+        viewLeft.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewLeft.topAnchor.constraint(equalTo: viewTop.bottomAnchor, constant: 0),
+            viewLeft.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            viewLeft.widthAnchor.constraint(equalToConstant: insetsPoints.left),
+            viewLeft.bottomAnchor.constraint(equalTo: viewBottom.topAnchor, constant: 0),
+        ])
+        
+        viewBottom.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewBottom.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+            viewBottom.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            viewBottom.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            viewBottom.heightAnchor.constraint(equalToConstant: insetsPoints.bottom)
+        ])
+        
+        viewRight.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            viewRight.topAnchor.constraint(equalTo: viewTop.bottomAnchor, constant: 0),
+            viewRight.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            viewRight.widthAnchor.constraint(equalToConstant: insetsPoints.right),
+            viewRight.bottomAnchor.constraint(equalTo: viewBottom.topAnchor, constant: 0),
+        ])
     }
 }

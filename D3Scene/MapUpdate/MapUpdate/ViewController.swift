@@ -13,8 +13,6 @@ class ViewController: UIViewController {
     
     var mapViewController: MapViewController?
     
-    var searchContext: SearchContext?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,7 +21,7 @@ class ViewController: UIViewController {
         
         self.mapViewController!.startRender()
         
-        self.addSearch()
+        self.addMapsButton()
     }
     
     // MARK: - Map View
@@ -61,43 +59,18 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
     }
     
-    // MARK: - Search
+    // MARK: - Map Style
     
-    func addSearch() {
+    func addMapsButton() {
         
-        let barButton = UIBarButtonItem.init(barButtonSystemItem: .search, target: self, action: #selector(searchButton))
-        
-        self.navigationItem.rightBarButtonItems = [barButton]
+        let image = UIImage.init(systemName: "map")
+        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(openMaps))
+        self.navigationItem.rightBarButtonItem = barButton
     }
     
-    @objc func searchButton(item: UIBarButtonItem) {
+    @objc func openMaps() {
         
-        if self.searchContext == nil {
-            
-            self.searchContext = SearchContext.init()
-            self.searchContext?.setMaxMatches(30)
-            self.searchContext?.setSearchMapPOIs(true)
-        }
-        
-        let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
-        
-        self.mapViewController!.center(on: location, zoomLevel: 60, animationDuration: 1200)
-        
-        self.searchContext?.search(withQuery: "store", location: location) { (results: [LandmarkObject]) in
-            
-            for landmark in results {
-                
-                NSLog("results:%@", landmark.getLandmarkName())
-            }
-            
-            if results.count > 0 {
-                
-                self.mapViewController!.removeHighlights()
-                
-                self.mapViewController!.presentHighlights(results, animationDuration: 1200)
-            }
-        }
+        let viewController = MapsViewController.init()
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
-
-

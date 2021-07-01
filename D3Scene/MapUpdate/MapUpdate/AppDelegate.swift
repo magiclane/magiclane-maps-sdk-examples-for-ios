@@ -10,7 +10,7 @@ import UIKit
 import GEMKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, GEMSdkDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -20,11 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GEMSdkDelegate {
         let success = GEMSdk.shared().initSdk(token)
         
         NSLog("GEMKit init with success:%@", String(success))
-        
-        if success {
-            
-            GEMSdk.shared().delegate = self
-        }
         
         self.addSkipBackupAttribute()
         
@@ -58,18 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GEMSdkDelegate {
         let string = "YOUR_TOKEN"
         
         return string
-    }
-    
-    // MARK: - GEMSdkDelegate
-    
-    func shouldUpdateWorldMap(for status: ContentStoreOnlineSupportStatus) -> Bool {
-        
-        if status == .expiredData || status == .oldData {
-            
-            return true
-        }
-        
-        return false
     }
     
     func addSkipBackupAttribute() {
