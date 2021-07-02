@@ -17,6 +17,9 @@
       location = "group:MapStyleList/MapStyleList.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapStyleUpdate/MapStyleUpdate.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapDownload/MapDownload.xcodeproj">
    </FileRef>
    <FileRef
