@@ -5,7 +5,13 @@
       location = "group:MapView/MapView.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapViewCustomStyle/MapViewCustomStyle.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MultiMapView/MultiMapView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:StackMapViews/StackMapViews.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapCompass/MapCompass.xcodeproj">

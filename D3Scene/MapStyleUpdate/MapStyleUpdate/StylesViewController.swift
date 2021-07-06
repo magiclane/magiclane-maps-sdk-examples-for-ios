@@ -21,9 +21,11 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
     
     // MARK: - Init
     
-    public init() {
+    public init(context: MapStyleContext) {
         
         super.init(style: .grouped)
+        
+        self.mapStyleContext = context
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +44,10 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
         
         super.viewDidLoad()
         
-        self.mapStyleContext = MapStyleContext.init()
+        if let context = self.mapStyleContext, context.isUpdateStarted() {
+            
+            context.delegateUpdate = self
+        }
         
         self.title = "Map Styles"
         self.navigationItem.largeTitleDisplayMode = .never
@@ -171,24 +176,37 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
         
         context.delegateUpdate = self
         
-        context.update(withAllowCellularNetwork: false) { [weak self] success in
+        context.update(withAllowCellularNetwork: true) { [weak self] success in
             
             guard let strongSelf = self else { return }
             
-            if success {
-                
-                strongSelf.refreshWithLocalMaps()
-                
-                let action = UIAlertAction.init(title: "Ok", style: .default) { action in }
-                let alert = UIAlertController.init(title: "Update Completed!", message: "", preferredStyle: .alert)
-                alert.addAction(action)
-                strongSelf.present(alert, animated: true, completion: nil)
-                
-                strongSelf.tableView.reloadSections(IndexSet.init(integer: 0), with: .none)
-            }
-            
-            strongSelf.navigationItem.rightBarButtonItems = []
+            strongSelf.updateFinished(success: success)
         }
+    }
+    
+    func updateFinished(success: Bool) {
+        
+        let title = success ? "Update Completed" : "Update Error"
+        let message = ""
+        
+        let action = UIAlertAction.init(title: "Ok", style: .default) { action in }
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+
+        let time: DispatchTime = .now() + 1.0
+        
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            
+            self.refreshWithLocalMaps()
+            self.refreshWithOnlineMaps()
+            
+            self.tableView.reloadData()
+        }
+        
+        self.navigationItem.titleView = nil
+        
+        self.navigationItem.rightBarButtonItems = []
     }
     
     func addCancelUpdate() {
@@ -293,29 +311,30 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
             let status = object.getStatus()
             
             switch status {
+            
             case .unavailable:
-                statusString += "unavailable"
+                statusString += "Unavailable"
                 
             case .completed:
-                statusString += "completed"
+                statusString += "Completed"
                 
             case .paused:
-                statusString += "paused"
+                statusString += "Paused"
                 
             case .downloadQueued:
-                statusString += "downloadQueued"
+                statusString += "Download Queued"
                 
             case .downloadWaiting:
-                statusString += "downloadWaiting"
+                statusString += "Download Waiting"
                 
             case .downloadWaitingFreeNetwork:
-                statusString += "downloadWaitingFreeNetwork"
+                statusString += "Download Waiting Free Network"
                 
             case .downloadRunning:
-                statusString += "downloadRunning"
+                statusString += "Download Running"
                 
             case .updateWaiting:
-                statusString += "updateWaiting"
+                statusString += "Update Waiting"
                 
             default:
                 break
@@ -330,7 +349,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
             
             if object.isUpdatable() {
                 
-                version += "\nNew version: " + object.getUpdateVersion()
+                version += "\nNew version available: " + object.getUpdateVersion()
             }
         }
         
@@ -539,7 +558,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-            
+                
         var contentObject: ContentStoreObject?
         
         if indexPath.section == 0 {
@@ -577,7 +596,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
             }
         }
     }
-
+    
     // MARK: - ContentStoreObjectDelegate
     
     func contentStoreObject(_ object: ContentStoreObject, notifyStart hasProgress: Bool) {
@@ -677,9 +696,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
     
     func contextUpdate(_ context: NSObject, notifyComplete success: Bool) {
         
-        self.navigationItem.titleView = nil
-        
-        self.tableView.reloadSections(IndexSet.init(integer: 0), with: .none)
+        self.updateFinished(success: success)
     }
     
     func contextUpdate(_ context: NSObject, notifyStatusChanged status: ContentUpdateStatus) {
@@ -760,4 +777,5 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate, C
         self.navigationItem.titleView = masterView
     }
 }
+
 

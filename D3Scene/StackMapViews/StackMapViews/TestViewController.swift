@@ -9,7 +9,7 @@
 import UIKit
 import GEMKit
 
-class ViewController: UIViewController {
+class TestViewController: UIViewController {
     
     var mapViewController: MapViewController?
     
@@ -25,14 +25,38 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.createMapView()
+        self.mapViewController = MapViewController.init()
+        self.mapViewController?.view.alpha = 0
+        self.mapViewController?.view.backgroundColor = UIColor.systemBackground
+        
+        self.makeLayoutFor(viewController: self.mapViewController!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
-        self.mapViewController!.startRender()
+        if self.mapViewController!.view.alpha == 0 {
+            
+            self.mapViewController!.startRender()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        if self.mapViewController!.view.alpha == 0 {
+            
+            UIView.animate(withDuration: 0.2) {
+                
+                self.mapViewController!.view.alpha = 1
+            }
+            
+        } else {
+            
+            self.mapViewController!.startRender()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -42,34 +66,31 @@ class ViewController: UIViewController {
         self.mapViewController!.stopRender()
     }
     
-    // MARK: - Map View
+    // MARK: - Layout
     
-    func createMapView() {
+    func makeLayoutFor(viewController: UIViewController)  {
         
-        self.mapViewController = MapViewController.init()
-        self.mapViewController!.view.backgroundColor = UIColor.systemBackground
+        self.addChild(viewController)
+        self.view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
         
-        self.addChild(self.mapViewController!)
-        self.view.addSubview(self.mapViewController!.view)
-        self.mapViewController!.didMove(toParent: self)
-        
-        self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        let constraintTop = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraintTop = NSLayoutConstraint( item: viewController.view!, attribute: NSLayoutConstraint.Attribute.top,
                                                 relatedBy: NSLayoutConstraint.Relation.equal,
                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.top,
                                                 multiplier: 1.0, constant: 0)
         
-        let constraintLeft = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
+        let constraintLeft = NSLayoutConstraint( item: viewController.view!, attribute: NSLayoutConstraint.Attribute.leading,
                                                  relatedBy: NSLayoutConstraint.Relation.equal,
                                                  toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
                                                  multiplier: 1.0, constant: 0)
         
-        let constraintBottom = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.bottom,
+        let constraintBottom = NSLayoutConstraint( item: viewController.view!, attribute: NSLayoutConstraint.Attribute.bottom,
                                                    relatedBy: NSLayoutConstraint.Relation.equal,
                                                    toItem: self.view, attribute: NSLayoutConstraint.Attribute.bottom,
                                                    multiplier: 1.0, constant: -0)
         
-        let constraintRight = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
+        let constraintRight = NSLayoutConstraint( item: viewController.view!, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   relatedBy: NSLayoutConstraint.Relation.equal,
                                                   toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
                                                   multiplier: 1.0, constant: -0)

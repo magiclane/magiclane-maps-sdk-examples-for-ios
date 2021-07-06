@@ -13,19 +13,22 @@ class ViewController: UIViewController {
     
     var mapViewController: MapViewController?
     
-    var mapsContext: MapsContext?
-    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        self.mapsContext = MapsContext.init()
+        super.viewDidLoad()
         
         self.createMapView()
         
-        self.mapViewController!.startRender()
+        self.mapViewController!.hideCompass()
         
-        self.addMapsButton()
+        self.setCustomStyle()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        self.mapViewController!.startRender()
     }
     
     // MARK: - Map View
@@ -63,18 +66,14 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
     }
     
-    // MARK: - Map Style
-    
-    func addMapsButton() {
+    func setCustomStyle() {
         
-        let image = UIImage.init(systemName: "map")
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(openMaps))
-        self.navigationItem.rightBarButtonItem = barButton
-    }
-    
-    @objc func openMaps() {
-        
-        let viewController = MapsViewController.init(context: self.mapsContext!)
-        self.navigationController?.pushViewController(viewController, animated: true)
+        if let url = Bundle.main.url(forResource: "NightBlues", withExtension: "style") {
+            
+            if let data = NSData.init(contentsOf: url) as Data? {
+                
+                self.mapViewController!.applyStyle(withStyleBuffer: data, smoothTransition: false)
+            }
+        }
     }
 }

@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.mapStyleContext = MapStyleContext.init()
+        
         self.createMapView()
         
         self.mapViewController!.startRender()
@@ -76,7 +78,7 @@ class ViewController: UIViewController {
     
     @objc func showMapStyles() {
         
-        let viewController = StylesViewController.init()
+        let viewController = StylesViewController.init(context: self.mapStyleContext!)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

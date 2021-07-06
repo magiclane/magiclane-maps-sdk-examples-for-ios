@@ -19,13 +19,13 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
     var offlineList: [ContentStoreObject] = []
     var onlineList: [ContentStoreObject] = []
     
-    var showUpdateBadge = false
-    
     // MARK: - Init
     
-    public init() {
+    public init(context: MapsContext) {
         
         super.init(style: .insetGrouped)
+        
+        self.mapsContext = context
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +44,10 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
         
         super.viewDidLoad()
         
-        self.mapsContext = MapsContext.init()
+        if let context = self.mapsContext, context.isUpdateStarted() {
+            
+            context.delegateUpdate = self
+        }
         
         self.title = "Map ver. " + self.mapsContext!.getWorldMapVersion()
         self.navigationItem.largeTitleDisplayMode = .never
@@ -122,16 +125,12 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
             
             if status == .upToDate {
                 
-                self.showUpdateBadge = false
-                
                 let action = UIAlertAction.init(title: "Ok", style: .default) { action in }
                 let alert = UIAlertController.init(title: "Info", message: "World Map is up to date.", preferredStyle: .alert)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
                 
             } else if status == .oldData || status == .expiredData {
-                
-                self.showUpdateBadge = true
                 
                 let action1 = UIAlertAction.init(title: "Update", style: .default) { [weak self] action in
                     
@@ -152,8 +151,13 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
                 alert.addAction(action2)
                 alert.addAction(action1)
                 
-                let message1 = "New World Map available, \nSize: "
-                let message2 = context.getUpdateSizeFormatted()
+                let message1 = "New World Map available"
+                var message2 = ", \nSize: " + context.getUpdateSizeFormatted()
+                
+                if context.getUpdateSize() == 0 {
+                    message2 = ""
+                }
+                
                 let message3 = ". Do you want to update?"
                 let attributes1 = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.label]
                 let attributes2 = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.label]
@@ -181,31 +185,40 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
             
             guard let strongSelf = self else { return }
             
-            if success {
-                
-                strongSelf.showUpdateBadge = false
-                
-                strongSelf.refreshWithLocalMaps()
-                
-                if strongSelf.onlineList.count == 0 { // fresh install with shouldUpdateWorldMap: false
-                    
-                    strongSelf.refreshWithOnlineMaps()
-                }
-                
-                let message = "New Map version: " + context.getWorldMapVersion()
-                
-                let action = UIAlertAction.init(title: "Ok", style: .default) { action in }
-                let alert = UIAlertController.init(title: "Update Completed!", message: message, preferredStyle: .alert)
-                alert.addAction(action)
-                strongSelf.present(alert, animated: true, completion: nil)
-                
-                strongSelf.title = "Map ver. " + context.getWorldMapVersion()
-                
-                strongSelf.tableView.reloadData()
-            }
-            
-            strongSelf.navigationItem.rightBarButtonItems = []
+            strongSelf.updateFinished(success: success)
         }
+    }
+    
+    func updateFinished(success: Bool) {
+        
+        guard let context = self.mapsContext else {
+            
+            return
+        }
+        
+        let title   = success ? "Update Completed" : "Update Error"
+        let message = success ? "New Map version: " + context.getWorldMapVersion() : ""
+        
+        let action = UIAlertAction.init(title: "Ok", style: .default) { action in }
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+        
+        let time: DispatchTime = .now() + 1.0
+        
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            
+            self.refreshWithLocalMaps()
+            self.refreshWithOnlineMaps()
+            
+            self.tableView.reloadData()
+            
+            self.title = "Map ver. " + context.getWorldMapVersion()
+        }
+        
+        self.navigationItem.titleView = nil
+        
+        self.navigationItem.rightBarButtonItems = []
     }
     
     func addCancelUpdate() {
@@ -310,41 +323,54 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
         
         if indexPath.section == 0 {
             
-            statusString = "\n Status: "
+            statusString = "\nStatus: "
             
             let status = object.getStatus()
             
             switch status {
+            
             case .unavailable:
-                statusString += "unavailable"
+                statusString += "Unavailable"
                 
             case .completed:
-                statusString += "completed"
+                statusString += "Completed"
                 
             case .paused:
-                statusString += "paused"
+                statusString += "Paused"
                 
             case .downloadQueued:
-                statusString += "downloadQueued"
+                statusString += "Download Queued"
                 
             case .downloadWaiting:
-                statusString += "downloadWaiting"
+                statusString += "Download Waiting"
                 
             case .downloadWaitingFreeNetwork:
-                statusString += "downloadWaitingFreeNetwork"
+                statusString += "Download Waiting Free Network"
                 
             case .downloadRunning:
-                statusString += "downloadRunning"
+                statusString += "Download Running"
                 
             case .updateWaiting:
-                statusString += "updateWaiting"
+                statusString += "Update Waiting"
                 
             default:
                 break
             }
         }
         
-        cell.detailTextLabel?.text = description + statusString
+        var version = ""
+        
+        if indexPath.section == 0 {
+            
+            version = "\nCurrent Version: " + object.getClientVersion()
+            
+            if object.isUpdatable() {
+                
+                version += "\nNew version available: " + object.getUpdateVersion()
+            }
+        }
+        
+        cell.detailTextLabel?.text = description + statusString + version
     }
 
     func setupImage(tableView: UITableView, cell: UITableViewCell, indexPath: IndexPath, object: ContentStoreObject) {
@@ -382,7 +408,7 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
             
             let isUpdatable = object.isUpdatable()
             
-            if self.showUpdateBadge && isUpdatable {
+            if isUpdatable {
                 
                 let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold)
                 
@@ -672,9 +698,7 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
     
     func contextUpdate(_ context: NSObject, notifyComplete success: Bool) {
         
-        self.navigationItem.titleView = nil
-        
-        self.tableView.reloadSections(IndexSet.init(integer: 0), with: .none)
+        self.updateFinished(success: success)
     }
     
     func contextUpdate(_ context: NSObject, notifyStatusChanged status: ContentUpdateStatus) {
