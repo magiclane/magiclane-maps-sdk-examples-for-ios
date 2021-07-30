@@ -16,6 +16,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager?
     
+    let positionContext = PositionContext.init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -70,6 +72,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
             self.locationManager = CLLocationManager.init()
             self.locationManager!.delegate = self
+        }
+        
+        if self.isLocationAvailable() {
+            
+            if self.positionContext.isProcessingLocationSevicesData() == false {
+            
+                self.positionContext.startProcessingLocationSevicesData()
+            }
         }
         
         var image = UIImage.init(systemName: "location")
