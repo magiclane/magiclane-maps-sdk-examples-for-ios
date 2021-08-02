@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     var mapViewController: MapViewController?
     
+    var alarmContext: AlarmContext?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -20,8 +22,10 @@ class ViewController: UIViewController {
         self.createMapView()
         
         self.mapViewController!.startRender()
+        self.mapViewController!.setEdgeAreaInsets(self.areaEdge(margin: 30))
+        self.mapViewController!.hideCompass()
         
-        self.addPolylineButton()
+        self.addShapesButton()
     }
     
     // MARK: - Map View
@@ -59,60 +63,158 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
     }
     
-    // MARK: - Polylines
+    // MARK: - Shapes
     
-    func addPolylineButton() {
+    func addShapesButton() {
         
-        let image = UIImage.init(systemName: "pencil")
+        var image = UIImage.init(systemName: "circle.fill")
+        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(togglePoints(_:)))
+        barButton1.tag = 1
         
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(togglePolylines(_:)))
-        barButton.tag = 1
-        self.navigationItem.rightBarButtonItem = barButton
+        image = UIImage.init(systemName: "line.diagonal")
+        let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(togglePolylines(_:)))
+        barButton2.tag = 2
+        
+        image = UIImage.init(systemName: "triangle")
+        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(togglePolygon(_:)))
+        barButton3.tag = 3
+
+        image = UIImage.init(systemName: "clear")
+        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearAll))
+        
+        self.navigationItem.rightBarButtonItems = [barButton1, barButton2, barButton3]
+        self.navigationItem.leftBarButtonItem = barButton
+    }
+    
+    @objc func togglePoints(_ barButton: UIBarButtonItem) {
+        
+        if let marker = self.markerAvailable(type: .point) {
+            
+            self.mapViewController!.removeMarker(marker)
+            
+        } else {
+            
+            let coordinates = self.generatePointsCoordinates()
+            
+            let marker = MarkerObject.init(coordinates: coordinates)
+            
+            let markerCollection = MarkerCollectionObject.init(name: "My Points", type: .point);
+            markerCollection.addMarker(marker)
+            
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
+        }
     }
     
     @objc func togglePolylines(_ barButton: UIBarButtonItem) {
         
-        if barButton.tag == 1 {
+        if let marker = self.markerAvailable(type: .polyline) {
             
-            barButton.tag = 2
-            barButton.image = UIImage.init(systemName: "pencil.slash")
-            
-            let coordinates = self.generatePolylinesCoordinates()
-            
-            let inColor = self.randomColor()
-            let outColor = self.randomColor()
-            
-            let insets = self.areaEdge(margin: 30)
-            
-            self.showEdgeaArea(insets: insets)
-            
-            self.mapViewController!.setEdgeAreaInsets(insets)
-            
-            self.mapViewController!.addPolylines(withCoordinates: coordinates, innerColor: inColor, outerColor: outColor, animationDuration: 1000)
+            self.mapViewController!.removeMarker(marker)
             
         } else {
             
-            barButton.tag = 1
-            barButton.image = UIImage.init(systemName: "pencil")
+            let coordinates = self.generatePolylinesCoordinates()
             
-            self.mapViewController!.removePolylines()
+            let marker = MarkerObject.init(coordinates: coordinates)
+            
+            let markerCollection = MarkerCollectionObject.init(name: "My Polyline", type: .polyline);
+            markerCollection.addMarker(marker)
+            
+            markerCollection.setInnerSize(1.0)
+            markerCollection.setInnerColor(UIColor.red)
+            
+            markerCollection.setOuterSize(1.2)
+            markerCollection.setOuterColor(UIColor.black)
+            
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
+        }
+    }
+    
+    @objc func togglePolygon(_ barButton: UIBarButtonItem) {
+        
+        if let marker = self.markerAvailable(type: .polygon) {
+            
+            self.mapViewController!.removeMarker(marker)
+            
+        } else {
+            
+            let coordinates = self.generatePolygonCoordinates()
+            
+            let marker = MarkerObject.init(coordinates: coordinates)
+            
+            let markerCollection = MarkerCollectionObject.init(name: "My Polygon", type: .polygon);
+            markerCollection.addMarker(marker)
+            
+            markerCollection.setInnerSize(0.6)
+            markerCollection.setInnerColor(UIColor.red)
+            
+            markerCollection.setOuterSize(1.2)
+            markerCollection.setOuterColor(UIColor.black)
+            
+            markerCollection.setFill(UIColor.yellow.withAlphaComponent(0.25))
+            
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
+        }
+    }
+    
+    @objc func clearAll() {
+        
+        let allMarkers = self.mapViewController!.getAvailableMarkers()
+        
+        for marker in allMarkers {
+            
+            self.mapViewController!.removeMarker(marker)
         }
     }
     
     // MARK: - Utils
     
+    func generatePointsCoordinates() -> [GeoLocation] {
+        
+        var coordinates: [GeoLocation] = []
+        
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.930882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.900882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.870882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.840882))
+        
+        return coordinates
+    }
+    
     func generatePolylinesCoordinates() -> [GeoLocation] {
         
         var coordinates: [GeoLocation] = []
         
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360234, longitude: 4.886782))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360495, longitude: 4.886266))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360854, longitude: 4.885539))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.361184, longitude: 4.884849))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.361439, longitude: 4.884344))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.361593, longitude: 4.883986))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360495, longitude: 4.936882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360495, longitude: 4.836882))
         
         return coordinates
+    }
+    
+    func generatePolygonCoordinates() -> [GeoLocation] {
+        
+        var coordinates: [GeoLocation] = []
+        
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.340234, longitude: 4.886882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.300495, longitude: 4.936882))
+        coordinates.append(GeoLocation.coordinates(withLatitude: 52.300495, longitude: 4.836882))
+        
+        return coordinates
+    }
+    
+    func markerAvailable(type: MarkerCollectionType) -> MarkerCollectionObject? {
+        
+        let allMarkers = self.mapViewController!.getAvailableMarkers()
+        
+        for marker in allMarkers {
+            
+            if marker.getType() == type {
+                
+                return marker
+            }
+        }
+        
+        return nil
     }
     
     func randomColor() -> UIColor {
@@ -128,7 +230,7 @@ class ViewController: UIViewController {
         
         let insets = UIEdgeInsets.init(top: (self.view.safeAreaInsets.top + margin) * scale,
                                        left: margin * scale,
-                                       bottom: self.view.safeAreaInsets.bottom * scale,
+                                       bottom: (self.view.safeAreaInsets.bottom + margin) * scale,
                                        right: margin * scale)
         
         return insets

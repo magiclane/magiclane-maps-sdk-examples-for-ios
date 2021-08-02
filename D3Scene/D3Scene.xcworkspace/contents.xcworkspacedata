@@ -5,6 +5,9 @@
       location = "group:MapView/MapView.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Shapes/Shapes.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapViewCustomStyle/MapViewCustomStyle.xcodeproj">
    </FileRef>
    <FileRef
@@ -36,9 +39,6 @@
    </FileRef>
    <FileRef
       location = "group:CenterMap/CenterMap.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Polylines/Polylines.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:WorldMapUpdate/WorldMapUpdate.xcodeproj">
