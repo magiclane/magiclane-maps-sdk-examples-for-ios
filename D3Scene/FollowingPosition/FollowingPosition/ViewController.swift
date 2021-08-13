@@ -78,7 +78,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             if self.positionContext.isProcessingLocationSevicesData() == false {
             
-                self.positionContext.startProcessingLocationSevicesData()
+                self.positionContext.startProcessingLocationSevicesData(withAllowBackgroundLocationUpdates: false)
             }
         }
         

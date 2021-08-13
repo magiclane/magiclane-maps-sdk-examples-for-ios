@@ -47,6 +47,7 @@
 		CE09577C262D4C0E00C32A6D /* CarPlayInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarPlayInterface.swift; sourceTree = "<group>"; };
 		CE09577E262D4C1300C32A6D /* CPRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPRootViewController.swift; sourceTree = "<group>"; };
 		CE24A3B026384EC000688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CED195F526C284A300371AAD /* Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sample.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 				CE095766262D4BAB00C32A6D /* Main.storyboard */,
 				CE095769262D4BAC00C32A6D /* Assets.xcassets */,
 				CE09576B262D4BAC00C32A6D /* LaunchScreen.storyboard */,
+				CED195F526C284A300371AAD /* Sample.entitlements */,
 				CE09576E262D4BAC00C32A6D /* Info.plist */,
 				CE09577A262D4C0600C32A6D /* CarPlaySceneDelegate.swift */,
 				CE09577C262D4C0E00C32A6D /* CarPlayInterface.swift */,
@@ -326,6 +328,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MapView/Sample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_BITCODE = NO;
@@ -346,6 +349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MapView/Sample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_BITCODE = NO;

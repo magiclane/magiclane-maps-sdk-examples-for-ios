@@ -13,11 +13,11 @@ class ViewController: UIViewController {
     
     var mapViewController: MapViewController?
     
-    var alarmContext: AlarmContext?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        self.title = "Shapes"
         
         self.createMapView()
         

@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if success {
             
             GEMSdk.shared().setUnitSystem(.metric)
-            
-            GEMSdk.shared().activateDebugLogger()
         }
         
         NSLog("GEMKit init with success:%@", String(success))

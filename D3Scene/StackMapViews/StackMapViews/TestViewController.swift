@@ -102,31 +102,44 @@ class TestViewController: UIViewController {
     
     func addPolylines() {
         
-        self.mapViewController!.addPolylines(withCoordinates: [
-                                                GeoLocation.coordinates(withLatitude: 51, longitude: 5),
-                                                GeoLocation.coordinates(withLatitude: 51.00001, longitude: 5.1),
-                                                GeoLocation.coordinates(withLatitude: 51.00002, longitude: 5.2),
-                                                GeoLocation.coordinates(withLatitude: 51.00003, longitude: 5.3),
-                                                GeoLocation.coordinates(withLatitude: 51.00004, longitude: 5.3),
-                                                GeoLocation.coordinates(withLatitude: 51.00005, longitude: 5.2),
-                                                GeoLocation.coordinates(withLatitude: 51.00006, longitude: 5.15),
-                                                GeoLocation.coordinates(withLatitude: 51.00007, longitude: 5.3),
-                                                GeoLocation.coordinates(withLatitude: 51.00008, longitude: 5.2),
-                                                GeoLocation.coordinates(withLatitude: 51.00009, longitude: 5.3),
-                                                GeoLocation.coordinates(withLatitude: 51.0001, longitude: 5.123),
-                                                GeoLocation.coordinates(withLatitude: 51.00011, longitude: 5.432),
-                                                GeoLocation.coordinates(withLatitude: 51.00012, longitude: 5.234),
-                                                GeoLocation.coordinates(withLatitude: 51.00013, longitude: 5.525),
-                                                GeoLocation.coordinates(withLatitude: 51.00014, longitude: 5.234),
-                                                GeoLocation.coordinates(withLatitude: 51.00015, longitude: 5.234234),
-                                                GeoLocation.coordinates(withLatitude: 51.00016, longitude: 5.643),
-                                                GeoLocation.coordinates(withLatitude: 51.00017, longitude: 5.523),
-                                                GeoLocation.coordinates(withLatitude: 51.00018, longitude: 5.253),
-                                                GeoLocation.coordinates(withLatitude: 51.00019, longitude: 5.643),
-                                                GeoLocation.coordinates(withLatitude: 51.0002, longitude: 5.234),
-                                                GeoLocation.coordinates(withLatitude: 51.00011, longitude: 5.152),],
-                                             innerColor: UIColor.red, outerColor: UIColor.red, animationDuration: 0)
+        let coordinates = [
+            
+            GeoLocation.coordinates(withLatitude: 51, longitude: 5),
+            GeoLocation.coordinates(withLatitude: 51.00001, longitude: 5.1),
+            GeoLocation.coordinates(withLatitude: 51.00002, longitude: 5.2),
+            GeoLocation.coordinates(withLatitude: 51.00003, longitude: 5.3),
+            GeoLocation.coordinates(withLatitude: 51.00004, longitude: 5.3),
+            GeoLocation.coordinates(withLatitude: 51.00005, longitude: 5.2),
+            GeoLocation.coordinates(withLatitude: 51.00006, longitude: 5.15),
+            GeoLocation.coordinates(withLatitude: 51.00007, longitude: 5.3),
+            GeoLocation.coordinates(withLatitude: 51.00008, longitude: 5.2),
+            GeoLocation.coordinates(withLatitude: 51.00009, longitude: 5.3),
+            GeoLocation.coordinates(withLatitude: 51.0001, longitude: 5.123),
+            GeoLocation.coordinates(withLatitude: 51.00011, longitude: 5.432),
+            GeoLocation.coordinates(withLatitude: 51.00012, longitude: 5.234),
+            GeoLocation.coordinates(withLatitude: 51.00013, longitude: 5.525),
+            GeoLocation.coordinates(withLatitude: 51.00014, longitude: 5.234),
+            GeoLocation.coordinates(withLatitude: 51.00015, longitude: 5.234234),
+            GeoLocation.coordinates(withLatitude: 51.00016, longitude: 5.643),
+            GeoLocation.coordinates(withLatitude: 51.00017, longitude: 5.523),
+            GeoLocation.coordinates(withLatitude: 51.00018, longitude: 5.253),
+            GeoLocation.coordinates(withLatitude: 51.00019, longitude: 5.643),
+            GeoLocation.coordinates(withLatitude: 51.0002, longitude: 5.234),
+            GeoLocation.coordinates(withLatitude: 51.00011, longitude: 5.152)
+        ]
         
+        let marker = MarkerObject.init(coordinates: coordinates)
+        
+        let markerCollection = MarkerCollectionObject.init(name: "My Polylines", type: .polyline)
+        markerCollection.addMarker(marker)
+        
+        markerCollection.setInnerSize(0.5)
+        markerCollection.setInnerColor(UIColor.red)
+        
+        markerCollection.setOuterSize(0.5)
+        markerCollection.setOuterColor(UIColor.black)
+        
+        self.mapViewController!.addMarker(markerCollection, animationDuration: 1600)
     }
     
 }
