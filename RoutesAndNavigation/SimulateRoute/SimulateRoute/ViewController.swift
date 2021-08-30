@@ -399,6 +399,14 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
     }
     
+    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
+        
+    }
+
     // MARK: - NavigationContextDelegate
     
     func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationStatusChanged status: NavigationStatus) {

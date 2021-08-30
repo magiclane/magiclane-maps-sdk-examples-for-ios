@@ -191,6 +191,14 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
     }
     
+    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
+        
+    }
+    
     // MARK: - Address Search
     
     func addSearchButton() {

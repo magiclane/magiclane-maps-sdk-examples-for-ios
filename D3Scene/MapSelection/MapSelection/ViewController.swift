@@ -192,4 +192,12 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
     func mapViewController(_ mapViewController: MapViewController, onRotatePoint startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint, center: CGPoint, delta: Double) {
         
     }
+    
+    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
+        
+    }
 }

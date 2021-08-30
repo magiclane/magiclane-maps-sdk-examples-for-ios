@@ -328,6 +328,14 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
     }
     
+    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
+        
+    }
+    
     func presentLandmarkOnMap(landmark: LandmarkObject, centerLayout: Bool) {
         
         self.selectedLandmark = landmark
