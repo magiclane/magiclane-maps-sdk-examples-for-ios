@@ -22,6 +22,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.createMapView()
         
         self.mapViewController!.startRender()
@@ -101,7 +108,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
         } else {
             
-            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1) { success in }
+            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1, viewAngle: 0) { success in }
         }
     }
     

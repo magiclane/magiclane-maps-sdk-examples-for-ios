@@ -25,6 +25,13 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.mapViewController = MapViewController.init()
         self.mapViewController?.view.alpha = 0
         self.mapViewController?.view.backgroundColor = UIColor.systemBackground

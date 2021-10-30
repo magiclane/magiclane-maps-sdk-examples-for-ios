@@ -23,6 +23,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.createMapView()
         
         self.mapViewController!.startRender()
@@ -96,7 +103,7 @@ class ViewController: UIViewController {
         
         self.searchContext?.setCategory(object)
                 
-        self.searchContext?.searchArround(with: location) { [weak self] (results: [LandmarkObject]) in
+        self.searchContext?.searchAround(with: location) { [weak self] (results: [LandmarkObject]) in
             
             guard let strongSelf = self else { return }
             
@@ -117,7 +124,7 @@ class ViewController: UIViewController {
         
         self.searchContext?.setCategory(object)
         
-        self.searchContext?.searchArround(with: location) { [weak self] (results: [LandmarkObject]) in
+        self.searchContext?.searchAround(with: location) { [weak self] (results: [LandmarkObject]) in
             
             guard let strongSelf = self else { return }
             

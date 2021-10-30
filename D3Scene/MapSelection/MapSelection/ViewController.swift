@@ -20,6 +20,13 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = "Map Selection"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
@@ -198,6 +205,10 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
     }
     
     func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
+        
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, onPinch startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint) {
         
     }
 }

@@ -34,6 +34,13 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         super.viewDidLoad()
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.createMapView()
         self.createStore()
         
@@ -308,34 +315,6 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.presentLandmarkOnMap(landmark: landmark, centerLayout: false)
     }
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {
-                
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onRotatePoint startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint, center: CGPoint, delta: Double) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
-        
-    }
-    
     func presentLandmarkOnMap(landmark: LandmarkObject, centerLayout: Bool) {
         
         self.selectedLandmark = landmark
@@ -392,7 +371,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.systemRed, centerLayout: centerLayout, animationDuration: 600)
     }
-    
+        
     // MARK: - Debug
     
     func printDebugInfo() {

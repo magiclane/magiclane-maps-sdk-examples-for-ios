@@ -28,6 +28,13 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         super.viewDidLoad()
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = ""
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
@@ -176,18 +183,16 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         if self.navigationContext == nil {
             
-            self.navigationContext = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.car)
+            preferences.setRouteType(.fastest)
+            preferences.setAvoidMotorways(false)
+            preferences.setAvoidTollRoads(false)
+            preferences.setAvoidFerries(false)
+            preferences.setAvoidUnpavedRoads(true)
+            
+            self.navigationContext = NavigationContext.init(preferences: preferences)
             self.navigationContext?.delegate = self
-            
-            // Settings
-            self.navigationContext?.setTransportMode(.car)
-            self.navigationContext?.setRouteType(.fastest)
-            
-            // Preferences
-            self.navigationContext?.setAvoidMotorways(false)
-            self.navigationContext?.setAvoidTollRoads(false)
-            self.navigationContext?.setAvoidFerries(false)
-            self.navigationContext?.setAvoidUnpavedRoads(true)
         }
         
         if self.soundContext == nil {
@@ -309,15 +314,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     }
     
     // MARK: - MapViewControllerDelegate
-    
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
         
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
-        
-    }
-    
     func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {
         
         self.mainRoute = route
@@ -325,30 +322,6 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         mapViewController.setMainRoute(route)
     }
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onRotatePoint startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint, center: CGPoint, delta: Double) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
-        
-    }
-
     // MARK: - NavigationContextDelegate
     
     func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationStatusChanged status: NavigationStatus) {

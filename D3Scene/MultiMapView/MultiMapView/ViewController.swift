@@ -20,6 +20,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         var image = UIImage.init(systemName: "plus")
         let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(buttonPlusPressed))
         

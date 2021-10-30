@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GEMSdkDelegate {
     
     // MARK: - GEMSdkDelegate
     
-    func shouldUpdateWorldMap(for status: ContentStoreOnlineSupportStatus) -> Bool {
+    func shouldUpdateWorldwideRoadMap(for status: ContentStoreOnlineSupportStatus) -> Bool {
         
         if status == .expiredData || status == .oldData {
             

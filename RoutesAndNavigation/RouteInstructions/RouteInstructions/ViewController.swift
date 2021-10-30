@@ -23,6 +23,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = "Route Instructions"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
@@ -89,17 +96,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         if self.navigationContext == nil {
             
-            self.navigationContext = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.car)
+            preferences.setRouteType(.fastest)
+            preferences.setAvoidMotorways(false)
+            preferences.setAvoidTollRoads(false)
+            preferences.setAvoidFerries(false)
+            preferences.setAvoidUnpavedRoads(true)
             
-            // Settings
-            self.navigationContext?.setTransportMode(.car)
-            self.navigationContext?.setRouteType(.fastest)
-            
-            // Preferences
-            self.navigationContext?.setAvoidMotorways(false)
-            self.navigationContext?.setAvoidTollRoads(false)
-            self.navigationContext?.setAvoidFerries(false)
-            self.navigationContext?.setAvoidUnpavedRoads(true)
+            self.navigationContext = NavigationContext.init(preferences: preferences)
         }
         
         if self.trafficContext == nil {

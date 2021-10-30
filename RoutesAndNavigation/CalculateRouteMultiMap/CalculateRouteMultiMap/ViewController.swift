@@ -21,6 +21,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = "GEM Routes"
         self.view.backgroundColor = UIColor.lightGray
         self.navigationItem.hidesSearchBarWhenScrolling = false
@@ -128,17 +135,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             self.createMap1View()
             
-            self.navigationContext1 = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.car)
+            preferences.setRouteType(.fastest)
+            preferences.setAvoidMotorways(false)
+            preferences.setAvoidTollRoads(false)
+            preferences.setAvoidFerries(false)
+            preferences.setAvoidUnpavedRoads(true)
             
-            // Settings
-            self.navigationContext1?.setTransportMode(.car)
-            self.navigationContext1?.setRouteType(.fastest)
-            
-            // Preferences
-            self.navigationContext1?.setAvoidMotorways(false)
-            self.navigationContext1?.setAvoidTollRoads(false)
-            self.navigationContext1?.setAvoidFerries(false)
-            self.navigationContext1?.setAvoidUnpavedRoads(true)
+            self.navigationContext1 = NavigationContext.init(preferences: preferences)
             
             return
         }
@@ -185,17 +190,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
             
             self.createMap2View()
             
-            self.navigationContext2 = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.car)
+            preferences.setRouteType(.fastest)
+            preferences.setAvoidMotorways(false)
+            preferences.setAvoidTollRoads(false)
+            preferences.setAvoidFerries(false)
+            preferences.setAvoidUnpavedRoads(true)
             
-            // Settings
-            self.navigationContext2?.setTransportMode(.car)
-            self.navigationContext2?.setRouteType(.fastest)
-            
-            // Preferences
-            self.navigationContext2?.setAvoidMotorways(false)
-            self.navigationContext2?.setAvoidTollRoads(false)
-            self.navigationContext2?.setAvoidFerries(false)
-            self.navigationContext2?.setAvoidUnpavedRoads(true)
+            self.navigationContext2 = NavigationContext.init(preferences: preferences)
             
             return
         }

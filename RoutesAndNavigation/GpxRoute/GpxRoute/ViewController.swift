@@ -21,6 +21,13 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = "GEM Gpx Route"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
@@ -95,9 +102,11 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
         
         if self.navigationContext == nil {
             
-            self.navigationContext = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.bicycle)
+
+            self.navigationContext = NavigationContext.init(preferences: preferences)
             self.navigationContext?.delegate = self
-            self.navigationContext?.setTransportMode(.bicycle)
         }
         
         let startPoints: [LandmarkObject] = [

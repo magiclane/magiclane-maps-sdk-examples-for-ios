@@ -38,6 +38,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if let navigationController = self.navigationController {
+            
+            let appearance = navigationController.navigationBar.standardAppearance
+            
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
+        
         self.title = "Navigate Route"
         self.navigationItem.largeTitleDisplayMode = .never
         
@@ -100,7 +107,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             if self.positionContext.isProcessingLocationSevicesData() == false {
             
-                self.positionContext.startProcessingLocationSevicesData()
+                self.positionContext.startProcessingLocationSevicesData(withAllowBackgroundLocationUpdates: false)
             }
         }
         
@@ -305,18 +312,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if self.navigationContext == nil {
             
-            self.navigationContext = NavigationContext.init()
+            let preferences = RoutePreferencesObject.init()
+            preferences.setTransportMode(.car)
+            preferences.setRouteType(.fastest)
+            preferences.setAvoidMotorways(false)
+            preferences.setAvoidTollRoads(false)
+            preferences.setAvoidFerries(false)
+            preferences.setAvoidUnpavedRoads(true)
+            
+            self.navigationContext = NavigationContext.init(preferences: preferences)
             self.navigationContext?.delegate = self
-            
-            // Settings
-            self.navigationContext?.setTransportMode(.car)
-            self.navigationContext?.setRouteType(.fastest)
-            
-            // Preferences
-            self.navigationContext?.setAvoidMotorways(false)
-            self.navigationContext?.setAvoidTollRoads(false)
-            self.navigationContext?.setAvoidFerries(false)
-            self.navigationContext?.setAvoidUnpavedRoads(true)
         }
         
         if self.trafficContext == nil {
@@ -348,11 +353,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             })
         }
         
-        guard let location = self.positionContext.getPosition().getPositionGeoLocation() else { return }
+        guard let position = self.positionContext.getPosition() else { return }
+        
+        let location = position.getCoordinates()
+        
+        if location.isValid() == false {
+            
+            return
+        }
         
         self.departure = LandmarkObject.landmark(withName: "My Position", location: location)
         
         guard let start = self.departure, let stop = self.destination else {
+            
             return
         }
         
@@ -456,30 +469,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         mapViewController.setMainRoute(route)
     }
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onRotatePoint startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint, center: CGPoint, delta: Double) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
-        
-    }
-
     // MARK: - NavigationContextDelegate
     
     func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationStatusChanged status: NavigationStatus) {

@@ -146,13 +146,16 @@ class PTRouteDescriptionViewController: UITableViewController {
                     item.sortKey = Int(timeDistance.getTotalDistance())
                 }
                 
-                if let image = routeInstruction.getTurnImage(imgSize,
-                                                             colorActiveInner: UIColor.black,
-                                                             colorActiveOuter: UIColor.white,
-                                                             colorInactiveInner: UIColor.lightGray,
-                                                             colorInactiveOuter: UIColor.lightGray) {
+                if let turn = routeInstruction.getTurnDetails() {
                     
-                    item.image = image
+                    if let image = turn.getTurnImage(imgSize,
+                                                     colorActiveInner: UIColor.black,
+                                                     colorActiveOuter: UIColor.white,
+                                                     colorInactiveInner: UIColor.lightGray,
+                                                     colorInactiveOuter: UIColor.lightGray) {
+                        
+                        item.image = image
+                    }
                 }
                 
                 section.dataItems.append(item)
