@@ -1,6 +1,6 @@
 # GeneralMagic - Maps SDK for iOS demo applications
 
-Copyright (C) 2019-2021, General Magic B.V.  
+Copyright (C) 2019-2022, General Magic B.V.  
 All rights reserved.  
 Contact: info@generalmagic.com
 

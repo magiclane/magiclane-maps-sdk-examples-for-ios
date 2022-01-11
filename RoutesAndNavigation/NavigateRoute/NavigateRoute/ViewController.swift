@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, General Magic B.V.
+// Copyright (C) 2019-2022, General Magic B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of General Magic
@@ -105,9 +105,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if self.isLocationAvailable() {
             
-            if self.positionContext.isProcessingLocationSevicesData() == false {
-            
-                self.positionContext.startProcessingLocationSevicesData(withAllowBackgroundLocationUpdates: false)
+            if self.positionContext.isProcessingLocationServicesData() == false {
+                
+                let configuration = DataSourceConfigurationObject.init()
+                configuration.setPositionActivity(.automotive)
+                configuration.setPositionAccuracy(.whenMoving)
+                configuration.setPositionDistanceFilter(0)
+                
+                self.positionContext.startProcessingLocationServicesData(with: configuration)
             }
         }
         
@@ -425,7 +430,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         self.mapViewController!.removeAllRoutes()
         
-        self.navigationContext!.navigateRoute(withRoute: self.mainRoute!) { [weak self] (success) in
+        self.navigationContext!.navigate(withRoute: self.mainRoute!) { [weak self] (success) in
             
             guard let strongSelf = self else { return }
             

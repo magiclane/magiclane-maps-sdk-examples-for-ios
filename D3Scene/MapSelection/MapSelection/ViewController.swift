@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, General Magic B.V.
+// Copyright (C) 2019-2022, General Magic B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of General Magic
@@ -178,37 +178,5 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.isHidden = false
         
         mapViewController.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: false, animationDuration: 0)
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject]) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onTouch point: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMove startPoint: CGPoint, to endPoint: CGPoint) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onRotatePoint startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint, center: CGPoint, delta: Double) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onFollowingPositionStateChanged isFollowingPosition: Bool) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onMapStyleChanged identifier: Int) {
-        
-    }
-    
-    func mapViewController(_ mapViewController: MapViewController, onPinch startPoint1: CGPoint, startPoint2: CGPoint, toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint) {
-        
     }
 }

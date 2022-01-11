@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, General Magic B.V.
+// Copyright (C) 2019-2022, General Magic B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of General Magic
@@ -333,7 +333,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         
         self.mapViewController!.removeAllRoutes()
         
-        self.navigationContext!.simulateRoute(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
+        self.navigationContext!.simulate(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
             
             guard let strongSelf = self else { return }
             
