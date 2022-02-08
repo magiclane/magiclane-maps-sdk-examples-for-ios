@@ -25,7 +25,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     var soundContext: SoundContext?
     var alarmContext: AlarmContext?
     
-    let positionContext = PositionContext.init()
+    var positionContext: PositionContext?
+    
+    var dataSource: DataSourceContext?
     
     var label = UILabel.init()
     
@@ -44,6 +46,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             navigationController.navigationBar.scrollEdgeAppearance = appearance
         }
+        
+        let configuration = DataSourceConfigurationObject.init()
+        configuration.setPositionActivity(.automotive)
+        configuration.setPositionAccuracy(.whenMoving)
+        configuration.setPositionDistanceFilter(0)
+        
+        self.dataSource = DataSourceContext.init()
+        self.dataSource!.setConfiguration(configuration, for: .position)
+        
+        self.positionContext = PositionContext.init(context: self.dataSource!)
         
         self.title = "Navigate Route"
         self.navigationItem.largeTitleDisplayMode = .never
@@ -105,14 +117,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if self.isLocationAvailable() {
             
-            if self.positionContext.isProcessingLocationServicesData() == false {
+            if let context = self.dataSource {
                 
-                let configuration = DataSourceConfigurationObject.init()
-                configuration.setPositionActivity(.automotive)
-                configuration.setPositionAccuracy(.whenMoving)
-                configuration.setPositionDistanceFilter(0)
-                
-                self.positionContext.startProcessingLocationServicesData(with: configuration)
+                if context.isStopped() == false {
+                    
+                    context.start()
+                }
             }
         }
         
@@ -315,6 +325,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     @objc func routeButtonAction(item: UIBarButtonItem) {
         
+        guard let positionContext = self.positionContext else { return }
+        
         if self.navigationContext == nil {
             
             let preferences = RoutePreferencesObject.init()
@@ -358,7 +370,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             })
         }
         
-        guard let position = self.positionContext.getPosition() else { return }
+        guard let position = positionContext.getPosition() else { return }
         
         let location = position.getCoordinates()
         

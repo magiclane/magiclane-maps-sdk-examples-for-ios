@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:PositionTracker/PositionTracker.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapView/MapView.xcodeproj">
    </FileRef>
    <FileRef

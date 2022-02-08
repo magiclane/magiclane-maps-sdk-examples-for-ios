@@ -29,6 +29,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let appearance = navigationController.navigationBar.standardAppearance
             
             navigationController.navigationBar.scrollEdgeAppearance = appearance
+            
+            let array = [
+                UIBarButtonItem.init(image: UIImage.init(systemName: "location.fill"), style: .done, target: self, action: #selector(defaultPositionTracker)),
+                UIBarButtonItem.init(image: UIImage.init(systemName: "car.fill"), style: .done, target: self, action: #selector(carPositionTracker)),
+                UIBarButtonItem.init(image: UIImage.init(systemName: "airplane"), style: .done, target: self, action: #selector(planePositionTracker)),
+            ]
+            
+            self.navigationItem.leftBarButtonItems = array
         }
         
         let configuration = DataSourceConfigurationObject.init()
@@ -143,5 +151,48 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 
         self.addLocationButton()
+    }
+    
+    @objc func defaultPositionTracker() {
+        
+        self.mapViewController!.setDefaultPositionTracker()
+    }
+    
+    @objc func carPositionTracker() {
+        
+        let fileName = "car"
+        
+        if let urlMtl = Bundle.main.url(forResource: fileName, withExtension: "mtl") {
+            
+            if let material = NSData.init(contentsOf: urlMtl) as Data? {
+                
+                if let urlObj = Bundle.main.url(forResource: fileName, withExtension: "obj") {
+                    
+                    if let object = NSData.init(contentsOf: urlObj) as Data? {
+                        
+                        self.mapViewController!.customizePositionTracker(object, material: material)
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func planePositionTracker() {
+        
+        let fileName = "plane"
+        
+        if let urlMtl = Bundle.main.url(forResource: fileName, withExtension: "mtl") {
+            
+            if let material = NSData.init(contentsOf: urlMtl) as Data? {
+                
+                if let urlObj = Bundle.main.url(forResource: fileName, withExtension: "obj") {
+                    
+                    if let object = NSData.init(contentsOf: urlObj) as Data? {
+                        
+                        self.mapViewController!.customizePositionTracker(object, material: material)
+                    }
+                }
+            }
+        }
     }
 }
