@@ -369,7 +369,23 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         self.mapViewController!.removeHighlights()
         
-        self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.systemRed, centerLayout: centerLayout, animationDuration: 600)
+        let settings = HighlightRenderSettings.init()
+        settings.showPin = true
+        settings.imageSize = 120
+        
+        if landmark.isContourGeograficAreaEmpty() == false {
+            
+            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.contourInnerColor = UIColor.systemRed
+            settings.contourOuterColor = UIColor.systemRed
+        }
+        
+        self.mapViewController!.presentHighlights([landmark], settings: settings)
+        
+        if centerLayout {
+            
+            self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 600)
+        }
     }
         
     // MARK: - Debug

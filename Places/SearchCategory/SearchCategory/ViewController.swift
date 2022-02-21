@@ -111,7 +111,9 @@ class ViewController: UIViewController {
                 
                 strongSelf.mapViewController!.removeHighlights()
                 
-                 strongSelf.mapViewController!.presentHighlights(results, animationDuration: 800)
+                let settings = HighlightRenderSettings.init()
+                
+                strongSelf.mapViewController!.presentHighlights(results, settings: settings)
             }
         }
     }
@@ -132,7 +134,9 @@ class ViewController: UIViewController {
                 
                 strongSelf.mapViewController!.removeHighlights()
                 
-                strongSelf.mapViewController!.presentHighlights(results, animationDuration: 1200)
+                let settings = HighlightRenderSettings.init()
+                
+                strongSelf.mapViewController!.presentHighlights(results, settings: settings)
             }
         }
     }

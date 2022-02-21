@@ -101,7 +101,9 @@ class ViewController: UIViewController {
                 
                 self.mapViewController!.removeHighlights()
                 
-                self.mapViewController!.presentHighlights(results, animationDuration: 1200)
+                let settings = HighlightRenderSettings.init()
+                
+                self.mapViewController!.presentHighlights(results, settings: settings)
             }
         }
     }

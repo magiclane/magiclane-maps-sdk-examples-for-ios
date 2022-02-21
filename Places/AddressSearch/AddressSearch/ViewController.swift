@@ -161,7 +161,20 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlight(landmark, contourColor: UIColor.blue, centerLayout: true, animationDuration: 800)
+        let settings = HighlightRenderSettings.init()
+        settings.showPin = true
+        settings.imageSize = 120
+        
+        if landmark.isContourGeograficAreaEmpty() == false {
+            
+            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.contourInnerColor = UIColor.blue
+            settings.contourOuterColor = UIColor.blue
+        }
+        
+        self.mapViewController!.presentHighlights([landmark], settings: settings)
+        
+        self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 800)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
@@ -175,7 +188,18 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: false, animationDuration: 0)
+        let settings = HighlightRenderSettings.init()
+        settings.showPin = true
+        settings.imageSize = 120
+        
+        if landmark.isContourGeograficAreaEmpty() == false {
+            
+            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.contourInnerColor = UIColor.orange
+            settings.contourOuterColor = UIColor.orange
+        }
+        
+        self.mapViewController!.presentHighlights([landmark], settings: settings)
     }
     
     // MARK: - Address Search
@@ -314,7 +338,20 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
                 
                 strongSelf.mapViewController!.removeHighlights()
                 
-                strongSelf.mapViewController!.presentHighlight(houseNumber, contourColor: UIColor.orange, centerLayout: true, animationDuration: 800)
+                let settings = HighlightRenderSettings.init()
+                settings.showPin = true
+                settings.imageSize = 120
+                
+                if houseNumber.isContourGeograficAreaEmpty() == false {
+                    
+                    settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+                    settings.contourInnerColor = UIColor.orange
+                    settings.contourOuterColor = UIColor.orange
+                }
+                
+                strongSelf.mapViewController!.presentHighlights([houseNumber], settings: settings)
+                
+                strongSelf.mapViewController!.center(on: houseNumber.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 800)
             }
         }
     }

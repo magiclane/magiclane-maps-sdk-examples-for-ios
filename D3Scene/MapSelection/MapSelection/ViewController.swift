@@ -163,7 +163,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: true, animationDuration: 600)
+        self.highlight(landmark: landmark)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
@@ -177,6 +177,24 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
         self.imageView.isHidden = false
         
-        mapViewController.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: false, animationDuration: 0)
+        self.highlight(landmark: landmark)
+    }
+    
+    func highlight(landmark: LandmarkObject) {
+        
+        let settings = HighlightRenderSettings.init()
+        settings.showPin = true
+        settings.imageSize = 120
+        
+        if landmark.isContourGeograficAreaEmpty() == false {
+            
+            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.contourInnerColor = UIColor.white
+            settings.contourOuterColor = UIColor.systemBlue
+        }
+        
+        self.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: 0)
+        
+        self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 900)
     }
 }

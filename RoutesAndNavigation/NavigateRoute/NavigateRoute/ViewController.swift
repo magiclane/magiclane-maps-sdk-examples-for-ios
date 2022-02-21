@@ -630,6 +630,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.label.text = text
         self.label.isHidden = false
         
-        self.mapViewController!.presentHighlight(landmark, contourColor: UIColor.systemBlue, centerLayout: centerLayout, animationDuration: 600)
+        let settings = HighlightRenderSettings.init()
+        settings.showPin = true
+        
+        if landmark.isContourGeograficAreaEmpty() == false {
+            
+            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.contourInnerColor = UIColor.systemBlue
+            settings.contourOuterColor = UIColor.systemBlue
+        }
+        
+        self.mapViewController!.presentHighlights([landmark], settings: settings)
+        
+        if centerLayout {
+            
+            self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 600)
+        }
     }
 }

@@ -99,7 +99,21 @@ class ViewController: UIViewController {
                 
                 strongSelf.mapViewController!.removeHighlights()
                 
-                strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
+                let settings = HighlightRenderSettings.init()
+                settings.showPin = true
+                settings.imageSize = 120
+                
+                if landmark.isContourGeograficAreaEmpty() == false {
+                    
+                    settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+                    settings.contourInnerColor = UIColor.white
+                    settings.contourOuterColor = UIColor.systemBlue
+                }
+                
+                self.mapViewController!.presentHighlights([landmark], settings: settings)
+                
+                self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 1200)
+
             }
         }
     }
@@ -116,7 +130,20 @@ class ViewController: UIViewController {
                 
                 strongSelf.mapViewController!.removeHighlights()
                 
-                strongSelf.mapViewController!.presentHighlight(landmark, contourColor: UIColor.orange, centerLayout: true, animationDuration: 1200)
+                let settings = HighlightRenderSettings.init()
+                settings.showPin = true
+                settings.imageSize = 120
+                
+                if landmark.isContourGeograficAreaEmpty() == false {
+                    
+                    settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+                    settings.contourInnerColor = UIColor.white
+                    settings.contourOuterColor = UIColor.systemBlue
+                }
+                
+                self.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: 0)
+                
+                self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 1200)
             }
         }
     }

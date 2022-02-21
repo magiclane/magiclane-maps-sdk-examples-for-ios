@@ -169,7 +169,9 @@ class PoiCategoriesViewController: UITableViewController {
                 
                 self.searchContext.searchAround(with: location) { (results: [LandmarkObject]) in
                     
-                    mapViewController.presentHighlights(results, animationDuration: 1200)
+                    let settings = HighlightRenderSettings.init()
+                    
+                    mapViewController.presentHighlights(results, settings: settings)
                 }
             }
         }
