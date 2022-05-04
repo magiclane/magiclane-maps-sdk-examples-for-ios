@@ -103,10 +103,8 @@ class PTRouteDescriptionViewController: UITableViewController {
                 section.departureTime = "Departure: " + t1 + t2
                 section.image = image
                 
-                if let color = segmentPT.getLineColor() {
-                    
-                    section.color = color.withAlphaComponent(0.4)
-                }
+                let color = segmentPT.getLineColor()
+                section.color = color.withAlphaComponent(0.4)
                 
             } else {
                 
