@@ -44,7 +44,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         // Paris
         let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.381899)
         
-        self.mapViewController!.center(on: location, zoomLevel: 70, animationDuration: 1200)
+        self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 1200)
     }
     
     // MARK: - Map View
@@ -195,6 +195,6 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         self.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: 0)
         
-        self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 900)
+        self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 900)
     }
 }

@@ -174,7 +174,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         self.mapViewController!.presentHighlights([landmark], settings: settings)
         
-        self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 800)
+        self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 800)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
@@ -351,7 +351,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
                 
                 strongSelf.mapViewController!.presentHighlights([houseNumber], settings: settings)
                 
-                strongSelf.mapViewController!.center(on: houseNumber.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 800)
+                strongSelf.mapViewController!.center(onCoordinates: houseNumber.getCoordinates(), zoomLevel: -1, animationDuration: 800)
             }
         }
     }

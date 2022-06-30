@@ -48,7 +48,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.addListButton()
         
         let location = GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991)
-        self.mapViewController!.center(on: location, zoomLevel: 72, animationDuration: 1000)
+        self.mapViewController!.center(onCoordinates: location, zoomLevel: 72, animationDuration: 1000)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +141,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         let radius: Double = 5 // meters
         
-        let area = RectangleGeographicAreaObject.init(location: landmark.getLandmarkGeoLocation(), horizontalRadius: radius, verticalRadius: radius)
+        let area = RectangleGeographicAreaObject.init(location: landmark.getCoordinates(), horizontalRadius: radius, verticalRadius: radius)
         
         let list = context.getLandmarksWithRectangleGeographicArea(area)
         
@@ -322,8 +322,8 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         let scale = UIScreen.main.scale
         
         let text     = " " + landmark.getLandmarkName() + " " + landmark.getLandmarkDescription()
-        let location = " " + String(format:"%.6f", landmark.getLandmarkGeoLocation().latitude) + ", " +
-                             String(format:"%.6f", landmark.getLandmarkGeoLocation().longitude)
+        let location = " " + String(format:"%.6f", landmark.getCoordinates().latitude) + ", " +
+                             String(format:"%.6f", landmark.getCoordinates().longitude)
         
         let font1 = UIFont.boldSystemFont(ofSize: 14)
         let font2 = UIFont.systemFont(ofSize: 12)
@@ -384,7 +384,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         if centerLayout {
             
-            self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 600)
+            self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 600)
         }
     }
         

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1250"
+   LastUpgradeVersion = "1340"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CE8073942600A5AD004EE10E"
-               BuildableName = "Recorder.app"
-               BlueprintName = "Recorder"
-               ReferencedContainer = "container:Recorder.xcodeproj">
+               BlueprintIdentifier = "CE655DB326943AD10041D41F"
+               BuildableName = "StackMapViews.app"
+               BlueprintName = "StackMapViews"
+               ReferencedContainer = "container:StackMapViews.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CE8073942600A5AD004EE10E"
-            BuildableName = "Recorder.app"
-            BlueprintName = "Recorder"
-            ReferencedContainer = "container:Recorder.xcodeproj">
+            BlueprintIdentifier = "CE655DB326943AD10041D41F"
+            BuildableName = "StackMapViews.app"
+            BlueprintName = "StackMapViews"
+            ReferencedContainer = "container:StackMapViews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CE8073942600A5AD004EE10E"
-            BuildableName = "Recorder.app"
-            BlueprintName = "Recorder"
-            ReferencedContainer = "container:Recorder.xcodeproj">
+            BlueprintIdentifier = "CE655DB326943AD10041D41F"
+            BuildableName = "StackMapViews.app"
+            BlueprintName = "StackMapViews"
+            ReferencedContainer = "container:StackMapViews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

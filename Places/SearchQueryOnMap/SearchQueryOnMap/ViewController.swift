@@ -112,7 +112,7 @@ class ViewController: UIViewController {
                 
                 self.mapViewController!.presentHighlights([landmark], settings: settings)
                 
-                self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 1200)
+                self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 1200)
 
             }
         }
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
                 
                 self.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: 0)
                 
-                self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 1200)
+                self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 1200)
             }
         }
     }

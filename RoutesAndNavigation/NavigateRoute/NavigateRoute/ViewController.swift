@@ -64,7 +64,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         self.mapViewController!.startRender()
         
-        self.addLocationButton()
+        self.refreshLocationButton()
+        
         self.addLabelText()
         self.addInfoButton()
     }
@@ -107,7 +108,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     // MARK: - Buttons
     
-    func addLocationButton() {
+    func refreshLocationButton() {
         
         if self.locationManager == nil {
             
@@ -126,12 +127,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             }
         }
         
-        var image = UIImage.init(systemName: "location")
-        
-        if self.isLocationAvailable() == false {
-            
-            image = UIImage.init(systemName: "location.slash")
-        }
+        let image = self.isLocationAvailable() ? UIImage.init(systemName: "location") : UIImage.init(systemName: "location.slash")
         
         let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startFollowLocation))
         self.navigationItem.leftBarButtonItem = barButton
@@ -166,13 +162,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
+        self.refreshLocationButton()
+        
         if manager.authorizationStatus == .authorizedWhenInUse {
             
             self.startFollowLocation()
-            
-        } else {
-            
-            self.addLocationButton()
         }
     }
     
@@ -644,7 +638,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if centerLayout {
             
-            self.mapViewController!.center(on: landmark.getLandmarkGeoLocation(), zoomLevel: -1, animationDuration: 600)
+            self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 600)
         }
     }
 }

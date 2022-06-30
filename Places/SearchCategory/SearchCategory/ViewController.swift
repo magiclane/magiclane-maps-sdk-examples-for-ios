@@ -97,9 +97,9 @@ class ViewController: UIViewController {
     
     @objc func searchButton1(item: UIBarButtonItem) {
         
-        self.mapViewController!.center(on: self.location, zoomLevel: 60, animationDuration: 1200)
+        guard let object = self.categoryContext!.getCategory(.accomodation) else { return }
         
-        let object = self.categoryContext!.getLandmarkCategoryObject(with: .accomodation)
+        self.mapViewController!.center(onCoordinates: self.location, zoomLevel: 60, animationDuration: 1200)
         
         self.searchContext?.setCategory(object)
                 
@@ -120,9 +120,9 @@ class ViewController: UIViewController {
     
     @objc func searchButton2(item: UIBarButtonItem) {
         
-        self.mapViewController!.center(on: self.location, zoomLevel: 60, animationDuration: 800)
+        guard let object = self.categoryContext!.getCategory(.gasStation) else { return }
         
-        let object = self.categoryContext!.getLandmarkCategoryObject(with: .gasStation)
+        self.mapViewController!.center(onCoordinates: self.location, zoomLevel: 60, animationDuration: 800)
         
         self.searchContext?.setCategory(object)
         

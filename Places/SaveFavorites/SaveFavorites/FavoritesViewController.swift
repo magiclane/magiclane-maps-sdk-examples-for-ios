@@ -105,8 +105,8 @@ class FavoritesViewController: UITableViewController {
             description += "\n"
         }
         
-        let location = String(format:"%.6f", landmark.getLandmarkGeoLocation().latitude) + ", " +
-                       String(format:"%.6f", landmark.getLandmarkGeoLocation().longitude)
+        let location = String(format:"%.6f", landmark.getCoordinates().latitude) + ", " +
+                       String(format:"%.6f", landmark.getCoordinates().longitude)
         
         description += location
         

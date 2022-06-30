@@ -70,14 +70,15 @@ class ViewController: UIViewController {
     
     func addMapPerspective() {
         
-        let image = UIImage.init(systemName: "view.3d")
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(changeMapPerspective))
+        let barButton = UIBarButtonItem.init(image: UIImage.init(systemName: "view.3d"), style: .done, target: self, action: #selector(changeMapPerspective))
         barButton.tag = 1
-
-        let image2 = UIImage.init(systemName: "location.north.line")
-        let barButton2 = UIBarButtonItem.init(image: image2, style: .done, target: self, action: #selector(mapAlighNorthUp))
+        
+        let barButton2 = UIBarButtonItem.init(image: UIImage.init(systemName: "location.north.line"), style: .done, target: self, action: #selector(mapAlighNorthUp))
+        
+        let barButton3 = UIBarButtonItem.init(image: UIImage.init(systemName: "perspective"), style: .done, target: self, action: #selector(togglePerspectiveGesture))
         
         self.navigationItem.rightBarButtonItems = [barButton, barButton2]
+        self.navigationItem.leftBarButtonItems  = [barButton3]
     }
     
     @objc func changeMapPerspective(item: UIBarButtonItem) {
@@ -104,5 +105,18 @@ class ViewController: UIViewController {
         
         self.mapViewController!.alignNorthUp(withAnimationDuration: 1000) { success in }
     }
+    
+    @objc func togglePerspectiveGesture() {
+        
+        guard let preferences = self.mapViewController?.getPreferences() else { return }
+        
+        let state = preferences.isTouchGestureEnabled(.onShove)
+        
+        // Single gesture
+        preferences.enableTouchGesture(.onShove, enable: !state)
+        
+        // Multiple gestures
+        // let gestures = (MapViewTouchGestures.onShove.rawValue | MapViewTouchGestures.onRotate.rawValue | MapViewTouchGestures.onPinch.rawValue | MapViewTouchGestures.onPinchSwipe.rawValue)
+        // preferences.enableTouchGestures(gestures, enable: !state)
+    }
 }
-
