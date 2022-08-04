@@ -237,7 +237,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         //
         // California / Cuppertino / Infinite Loop / No 1
         
-        let location = GeoLocation.coordinates(withLatitude: 37.33141, longitude: -122.03042)
+        let location = CoordinatesObject.coordinates(withLatitude: 37.33141, longitude: -122.03042)
         
         let country = self.searchContext!.addressSearchGetCountry(withCoordinates: location)
         

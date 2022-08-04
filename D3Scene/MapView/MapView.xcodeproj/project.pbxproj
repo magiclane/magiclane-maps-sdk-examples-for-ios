@@ -41,6 +41,7 @@
 		CE8073A12600A5AE004EE10E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE8073A42600A5AE004EE10E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE8073A62600A5AE004EE10E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEA0DA52289A8EC10045CCAA /* MapView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapView.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		CE8073972600A5AD004EE10E /* MapView */ = {
 			isa = PBXGroup;
 			children = (
+				CEA0DA52289A8EC10045CCAA /* MapView.entitlements */,
 				CE8073982600A5AD004EE10E /* AppDelegate.swift */,
 				CE80739A2600A5AD004EE10E /* SceneDelegate.swift */,
 				CE80739C2600A5AD004EE10E /* ViewController.swift */,
@@ -314,6 +316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MapView/MapView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_BITCODE = NO;
@@ -324,6 +327,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.generalmagic.MapView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -334,6 +338,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MapView/MapView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_BITCODE = NO;
@@ -344,6 +349,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.generalmagic.MapView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

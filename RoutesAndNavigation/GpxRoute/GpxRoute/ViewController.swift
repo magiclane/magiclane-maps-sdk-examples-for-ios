@@ -110,11 +110,11 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
         }
         
         let startPoints: [LandmarkObject] = [
-            // LandmarkObject.landmark(withName: "Brasov", location: GeoLocation.coordinates(withLatitude: 45.6427, longitude: 25.5887))
+            // LandmarkObject.landmark(withName: "Brasov", location: CoordinatesObject.coordinates(withLatitude: 45.6427, longitude: 25.5887))
         ]
         
         let endPoints: [LandmarkObject] = [
-            // LandmarkObject.landmark(withName: "Sinaia", location: GeoLocation.coordinates(withLatitude: 45.3310, longitude: 25.5624))
+            // LandmarkObject.landmark(withName: "Sinaia", location: CoordinatesObject.coordinates(withLatitude: 45.3310, longitude: 25.5624))
         ]
         
         item.isEnabled = false

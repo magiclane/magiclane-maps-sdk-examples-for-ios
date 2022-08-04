@@ -86,7 +86,7 @@ class ViewController: UIViewController {
             self.searchContext?.setSearchMapPOIs(true)
         }
         
-        let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
+        let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.371899)
         
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 60, animationDuration: 1200)
         

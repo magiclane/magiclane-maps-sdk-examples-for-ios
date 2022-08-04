@@ -202,8 +202,8 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             self.soundContext?.setUseTtsWithCompletionHandler({ success in })
         }
         
-        self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: GeoLocation.coordinates(withLatitude: 48.19741,  longitude: 11.54739))
-        self.destination = LandmarkObject.landmark(withName: "Munich 2", location: GeoLocation.coordinates(withLatitude: 48.162730, longitude: 11.53687))
+        self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: CoordinatesObject.coordinates(withLatitude: 48.19741,  longitude: 11.54739))
+        self.destination = LandmarkObject.landmark(withName: "Munich 2", location: CoordinatesObject.coordinates(withLatitude: 48.162730, longitude: 11.53687))
         
         guard let start = self.departure, let stop = self.destination else {
             return

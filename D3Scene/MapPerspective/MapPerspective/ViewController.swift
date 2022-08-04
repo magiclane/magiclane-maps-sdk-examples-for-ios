@@ -71,7 +71,6 @@ class ViewController: UIViewController {
     func addMapPerspective() {
         
         let barButton = UIBarButtonItem.init(image: UIImage.init(systemName: "view.3d"), style: .done, target: self, action: #selector(changeMapPerspective))
-        barButton.tag = 1
         
         let barButton2 = UIBarButtonItem.init(image: UIImage.init(systemName: "location.north.line"), style: .done, target: self, action: #selector(mapAlighNorthUp))
         
@@ -83,17 +82,15 @@ class ViewController: UIViewController {
     
     @objc func changeMapPerspective(item: UIBarButtonItem) {
         
-        if item.tag == 1 {
+        guard let mapViewController = self.mapViewController else { return }
+        
+        if mapViewController.getPerspective() == .view2D {
            
-            item.tag = 2
-            
             item.image = UIImage.init(systemName: "view.2d")
             
-            self.mapViewController!.setPerspective(.view3D, animationDuration: 1000) { success in }
+            mapViewController.setPerspective(.view3D, animationDuration: 1000) { success in }
             
         } else {
-            
-            item.tag = 1
             
             item.image = UIImage.init(systemName: "view.3d")
             

@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     var categoryContext: GenericCategoriesContext?
     
-    let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
+    let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.371899)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         
         self.searchContext?.setCategory(object)
                 
-        self.searchContext?.searchAround(with: location) { [weak self] (results: [LandmarkObject]) in
+        self.searchContext?.searchAround(withLocation: location) { [weak self] (results: [LandmarkObject]) in
             
             guard let strongSelf = self else { return }
             
@@ -126,7 +126,7 @@ class ViewController: UIViewController {
         
         self.searchContext?.setCategory(object)
         
-        self.searchContext?.searchAround(with: location) { [weak self] (results: [LandmarkObject]) in
+        self.searchContext?.searchAround(withLocation: location) { [weak self] (results: [LandmarkObject]) in
             
             guard let strongSelf = self else { return }
             

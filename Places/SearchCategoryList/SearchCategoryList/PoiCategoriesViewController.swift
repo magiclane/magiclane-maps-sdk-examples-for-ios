@@ -161,13 +161,13 @@ class PoiCategoriesViewController: UITableViewController {
             
             if let mapViewController = viewController.mapViewController {
                 
-                let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.371899)
+                let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.371899)
                 
                 mapViewController.removeHighlights()
                 
                 mapViewController.center(onCoordinates: location, zoomLevel: 60, animationDuration: 1200)
                 
-                self.searchContext.searchAround(with: location) { (results: [LandmarkObject]) in
+                self.searchContext.searchAround(withLocation: location) { (results: [LandmarkObject]) in
                     
                     let settings = HighlightRenderSettings.init()
                     

@@ -47,7 +47,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.addMapInfo()
         self.addListButton()
         
-        let location = GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991)
+        let location = CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991)
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 72, animationDuration: 1000)
     }
     

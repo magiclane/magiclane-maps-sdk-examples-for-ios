@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     
     @objc func centerMapAction(_ barButton: UIBarButtonItem) {
         
-        let location = GeoLocation.coordinates(withLatitude: 48.840827, longitude: 2.381899)
+        let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.381899)
         
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 50, animationDuration: 1000)
     }

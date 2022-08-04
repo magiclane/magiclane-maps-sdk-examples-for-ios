@@ -60,27 +60,12 @@ class ViewController: UIViewController {
         self.view.addSubview(self.mapViewController!.view)
         self.mapViewController!.didMove(toParent: self)
         
-        self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
-        let constraintTop = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.top,
-                                                relatedBy: NSLayoutConstraint.Relation.equal,
-                                                toItem: self.view, attribute: NSLayoutConstraint.Attribute.top,
-                                                multiplier: 1.0, constant: 0)
-        
-        let constraintLeft = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 relatedBy: NSLayoutConstraint.Relation.equal,
-                                                 toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading,
-                                                 multiplier: 1.0, constant: 0)
-        
-        let constraintBottom = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   relatedBy: NSLayoutConstraint.Relation.equal,
-                                                   toItem: self.view, attribute: NSLayoutConstraint.Attribute.bottom,
-                                                   multiplier: 1.0, constant: -0)
-        
-        let constraintRight = NSLayoutConstraint( item: self.mapViewController!.view!, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                  relatedBy: NSLayoutConstraint.Relation.equal,
-                                                  toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
-                                                  multiplier: 1.0, constant: -0)
-        
-        NSLayoutConstraint.activate([constraintTop, constraintLeft, constraintBottom, constraintRight])
+        self.mapViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.mapViewController!.view.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
+            self.mapViewController!.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            self.mapViewController!.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -0),
+            self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -0),
+        ])
     }
 }

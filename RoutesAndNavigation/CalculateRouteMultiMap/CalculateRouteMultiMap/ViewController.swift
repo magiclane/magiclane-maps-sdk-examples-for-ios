@@ -154,8 +154,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         let waypoints = [
             
-            LandmarkObject.landmark(withName: "San Francisco", location: GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991) ),
-            LandmarkObject.landmark(withName: "San Jose",      location: GeoLocation.coordinates(withLatitude: 37.33619, longitude: -121.89058) )
+            LandmarkObject.landmark(withName: "San Francisco", location: CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991) ),
+            LandmarkObject.landmark(withName: "San Jose",      location: CoordinatesObject.coordinates(withLatitude: 37.33619, longitude: -121.89058) )
         ];
         
         weak var weakSelf = self
@@ -209,8 +209,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         let waypoints = [
             
-            LandmarkObject.landmark(withName: "London",    location: GeoLocation.coordinates(withLatitude: 51.50732, longitude: -0.12765) ),
-            LandmarkObject.landmark(withName: "Maidstone", location: GeoLocation.coordinates(withLatitude: 51.27483, longitude: 0.52316) )
+            LandmarkObject.landmark(withName: "London",    location: CoordinatesObject.coordinates(withLatitude: 51.50732, longitude: -0.12765) ),
+            LandmarkObject.landmark(withName: "Maidstone", location: CoordinatesObject.coordinates(withLatitude: 51.27483, longitude: 0.52316) )
         ];
         
         weak var weakSelf = self

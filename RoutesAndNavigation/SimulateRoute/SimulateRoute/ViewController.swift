@@ -289,14 +289,14 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             })
         }
         
-        // self.departure   = LandmarkObject.landmark(withName: "San Francisco", location: GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991) )
-        // self.destination = LandmarkObject.landmark(withName: "San Jose",      location: GeoLocation.coordinates(withLatitude: 37.33619, longitude: -121.89058) )
+        // self.departure   = LandmarkObject.landmark(withName: "San Francisco", location: CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991) )
+        // self.destination = LandmarkObject.landmark(withName: "San Jose",      location: CoordinatesObject.coordinates(withLatitude: 37.33619, longitude: -121.89058) )
         
-        self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: GeoLocation.coordinates(withLatitude: 48.15741,  longitude: 11.53739))
-        self.destination = LandmarkObject.landmark(withName: "Munich 2", location: GeoLocation.coordinates(withLatitude: 48.166730, longitude: 11.53687))
+        self.departure   = LandmarkObject.landmark(withName: "Munich 1", location: CoordinatesObject.coordinates(withLatitude: 48.15741,  longitude: 11.53739))
+        self.destination = LandmarkObject.landmark(withName: "Munich 2", location: CoordinatesObject.coordinates(withLatitude: 48.166730, longitude: 11.53687))
         
-        // self.departure = LandmarkObject.landmark(withName: "London 1", location: GeoLocation.coordinates(withLatitude: 51.53998, longitude: -0.1387) )
-        // self.destination = LandmarkObject.landmark(withName: "London 2", location: GeoLocation.coordinates(withLatitude: 51.66105, longitude: -0.1687) )
+        // self.departure = LandmarkObject.landmark(withName: "London 1", location: CoordinatesObject.coordinates(withLatitude: 51.53998, longitude: -0.1387) )
+        // self.destination = LandmarkObject.landmark(withName: "London 2", location: CoordinatesObject.coordinates(withLatitude: 51.66105, longitude: -0.1687) )
         
         guard let start = self.departure, let stop = self.destination else {
             return

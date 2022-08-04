@@ -20,7 +20,7 @@ class ResultsViewController: UITableViewController {
     
     var dataModel: [LandmarkObject] = []
     
-    var referencePoint: GeoLocation?
+    var referencePoint: CoordinatesObject?
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -57,8 +57,8 @@ class ResultsViewController: UITableViewController {
         
         if let point = self.referencePoint {
             
-            let statusText = self.dataModel[indexPath.row].getLandmarkDistanceFormatted(with: point)
-            let statusDesc = self.dataModel[indexPath.row].getLandmarkDistanceUnitFormatted(with: point)
+            let statusText = self.dataModel[indexPath.row].getLandmarkDistanceFormatted(withLocation: point)
+            let statusDesc = self.dataModel[indexPath.row].getLandmarkDistanceUnitFormatted(withLocation: point)
             
             let frameL1 = CGRect.init(origin: CGPoint.init(x: 0, y: 0), size: CGSize.init(width: 60, height: 22))
             let frameL2 = CGRect.init(origin: CGPoint.init(x: 0, y: 22), size: CGSize.init(width: 60, height: 18))
@@ -134,7 +134,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
         
         super.viewDidAppear(animated)
         
-        let location = GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991)
+        let location = CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991)
         
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 50, animationDuration: 1000)
     }
@@ -206,7 +206,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
         }
 
         // San Francisco
-        let location = GeoLocation.coordinates(withLatitude: 37.77903, longitude: -122.41991)
+        let location = CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991)
         
         weak var weakSelf = self
         

@@ -176,35 +176,35 @@ class ViewController: UIViewController {
     
     // MARK: - Utils
     
-    func generatePointsCoordinates() -> [GeoLocation] {
+    func generatePointsCoordinates() -> [CoordinatesObject] {
         
-        var coordinates: [GeoLocation] = []
+        var coordinates: [CoordinatesObject] = []
         
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.930882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.900882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.870882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.380495, longitude: 4.840882))
-        
-        return coordinates
-    }
-    
-    func generatePolylinesCoordinates() -> [GeoLocation] {
-        
-        var coordinates: [GeoLocation] = []
-        
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360495, longitude: 4.936882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.360495, longitude: 4.836882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.930882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.900882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.870882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.840882))
         
         return coordinates
     }
     
-    func generatePolygonCoordinates() -> [GeoLocation] {
+    func generatePolylinesCoordinates() -> [CoordinatesObject] {
         
-        var coordinates: [GeoLocation] = []
+        var coordinates: [CoordinatesObject] = []
         
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.340234, longitude: 4.886882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.300495, longitude: 4.936882))
-        coordinates.append(GeoLocation.coordinates(withLatitude: 52.300495, longitude: 4.836882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.360495, longitude: 4.936882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.360495, longitude: 4.836882))
+        
+        return coordinates
+    }
+    
+    func generatePolygonCoordinates() -> [CoordinatesObject] {
+        
+        var coordinates: [CoordinatesObject] = []
+        
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.340234, longitude: 4.886882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.300495, longitude: 4.936882))
+        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.300495, longitude: 4.836882))
         
         return coordinates
     }

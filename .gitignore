@@ -1,45 +1,14 @@
-# This file is used to ignore files which are generated
-# ----------------------------------------------------------------------------
+# Mac OS X
+*.DS_Store
 
-*~
-tags
-.DS_Store
-*.app
-moc_*.cpp
-ui_*.h
-qrc_*.cpp
-Thumbs.db
+# Xcode
+xcuserdata/
 
+# Podfiles
+Pods/
 
-# Visual Studio generated files
-*.ib_pdb_index
-*.idb
-*.ilk
-*.pdb
-*.sln
-*.suo
-*.vcproj
-*vcproj.*.*.user
-*.ncb
-*.rcc
-*.pch
-prebuild.log
-
-# MinGW generated files
-*.Debug
-*.Release
-
-# Directories to ignore
-# ---------------------
-
+# Build
+**/Build
 DerivedData
 !Frameworks
 !**/Data
-
-# Binaries
-# --------
-*.exe
-*.dll
-*.lib
-
-/default.ini
