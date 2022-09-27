@@ -215,7 +215,11 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     }
     
     @objc func searchButton() {
-
+        
+        guard let mainRoute = self.mainRoute else {
+            return
+        }
+        
         if self.searchContext == nil {
             
             self.searchContext = SearchContext.init()
@@ -226,7 +230,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             self.searchContext?.setSearchAddresses(true)
         }
         
-        self.searchContext!.searchAlong(withRoute: self.mainRoute!, query: "Gas station") { (results: [LandmarkObject]) in
+        self.searchContext!.searchAlong(withRoute: mainRoute, query: "Gas station") { (results: [LandmarkObject]) in
             
             for landmark in results {
                 

@@ -2,10 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PositionTracker/PositionTracker.xcodeproj">
+      location = "group:MapView/MapView.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MapView/MapView.xcodeproj">
+      location = "group:MapSelection/../MapViewSwiftUI/MapViewSwiftUI.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapUpdate/MapUpdate.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PositionTracker/PositionTracker.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Shapes/Shapes.xcodeproj">
@@ -33,9 +39,6 @@
    </FileRef>
    <FileRef
       location = "group:MapDownload/MapDownload.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MapUpdate/MapUpdate.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapPerspective/MapPerspective.xcodeproj">
