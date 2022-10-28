@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         self.mapViewController!.startRender()
         
         self.searchContext = SearchContext.init()
-        self.searchContext?.setMaxMatches(30)
+        self.searchContext?.setMaxMatches(40)
         self.searchContext?.setSearchMapPOIs(true)
         
         self.categoryContext = GenericCategoriesContext.init()

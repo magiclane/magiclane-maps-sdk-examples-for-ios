@@ -225,7 +225,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             self.searchContext = SearchContext.init()
             
             // Preferences
-            self.searchContext?.setMaxMatches(20)
+            self.searchContext?.setMaxMatches(40)
             self.searchContext?.setSearchMapPOIs(true)
             self.searchContext?.setSearchAddresses(true)
         }

@@ -34,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		CE24A39A26384D0600688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CE4781A228F9AEE00015C9B3 /* Azuga-Brasov.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Azuga-Brasov.gpx"; sourceTree = "<group>"; };
 		CEBA9A0026241C3E00F75A06 /* NavigateRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigateRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBA9A0326241C3E00F75A06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEBA9A0526241C3E00F75A06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 				CEBA9A0526241C3E00F75A06 /* SceneDelegate.swift */,
 				CEBA9A0726241C3E00F75A06 /* ViewController.swift */,
 				CEE418EA265D3863006CB03A /* NavigationViewController.swift */,
+				CE4781A228F9AEE00015C9B3 /* Azuga-Brasov.gpx */,
 				CEBA9A0926241C3E00F75A06 /* Main.storyboard */,
 				CEBA9A0C26241C3F00F75A06 /* Assets.xcassets */,
 				CEBA9A0E26241C3F00F75A06 /* LaunchScreen.storyboard */,

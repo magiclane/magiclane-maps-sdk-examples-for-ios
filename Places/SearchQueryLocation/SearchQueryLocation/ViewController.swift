@@ -82,7 +82,7 @@ class ViewController: UIViewController {
         if self.searchContext == nil {
             
             self.searchContext = SearchContext.init()
-            self.searchContext?.setMaxMatches(30)
+            self.searchContext?.setMaxMatches(40)
             self.searchContext?.setSearchMapPOIs(true)
         }
         

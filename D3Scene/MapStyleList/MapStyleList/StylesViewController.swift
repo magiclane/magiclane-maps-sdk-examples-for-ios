@@ -114,7 +114,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate {
         cell.textLabel?.text = text
         
         let description = object.getTotalSizeFormatted()
-        cell.detailTextLabel?.text = description + "Kb"
+        cell.detailTextLabel?.text = description
     }
     
     func setupImage(tableView: UITableView, cell: UITableViewCell, indexPath: IndexPath) {
