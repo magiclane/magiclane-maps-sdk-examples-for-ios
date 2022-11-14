@@ -2,31 +2,22 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MapView/MapView.xcodeproj">
+      location = "group:CenterMap/CenterMap.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MapSelection/../MapViewSwiftUI/MapViewSwiftUI.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MapUpdate/MapUpdate.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:PositionTracker/PositionTracker.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Shapes/Shapes.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MapViewCustomStyle/MapViewCustomStyle.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MultiMapView/MultiMapView.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:StackMapViews/StackMapViews.xcodeproj">
+      location = "group:FollowingPosition/FollowingPosition.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapCompass/MapCompass.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapDownload/MapDownload.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapPerspective/MapPerspective.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapStyle/MapStyle.xcodeproj">
@@ -38,21 +29,33 @@
       location = "group:MapStyleUpdate/MapStyleUpdate.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MapDownload/MapDownload.xcodeproj">
+      location = "group:MapUpdate/MapUpdate.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MapPerspective/MapPerspective.xcodeproj">
+      location = "group:MapView/MapView.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CenterMap/CenterMap.xcodeproj">
+      location = "group:MapViewCustomStyle/MapViewCustomStyle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/../MapViewSwiftUI/MapViewSwiftUI.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MultiMapView/MultiMapView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PositionTracker/PositionTracker.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Projections/Projections.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Shapes/Shapes.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:StackMapViews/StackMapViews.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:WorldMapUpdate/WorldMapUpdate.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:FollowingPosition/FollowingPosition.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:MapSelection/MapSelection.xcodeproj">
    </FileRef>
 </Workspace>
