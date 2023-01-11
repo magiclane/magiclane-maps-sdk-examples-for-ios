@@ -1,10 +1,10 @@
-// Copyright (C) 2019-2022, General Magic B.V.
+// Copyright (C) 2019-2023, Magic Lane B.V.
 // All rights reserved.
 //
-// This software is confidential and proprietary information of General Magic
+// This software is confidential and proprietary information of Magic Lane
 // ("Confidential Information"). You shall not disclose such Confidential
 // Information and shall use it only in accordance with the terms of the
-// license agreement you entered into with General Magic.
+// license agreement you entered into with Magic Lane.
 
 import UIKit
 import GEMKit
@@ -65,7 +65,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
         
         super.viewDidAppear(animated)
         
-        let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.381899) // Paris
+        let location = CoordinatesObject.coordinates(withLatitude: 53.592590, longitude: 9.924337) // Hamburg
         
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 0)
     }
@@ -132,35 +132,41 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
         
         NSLayoutConstraint.activate([constraintLeft, constraintRight, constraintBottom, constraintHeight])
         
+        let size: CGFloat = 50
+        
         let buttonExit = UIButton.init(type: .system)
         buttonExit.isHidden = true
-        buttonExit.setImage(UIImage.init(systemName: "xmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 26, weight: .medium)), for: .normal)
+        buttonExit.setImage(UIImage.init(systemName: "xmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .medium)), for: .normal)
         buttonExit.addTarget(self, action: #selector(closeTableView), for: .touchUpInside)
+        buttonExit.layer.shadowColor = UIColor.darkGray.cgColor
+        buttonExit.layer.shadowOpacity = 0.8
+        buttonExit.backgroundColor = UIColor.systemBackground
+        buttonExit.layer.cornerRadius = size / 2
         
         self.buttonExit = buttonExit
-        
+                
         self.view.addSubview(buttonExit)
         
         buttonExit.translatesAutoresizingMaskIntoConstraints = false
         constraintRight = NSLayoutConstraint( item: buttonExit, attribute: NSLayoutConstraint.Attribute.trailing,
                                               relatedBy: NSLayoutConstraint.Relation.equal,
                                               toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing,
-                                              multiplier: 1.0, constant: -0.0)
+                                              multiplier: 1.0, constant: -5.0)
         
         constraintBottom = NSLayoutConstraint( item: buttonExit, attribute: NSLayoutConstraint.Attribute.bottom,
                                                relatedBy: NSLayoutConstraint.Relation.equal,
                                                toItem: self.tableView!, attribute: NSLayoutConstraint.Attribute.top,
-                                               multiplier: 1.0, constant: 60)
+                                               multiplier: 1.0, constant: size + 5)
         
         let constraintWidth = NSLayoutConstraint( item: buttonExit, attribute: NSLayoutConstraint.Attribute.width,
                                                   relatedBy: NSLayoutConstraint.Relation.equal,
                                                   toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                                  multiplier: 1.0, constant: 60)
+                                                  multiplier: 1.0, constant: size)
         
         constraintHeight = NSLayoutConstraint( item: buttonExit, attribute: NSLayoutConstraint.Attribute.height,
                                                relatedBy: NSLayoutConstraint.Relation.equal,
                                                toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                               multiplier: 1.0, constant: 60)
+                                               multiplier: 1.0, constant: size)
         
         NSLayoutConstraint.activate([constraintRight, constraintBottom, constraintWidth, constraintHeight])
     }

@@ -1,10 +1,10 @@
-// Copyright (C) 2019-2022, General Magic B.V.
+// Copyright (C) 2019-2023, Magic Lane B.V.
 // All rights reserved.
 //
-// This software is confidential and proprietary information of General Magic
+// This software is confidential and proprietary information of Magic Lane
 // ("Confidential Information"). You shall not disclose such Confidential
 // Information and shall use it only in accordance with the terms of the
-// license agreement you entered into with General Magic.
+// license agreement you entered into with Magic Lane.
 
 import UIKit
 import GEMKit
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //
         // Project API token is available at:
         //
-        // https://developer.generalmagic.com/api/projects
+        // https://developer.magiclane.com/api/projects
         //
         let string = "YOUR_TOKEN"
         
