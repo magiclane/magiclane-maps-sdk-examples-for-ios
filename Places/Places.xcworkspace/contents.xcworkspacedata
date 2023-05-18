@@ -2,19 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SaveFavorites/SaveFavorites.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:AddressSearch/AddressSearch.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SearchTextField/SearchTextField.xcodeproj">
+      location = "group:SaveFavorites/SaveFavorites.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SearchQueryOnMap/SearchQueryOnMap.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:SearchQueryLocation/SearchQueryLocation.xcodeproj">
+      location = "group:SearchAlongRoute/SearchAlongRoute.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SearchAlongRoute/../SearchCategory/SearchCategory.xcodeproj">
@@ -23,6 +17,12 @@
       location = "group:SearchCategoryList/SearchCategoryList.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SearchAlongRoute/SearchAlongRoute.xcodeproj">
+      location = "group:SearchQueryLocation/SearchQueryLocation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchQueryOnMap/SearchQueryOnMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchTextField/SearchTextField.xcodeproj">
    </FileRef>
 </Workspace>

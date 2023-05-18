@@ -2,13 +2,28 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:BetterRouteNotification/BetterRouteNotification.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:CalculateRoute/CalculateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:GpxRoute/GpxRoute.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
+      location = "group:HumanVoices/HumanVoices.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:NoMapJustRouting/NoMapJustRouting.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:PublicTransitCalculateRoute/PublicTransitCalculateRoute.xcodeproj">
@@ -17,21 +32,12 @@
       location = "group:PublicTransitRouteInstructions/PublicTransitRouteInstructions.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:HumanVoices/HumanVoices.xcodeproj">
+      location = "group:RoadBlock/RoadBlock.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:RouteInstructions/RouteInstructions.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:RoadBlock/RoadBlock.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:SimulateRoute/SimulateRoute.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:BetterRouteNotification/BetterRouteNotification.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">
    </FileRef>
 </Workspace>
