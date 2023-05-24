@@ -15,6 +15,7 @@
 		CE1851062A0A2B9D00D20708 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1851042A0A2B9D00D20708 /* LaunchScreen.storyboard */; };
 		CE18510F2A0A2D5C00D20708 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE18510E2A0A2D5C00D20708 /* GEMKit.xcframework */; };
 		CE1851102A0A2D5C00D20708 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE18510E2A0A2D5C00D20708 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEB8F81F2A1CE40F00A520F0 /* CustomBasic.style in Resources */ = {isa = PBXBuildFile; fileRef = CEB8F81E2A1CE40F00A520F0 /* CustomBasic.style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		CE1851052A0A2B9D00D20708 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE1851072A0A2B9D00D20708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE18510E2A0A2D5C00D20708 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CEB8F81E2A1CE40F00A520F0 /* CustomBasic.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = CustomBasic.style; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				CE1850FF2A0A2B9D00D20708 /* Main.storyboard */,
 				CE1851022A0A2B9D00D20708 /* Assets.xcassets */,
 				CE1851042A0A2B9D00D20708 /* LaunchScreen.storyboard */,
+				CEB8F81E2A1CE40F00A520F0 /* CustomBasic.style */,
 				CE1851072A0A2B9D00D20708 /* Info.plist */,
 			);
 			path = FingerDrawRoute;
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1851062A0A2B9D00D20708 /* LaunchScreen.storyboard in Resources */,
+				CEB8F81F2A1CE40F00A520F0 /* CustomBasic.style in Resources */,
 				CE1851032A0A2B9D00D20708 /* Assets.xcassets in Resources */,
 				CE1851012A0A2B9D00D20708 /* Main.storyboard in Resources */,
 			);

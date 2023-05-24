@@ -30,9 +30,9 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
         
         super.viewDidLoad()
         
-        self.title = "Draw Route"
-        
         self.mapViewController = self.createMapViewController()
+        
+        self.setCustomStyle()
         
         self.refreshTitleViewButton()
     }
@@ -252,13 +252,23 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
             
             mapViewController.showCompass()
             
-            if results.count > 0 {
+            if results.count > 0, let route = results.first {
                 
                 let insets = strongSelf.areaEdge(margin: 60)
                 
                 mapViewController.setEdgeAreaInsets(insets)
                 
                 mapViewController.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1600)
+                
+                let preferences = mapViewController.getPreferences()
+                
+                if let settings = preferences.getRenderSettings(route) {
+                    
+                    settings.textSize  = 3.2
+                    settings.imageSize = 3.2
+                    
+                    preferences.setRenderSettings(settings, route: route)
+                }
                 
                 if let button = strongSelf.showHideButton {
                     
@@ -472,7 +482,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
         
         let currentType = self.routeType
         
-        let typeBike = UIAction(title: "Bike Route", image: UIImage.init(systemName: "bicycle", withConfiguration: configuration),
+        let typeBike = UIAction(title: "Bike", image: UIImage.init(systemName: "bicycle", withConfiguration: configuration),
                                 state: .off ,handler: { [weak self] action in
             
             guard let strongSelf = self else { return }
@@ -482,7 +492,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
             strongSelf.refreshTitleViewButton()
         })
         
-        let typePedestrian = UIAction(title: "Pedestrian Route", image: UIImage.init(systemName: "figure.walk", withConfiguration: configuration),
+        let typePedestrian = UIAction(title: "Pedestrian", image: UIImage.init(systemName: "figure.walk", withConfiguration: configuration),
                                       state: .off ,handler: { [weak self] action in
             
             guard let strongSelf = self else { return }
@@ -510,7 +520,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
         
         let menu = UIMenu(options: .displayInline, children: children)
         
-        let title = "Draw Route"
+        let title = self.routeType == .bicycle ?  "Bike Route" : "Pedestrian Route"
         let image = UIImage.init(systemName: "chevron.down.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18))
         let attributes = AttributeContainer([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .regular)])
         
@@ -541,6 +551,19 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
         if let button = self.navigationItem.titleView as? UIButton {
             
             button.isEnabled = enabled
+        }
+    }
+    
+    func setCustomStyle() {
+        
+        guard let mapViewController = self.mapViewController else { return }
+        
+        if let url = Bundle.main.url(forResource: "CustomBasic", withExtension: "style") {
+            
+            if let data = NSData.init(contentsOf: url) as Data? {
+                
+                mapViewController.applyStyle(withStyleBuffer: data, smoothTransition: false)
+            }
         }
     }
     
