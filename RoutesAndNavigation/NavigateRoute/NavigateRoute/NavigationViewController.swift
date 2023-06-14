@@ -1097,11 +1097,14 @@ class NavigationViewController: UIViewController {
                 imgHeight = panelSize.height
             }
             
-            let scale = UIScreen.main.scale
-            let height = imgHeight * scale
+            let factor: CGFloat = 2.5
+            let height: CGFloat = imgHeight * UIScreen.main.scale
             
-            let border = Int(scale * 5)
-            image = turnInstruction.getSignpostImage(height, border: border, roundCorners: true, rows: 3)
+            let sizePixels = CGSize.init(width: factor * height, height: height)
+            
+            let borderPixels = Int(5 * UIScreen.main.scale)
+            
+            image = turnInstruction.getSignpostImage(sizePixels, border: borderPixels, roundCorners: true, rows: 3)
         }
         
         self.signPostImage.image = image
@@ -1119,18 +1122,20 @@ class NavigationViewController: UIViewController {
                 roadCodeSize = 40
             }
             
-            let scale = UIScreen.main.scale
-            let height = roadCodeSize * scale
+            let factor: CGFloat = 2.5
+            let height: CGFloat = roadCodeSize * UIScreen.main.scale
+            
+            let sizePixels = CGSize.init(width: factor * height, height: height)
             
             var image: UIImage?
             
             if turnInstruction.hasNextRoadInfo() {
                 
-                image = turnInstruction.getNextRoadCodeImage(height)
+                image = turnInstruction.getNextRoadCodeImage(sizePixels)
                 
             } else  if turnInstruction.hasCurrentRoadInfo() {
                 
-                image = turnInstruction.getCurrentRoadCodeImage(height)
+                image = turnInstruction.getCurrentRoadCodeImage(sizePixels)
             }
             
             if let img = image {
@@ -1175,7 +1180,7 @@ class NavigationViewController: UIViewController {
                 let scale = UIScreen.main.scale
                 let height: CGFloat = 50 * scale
                 
-                if let image = item.getImage(height) {
+                if let image = item.getAspectRatioImage(height) {
                     
                     let font     = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
                     let fontUnit = UIFont.boldSystemFont(ofSize: self.turnDistUnitFontSize)
@@ -1220,7 +1225,7 @@ class NavigationViewController: UIViewController {
                 let scale = UIScreen.main.scale
                 let height: CGFloat = 50 * scale
                 
-                if let image = item.getImage(height) {
+                if let image = item.getAspectRatioImage(height) {
                     
                     let font     = UIFont.boldSystemFont(ofSize: self.turnDistFontSize)
                     let fontUnit = UIFont.boldSystemFont(ofSize: self.turnDistUnitFontSize)
