@@ -28,7 +28,7 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
             navigationController.navigationBar.scrollEdgeAppearance = appearance
         }
         
-        self.title = "GEM Gpx Route"
+        self.title = "GPX Route"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.largeTitleDisplayMode = .never
         
@@ -104,7 +104,8 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
             
             let preferences = RoutePreferencesObject.init()
             preferences.setTransportMode(.bicycle)
-
+            preferences.setAvoidUnpavedRoads(false)
+            
             self.navigationContext = NavigationContext.init(preferences: preferences)
             self.navigationContext?.delegate = self
         }
@@ -136,9 +137,9 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
                 }
             }
             
-            if results.count > 0 {
+            if let route = results.first {
                 
-                strongSelf.mainRoute = results.first
+                strongSelf.mainRoute = route
                 
                 let insets = strongSelf.areaEdge(margin: 70)
                 
@@ -146,6 +147,8 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
 
                 strongSelf.mapViewController?.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1000)
             }
+            
+            strongSelf.refreshShareRoute()
             
             item.isEnabled = true
         })
@@ -227,6 +230,42 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
     
     func navigationContext(_ navigationContext: NavigationContext, onBetterRouteInvalidated state: Bool) {
         
+    }
+    
+    // MARK: - Share GPX Track
+    
+    func refreshShareRoute() {
+        
+        let image = UIImage.init(systemName: "square.and.arrow.up")
+        
+        let barItem = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(sharePathButton))
+        
+        self.navigationItem.leftBarButtonItem = self.mainRoute != nil ? barItem : nil
+    }
+    
+    @objc
+    func sharePathButton() {
+        
+        guard let route = self.mainRoute else { return }
+        
+        guard let data = route.export(as: .gpx) else { return }
+        
+        guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let name = "Track.gpx"
+        
+        let fileURL = documentsURL.appendingPathComponent(name)
+        
+        let success = FileManager.default.createFile(atPath: fileURL.path, contents: data)
+        
+        if success {
+            
+            let activityItems: [Any] = [fileURL]
+            let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
+            activityController.completionWithItemsHandler = { (type, completed, items, error) in }
+            
+            self.present(activityController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Utils
