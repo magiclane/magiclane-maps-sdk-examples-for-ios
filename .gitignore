@@ -10,5 +10,5 @@ Pods/
 # Build
 **/Build
 DerivedData
-!Frameworks
+Frameworks/
 !**/Data
