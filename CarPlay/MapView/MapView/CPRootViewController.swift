@@ -166,23 +166,57 @@ class CPRootViewController: UIViewController, CPMapTemplateDelegate  {
     
     func mapTemplate(_ mapTemplate: CPMapTemplate, panWith direction: CPMapTemplate.PanDirection) {
         
-        switch direction {
+        guard let mapViewController = self.mapViewController else { return }
         
+        let offset: CGFloat = 25.0
+        
+        var translation: CGPoint = .zero
+        
+        switch direction {
+            
         case .left:
-            self.mapViewController!.pan(with: .left, pixelOffset: 50)
+            translation = CGPoint.init(x: offset, y: 0)
             
         case .right:
-            self.mapViewController!.pan(with: .right, pixelOffset: 50)
+            translation = CGPoint.init(x: -offset, y: 0)
             
-        case.up:
-            self.mapViewController!.pan(with: .up, pixelOffset: 50)
+        case .up:
+            translation = CGPoint.init(x: 0, y: offset)
             
         case .down:
-            self.mapViewController!.pan(with: .down, pixelOffset: 50)
+            translation = CGPoint.init(x: 0, y: -offset)
             
         default:
             break
         }
+        
+        let scale = self.getWindowScale()
+        
+        let value = CGPoint.init(x: scale * translation.x, y: scale * translation.y)
+        
+        mapViewController.scrollMap(value)
+    }
+    
+    func mapTemplateDidBeginPanGesture(_ mapTemplate: CPMapTemplate) {
+        
+    }
+    
+    func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity: CGPoint) {
+        
+        guard let mapViewController = self.mapViewController else { return }
+        
+        let scale = self.getWindowScale()
+        
+        let value = CGPoint.init(x: scale * translation.x, y: scale * translation.y)
+        
+        mapViewController.scrollMap(value)
+    }
+    
+    func mapTemplate(_ mapTemplate: CPMapTemplate, didEndPanGestureWithVelocity velocity: CGPoint) {
+        
+        guard let mapViewController = self.mapViewController else { return }
+        
+        mapViewController.flingMap(velocity)
     }
     
     // MARK: - Utils
