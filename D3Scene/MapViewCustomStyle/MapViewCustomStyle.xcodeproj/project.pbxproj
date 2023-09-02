@@ -15,7 +15,7 @@
 		CE655D9D2694390E0041D41F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE655D9B2694390E0041D41F /* LaunchScreen.storyboard */; };
 		CE655DA6269439430041D41F /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE655DA5269439430041D41F /* GEMKit.xcframework */; };
 		CE655DA7269439430041D41F /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE655DA5269439430041D41F /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CE655DAA269439E90041D41F /* NightBlues.style in Resources */ = {isa = PBXBuildFile; fileRef = CE655DA9269439E90041D41F /* NightBlues.style */; };
+		CE8239D22AA20AD800045730 /* Basic1Oldtime.style in Resources */ = {isa = PBXBuildFile; fileRef = CE8239D12AA20AD800045730 /* Basic1Oldtime.style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +42,7 @@
 		CE655D9C2694390E0041D41F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE655D9E2694390E0041D41F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE655DA5269439430041D41F /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
-		CE655DA9269439E90041D41F /* NightBlues.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = NightBlues.style; sourceTree = "<group>"; };
+		CE8239D12AA20AD800045730 /* Basic1Oldtime.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = Basic1Oldtime.style; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				CE655D922694390D0041D41F /* SceneDelegate.swift */,
 				CE655D942694390D0041D41F /* ViewController.swift */,
 				CE655D962694390D0041D41F /* Main.storyboard */,
-				CE655DA9269439E90041D41F /* NightBlues.style */,
+				CE8239D12AA20AD800045730 /* Basic1Oldtime.style */,
 				CE655D992694390E0041D41F /* Assets.xcassets */,
 				CE655D9B2694390E0041D41F /* LaunchScreen.storyboard */,
 				CE655D9E2694390E0041D41F /* Info.plist */,
@@ -155,10 +155,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE655DAA269439E90041D41F /* NightBlues.style in Resources */,
 				CE655D9D2694390E0041D41F /* LaunchScreen.storyboard in Resources */,
 				CE655D9A2694390E0041D41F /* Assets.xcassets in Resources */,
 				CE655D982694390D0041D41F /* Main.storyboard in Resources */,
+				CE8239D22AA20AD800045730 /* Basic1Oldtime.style in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

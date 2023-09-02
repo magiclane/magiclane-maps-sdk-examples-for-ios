@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     
     func setCustomStyle() {
         
-        if let url = Bundle.main.url(forResource: "NightBlues", withExtension: "style") {
+        if let url = Bundle.main.url(forResource: "Basic1Oldtime", withExtension: "style") {
             
             if let data = NSData.init(contentsOf: url) as Data? {
                 
