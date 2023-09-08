@@ -50,6 +50,9 @@
       location = "group:Projections/Projections.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:RangeView/RangeView.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Shapes/Shapes.xcodeproj">
    </FileRef>
    <FileRef
