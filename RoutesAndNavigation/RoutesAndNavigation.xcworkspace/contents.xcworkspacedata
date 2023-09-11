@@ -38,6 +38,9 @@
       location = "group:RouteInstructions/RouteInstructions.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:RouteProfile/RouteProfile.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SimulateRoute/SimulateRoute.xcodeproj">
    </FileRef>
 </Workspace>

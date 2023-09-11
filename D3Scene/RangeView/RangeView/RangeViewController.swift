@@ -165,7 +165,7 @@ class RangeViewController: UIViewController {
         
         self.rangeView!.onRangeSelected = { [weak self] item in
             
-            guard let strongSelf = self else { return }
+            guard let _ = self else { return }
             
             if item.isSelected {
                 
