@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CE24A39E26384D0B00688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CE24A39E26384D0B00688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CE72FBD3261D914900B19E72 /* SimulateRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimulateRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE72FBD6261D914900B19E72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE72FBD8261D914900B19E72 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };

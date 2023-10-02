@@ -242,6 +242,9 @@ class ElevationChartViewController: UIViewController, ChartViewDelegate, AxisVal
         let minElevationLocal = self.localElevation(Double(profile.getMinElevation()))
         let maxElevationLocal = self.localElevation(Double(profile.getMaxElevation()))
         
+        let minElevDistanceLocal = self.localDistance(Double(profile.getMinElevationDistance()))
+        let maxElevDistanceLocal = self.localDistance(Double(profile.getMaxElevationDistance()))
+        
         lineChartView.leftAxis.axisMinimum = Double((Int(minElevationLocal / 100) - 1) * 100)
         lineChartView.leftAxis.axisMaximum = Double((Int(maxElevationLocal / 100) + 2) * 100)
         lineChartView.leftAxis.granularity = 1.0
@@ -294,6 +297,18 @@ class ElevationChartViewController: UIViewController, ChartViewDelegate, AxisVal
                     
                     let entryX = x
                     let entryY = self.localElevation(y)
+                    
+                    if let lastAdded = chartDataEntries.last {
+                        
+                        if minElevDistanceLocal <= entryX && minElevDistanceLocal >= lastAdded.x {
+                            
+                            chartDataEntries.append(ChartDataEntry(x: minElevDistanceLocal, y: minElevationLocal))
+                            
+                        } else if maxElevDistanceLocal <= entryX && maxElevDistanceLocal >= lastAdded.x {
+                            
+                            chartDataEntries.append(ChartDataEntry(x: maxElevDistanceLocal, y: maxElevationLocal))
+                        }
+                    }
                     
                     chartDataEntries.append(ChartDataEntry(x: entryX, y: entryY))
                 }
@@ -620,9 +635,8 @@ class ElevationChartViewController: UIViewController, ChartViewDelegate, AxisVal
         
         lineChartView.highlightValue(nil)
         
-        guard lineChartView.xAxis.axisMinimum < lineChartView.lowestVisibleX else { return }
-        
-        guard lineChartView.xAxis.axisMaximum > lineChartView.highestVisibleX else { return }
+        guard lineChartView.xAxis.axisMinimum < lineChartView.lowestVisibleX ||
+                lineChartView.xAxis.axisMaximum > lineChartView.highestVisibleX else { return }
         
         self.refreshChartData()
         self.updateChartDataWithClimbSets()
@@ -1147,7 +1161,16 @@ struct RouteElevationButtonsView: View {
         
         let type = GEMSdk.shared().getUnitSystem()
         
-        return String(Int(value)) + " " + (type == .imperialUS ? "ft" : "m")
+        let valueFormatter = NumberFormatter()
+        valueFormatter.minimumFractionDigits = 0
+        valueFormatter.maximumFractionDigits = 0
+        
+        if let value = valueFormatter.string(from: NSNumber(floatLiteral: value))
+        {
+            return value + " " + (type == .imperialUS ? "ft" : "m")
+        }
+        
+        return String(Int(value) + 1) + " " + (type == .imperialUS ? "ft" : "m")
     }
 }
 

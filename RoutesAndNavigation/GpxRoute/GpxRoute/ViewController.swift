@@ -195,7 +195,7 @@ class ViewController: UIViewController, UISearchBarDelegate, NavigationContextDe
         }
     }
     
-    func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject) {
+    func navigationContext(_ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject, updatedEvents: Int32) {
         
     }
     
