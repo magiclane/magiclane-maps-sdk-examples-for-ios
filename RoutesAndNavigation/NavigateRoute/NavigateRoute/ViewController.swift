@@ -10,7 +10,7 @@ import UIKit
 import GEMKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MapViewControllerDelegate, NavigationContextDelegate  {
+class ViewController: UIViewController, CLLocationManagerDelegate, MapViewControllerDelegate, NavigationContextDelegate, PositionContextDelegate  {
     
     var mapViewController: MapViewController?
     
@@ -56,6 +56,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.dataSource!.setConfiguration(configuration, for: .position)
         
         self.positionContext = PositionContext.init(context: self.dataSource!)
+        self.positionContext!.delegate = self
+        self.positionContext!.startUpdatingPositionDelegate(.improvedPosition)
         
         self.title = "Navigate Route"
         self.navigationItem.largeTitleDisplayMode = .never
@@ -447,6 +449,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
                 strongSelf.mapViewController!.presentRoutes([strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
             }
         }
+    }
+    
+    // MARK: - PositionContextDelegate
+    
+    func positionContext(_ positionContext: PositionContext, didUpdatePosition position: PositionObject) {
+        
+        /*if position.hasTerrainData() {
+            
+            let slope    = position.getTerrainSlope()
+            let altitude = position.getTerrainAltitude()
+            
+            NSLog("slope:%f, altitude:%f", slope, altitude)
+        }*/
     }
     
     // MARK: - MapViewControllerDelegate

@@ -23,6 +23,9 @@
       location = "group:MapStyle/MapStyle.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapStyleImport/MapStyleImport.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapStyleList/MapStyleList.xcodeproj">
    </FileRef>
    <FileRef

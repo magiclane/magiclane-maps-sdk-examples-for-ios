@@ -158,7 +158,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
         
         let settings = HighlightRenderSettings.init()
         settings.showPin = true
-        settings.imageSize = 120
+        settings.imageSize = 7
         
         settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
         settings.contourInnerColor = UIColor.orange

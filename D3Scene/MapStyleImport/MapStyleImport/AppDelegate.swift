@@ -19,11 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let success = GEMSdk.shared().initSdk(token)
         
-        if success {
-            
-            GEMSdk.shared().setUnitSystem(.metric)
-        }
-        
         NSLog("GEMKit init with success:%@", String(success))
         
         self.addSkipBackupAttribute()
@@ -34,27 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: UISceneSession Lifecycle
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        
-        if connectingSceneSession.role == .windowApplication
-        {
-            let sceneConfiguration = UISceneConfiguration(name: "Window Application Configuration", sessionRole: connectingSceneSession.role)
-            sceneConfiguration.delegateClass = SceneDelegate.classForCoder()
-            sceneConfiguration.storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            
-            return sceneConfiguration
-        }
-        else if connectingSceneSession.role == .carTemplateApplication
-        {
-            let sceneConfiguration = UISceneConfiguration(name: "CarPlay Configuration", sessionRole: connectingSceneSession.role)
-            sceneConfiguration.delegateClass = CarPlaySceneDelegate.classForCoder()
-            
-            return sceneConfiguration
-        }
-        
-        let sceneConfiguration = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-        
-        return sceneConfiguration
-        
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
@@ -100,4 +77,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+
 
