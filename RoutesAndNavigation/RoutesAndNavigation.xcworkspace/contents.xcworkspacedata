@@ -17,6 +17,9 @@
       location = "group:GpxRoute/GpxRoute.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:GpxThumbnailImage/GpxThumbnailImage.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:HumanVoices/HumanVoices.xcodeproj">
    </FileRef>
    <FileRef
