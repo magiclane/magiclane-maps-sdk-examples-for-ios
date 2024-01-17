@@ -184,7 +184,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         let settings = HighlightRenderSettings.init()
         settings.showPin = true
-        settings.imageSize = 120
+        settings.imageSize = 7
         
         if landmark.isContourGeograficAreaEmpty() == false {
             
