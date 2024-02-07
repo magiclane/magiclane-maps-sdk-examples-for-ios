@@ -131,6 +131,7 @@ class ViewController: UIViewController, GEMSdkDelegate {
         
         let preferences = self.mapViewController!.getPreferences()
         preferences.setMapLabelsFading(false)
+        preferences.setTrafficVisibility(false)
     }
     
     func cleanMapView() {
@@ -208,6 +209,8 @@ class ViewController: UIViewController, GEMSdkDelegate {
                     
                     guard let strongSelf = self else { return }
                     
+                    strongSelf.disableOverlays()
+                    
                     strongSelf.waitingMapTiles(completion: completion)
                 }
             }
@@ -252,6 +255,13 @@ class ViewController: UIViewController, GEMSdkDelegate {
                 }
             }
         }
+    }
+    
+    func disableOverlays() {
+        
+        let context = OverlayServiceContext.init()
+        context.disableOverlay(Int32(CommonOverlayIdentifier.safety.rawValue))
+        context.disableOverlay(Int32(CommonOverlayIdentifier.socialReports.rawValue))
     }
     
     func makeScreenshot(completion: @escaping (_ finished: Bool) -> Void) {
