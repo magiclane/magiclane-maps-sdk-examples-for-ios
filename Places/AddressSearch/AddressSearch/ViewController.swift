@@ -167,7 +167,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         if landmark.isContourGeograficAreaEmpty() == false {
             
-            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.options = Int32( HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue )
             settings.contourInnerColor = UIColor.blue
             settings.contourOuterColor = UIColor.blue
         }
@@ -194,7 +194,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         if landmark.isContourGeograficAreaEmpty() == false {
             
-            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.options = Int32( HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue )
             settings.contourInnerColor = UIColor.orange
             settings.contourOuterColor = UIColor.orange
         }
@@ -344,7 +344,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
                 
                 if houseNumber.isContourGeograficAreaEmpty() == false {
                     
-                    settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+                    settings.options = Int32( HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue )
                     settings.contourInnerColor = UIColor.orange
                     settings.contourOuterColor = UIColor.orange
                 }

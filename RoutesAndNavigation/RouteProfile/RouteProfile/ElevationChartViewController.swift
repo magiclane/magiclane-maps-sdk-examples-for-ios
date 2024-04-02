@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2023, General Magic B.V.
+// Copyright (C) 2019-2024, General Magic B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of General Magic
@@ -676,7 +676,7 @@ class ElevationChartViewController: UIViewController, ChartViewDelegate, AxisVal
             let highlightSettings = HighlightRenderSettings()
             
             highlightSettings.showPin = true
-            highlightSettings.options = Int32(HighlightOptionsShowLandmark | HighlightOptionsNoFading | HighlightOptionsOverlap)
+            highlightSettings.options = Int32(HighlightOption.showLandmark.rawValue | HighlightOption.noFading.rawValue | HighlightOption.overlap.rawValue)
             
             mapViewController.presentHighlights([landmark], settings: highlightSettings, highlightId: defaultLandmarksHighlightId)
             

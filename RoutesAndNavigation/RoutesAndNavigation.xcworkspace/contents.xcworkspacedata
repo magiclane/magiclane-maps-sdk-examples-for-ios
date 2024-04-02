@@ -23,6 +23,9 @@
       location = "group:HumanVoices/HumanVoices.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CustomTurnsId/CustomTurnsId.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">
    </FileRef>
    <FileRef

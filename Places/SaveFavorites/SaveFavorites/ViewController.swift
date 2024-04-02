@@ -375,7 +375,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         if landmark.isContourGeograficAreaEmpty() == false {
             
-            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.options = Int32( HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue )
             settings.contourInnerColor = UIColor.systemRed
             settings.contourOuterColor = UIColor.systemRed
         }

@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2023, Magic Lane B.V.
+// Copyright (C) 2019-2024, Magic Lane B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of Magic Lane
@@ -644,7 +644,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if landmark.isContourGeograficAreaEmpty() == false {
             
-            settings.options = Int32( HighlightOptionsShowLandmark | HighlightOptionsOverlap | HighlightOptionsShowContour )
+            settings.options = Int32( HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue )
             settings.contourInnerColor = UIColor.systemBlue
             settings.contourOuterColor = UIColor.systemBlue
         }

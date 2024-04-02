@@ -1,6 +1,6 @@
 # Magic Lane - Maps SDK for iOS demo applications
 
-Copyright (C) 2019-2023, Magic Lane B.V.  
+Copyright (C) 2019-2024, Magic Lane B.V.  
 All rights reserved.  
 Contact: info@magiclane.com
 
