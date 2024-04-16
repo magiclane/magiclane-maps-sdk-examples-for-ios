@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:PresentMap/PresentMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapRender/MapRender.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapStyle/MapStyle.xcodeproj">
+   </FileRef>
+</Workspace>
