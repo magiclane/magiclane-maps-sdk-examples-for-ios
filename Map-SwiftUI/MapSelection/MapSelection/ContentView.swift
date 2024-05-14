@@ -10,19 +10,21 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var mapView = MapView()
     @State private var zoom = 74
     var body: some View {
-        mapView
-            .didSelectStreets { streets, touchPoint, isLongTouch in
-                mapView.present(highlights: streets, settings: getRenderSettings())
-            }
-            .didSelectLandmarks { landmarks, touchPoint, isLongTouch in
-                mapView.present(highlights: landmarks, settings: getRenderSettings())
-            }
-            .onAppear() {
-                goToPosition()
-            }
+        MapReader { proxy in
+            MapBase()
+                .didSelectStreets { streets, touchPoint, isLongTouch in
+                    proxy.present(highlights: streets, settings: getRenderSettings())
+                }
+                .didSelectLandmarks { landmarks, touchPoint, isLongTouch in
+                    proxy.present(highlights: landmarks, settings: getRenderSettings())
+                }
+                .onAppear() {
+                    goToPosition(proxy)
+                }
+                .ignoresSafeArea()
+        }
     }
     
     func getRenderSettings() -> HighlightRenderSettings {
@@ -32,8 +34,8 @@ struct ContentView: View {
         return settings
     }
     
-    func goToPosition() {
-        mapView.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+    func goToPosition(_ proxy: MapProxy) {
+        proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
     }
 }
 

@@ -10,20 +10,22 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var mapView = MapView()
     @State private var zoom = 54
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        mapView
-            .mapStyle(getStyleFollowingOS())
-            .onAppear() {
-                goToPosition()
-            }
+        MapReader { proxy in
+            MapBase()
+                .mapStyle(getStyleFollowingOS())
+                .onAppear() {
+                    goToPosition(proxy)
+                }
+                .ignoresSafeArea()
+        }
     }
     
-    func goToPosition() {
-        mapView.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+    func goToPosition(_ proxy: MapProxy) {
+        proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
     }
     
     func getStyleFollowingOS() -> Int {

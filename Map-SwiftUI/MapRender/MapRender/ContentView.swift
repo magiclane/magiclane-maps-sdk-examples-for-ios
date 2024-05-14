@@ -10,31 +10,32 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var mapView = MapView()
     @State private var zoom = 54
     @State private var isRendering = true
     var body: some View {
         NavigationStack {
-            mapView
-                .mapRender(isRendering)
-                .onAppear() {
-                    goToPosition()
-                }
-                .padding(.top)
-                .navigationTitle("GEMKit - SwiftUI")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(isRendering ? "RenderOff" : "RenderOn") {
-                            isRendering.toggle()
+            MapReader { proxy in
+                MapBase()
+                    .mapRender(isRendering)
+                    .onAppear() {
+                        goToPosition(proxy)
+                    }
+                    .ignoresSafeArea(.all, edges: .bottom)
+                    .navigationTitle("GEMKit - SwiftUI")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button(isRendering ? "RenderOff" : "RenderOn") {
+                                isRendering.toggle()
+                            }
                         }
                     }
-                }
+            }
         }
     }
     
-    func goToPosition() {
-        mapView.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+    func goToPosition(_ proxy: MapProxy) {
+        proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
     }
 }
 

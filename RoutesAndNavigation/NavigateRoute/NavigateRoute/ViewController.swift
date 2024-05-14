@@ -239,7 +239,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if navigationContext.isSimulationActive() || navigationContext.isNavigationActive() {
             
-            let length = 100 //m
+            let length = 1000 //m
             
             navigationContext.setRoadBlockWithLength(length, starting: -1)
         }

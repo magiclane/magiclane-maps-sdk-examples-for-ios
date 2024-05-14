@@ -10,17 +10,15 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var mapView = MapView()
     @State private var zoom = 54
     var body: some View {
-        mapView
-            .onAppear() {
-                goToPosition()
-            }
-    }
-    
-    func goToPosition() {
-        mapView.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+        MapReader { proxy in
+            MapBase()
+                .onAppear() {
+                    proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+                }
+                .ignoresSafeArea()
+        }
     }
 }
 
