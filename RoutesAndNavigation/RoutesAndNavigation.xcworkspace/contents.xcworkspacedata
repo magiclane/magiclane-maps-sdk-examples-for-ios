@@ -11,6 +11,9 @@
       location = "group:CalculateRouteMultiMap/CalculateRouteMultiMap.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CustomTurnsId/CustomTurnsId.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
    </FileRef>
    <FileRef
@@ -21,9 +24,6 @@
    </FileRef>
    <FileRef
       location = "group:HumanVoices/HumanVoices.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:CustomTurnsId/CustomTurnsId.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SimulateRoute/../NavigateRoute/NavigateRoute.xcodeproj">

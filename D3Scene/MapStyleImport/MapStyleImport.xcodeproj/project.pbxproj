@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE6461212C0480770008E23C /* Basic1Oldtime.style in Resources */ = {isa = PBXBuildFile; fileRef = CE6461202C0480770008E23C /* Basic1Oldtime.style */; };
 		CE6BD31A2ADD264A004BF142 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BD3192ADD264A004BF142 /* AppDelegate.swift */; };
 		CE6BD31C2ADD264A004BF142 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BD31B2ADD264A004BF142 /* SceneDelegate.swift */; };
 		CE6BD31E2ADD264A004BF142 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BD31D2ADD264A004BF142 /* ViewController.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE6461202C0480770008E23C /* Basic1Oldtime.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = Basic1Oldtime.style; sourceTree = "<group>"; };
 		CE6BD3162ADD264A004BF142 /* MapStyleImport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapStyleImport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6BD3192ADD264A004BF142 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE6BD31B2ADD264A004BF142 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				CE6BD31D2ADD264A004BF142 /* ViewController.swift */,
 				CE6BD31F2ADD264A004BF142 /* Main.storyboard */,
 				CE6BD3222ADD264B004BF142 /* Assets.xcassets */,
+				CE6461202C0480770008E23C /* Basic1Oldtime.style */,
 				CE6BD3242ADD264B004BF142 /* LaunchScreen.storyboard */,
 				CE6BD3272ADD264B004BF142 /* Info.plist */,
 			);
@@ -156,6 +159,7 @@
 				CE6BD3262ADD264B004BF142 /* LaunchScreen.storyboard in Resources */,
 				CE6BD3232ADD264B004BF142 /* Assets.xcassets in Resources */,
 				CE6BD3212ADD264A004BF142 /* Main.storyboard in Resources */,
+				CE6461212C0480770008E23C /* Basic1Oldtime.style in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

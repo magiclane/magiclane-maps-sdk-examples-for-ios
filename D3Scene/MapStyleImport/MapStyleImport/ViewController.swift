@@ -93,7 +93,18 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         if let item = mapStyleContext.getItemById(identifier) {
             
-            self.label.text = item.getName() + ", id:\(item.getIdentifier())"
+            var text = item.getName()
+            
+            if text.count > 0 {
+                
+                text += ", id:\(item.getIdentifier())"
+                
+            } else {
+                
+                text = "id:\(item.getIdentifier())"
+            }
+            
+            self.label.text = text
         }
         
         self.label.isHidden = false
@@ -275,7 +286,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
             
         } else {
             
-            if let url = Bundle.main.url(forResource: "DonetzDemoStyle", withExtension: "style") {
+            if let url = Bundle.main.url(forResource: "Basic1Oldtime", withExtension: "style") {
                 
                 if let type = self.mapStyleUTType {
                     
