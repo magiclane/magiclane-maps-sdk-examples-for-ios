@@ -264,7 +264,7 @@ class StylesViewController: UITableViewController, ContentStoreObjectDelegate {
             
         } else if status == .unavailable || status == .paused {
             
-            object.download(withAllowCellularNetwork: false) { (success: Bool) in }
+            object.download(withAllowCellularNetwork: true) { (success: Bool) in }
             
         } else if status == .completed {
             

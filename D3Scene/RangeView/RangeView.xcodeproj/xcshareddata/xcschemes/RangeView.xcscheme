@@ -4,7 +4,8 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CE270DAC26023FCF0079AB49"
-               BuildableName = "CenterMap.app"
-               BlueprintName = "CenterMap"
-               ReferencedContainer = "container:CenterMap.xcodeproj">
+               BlueprintIdentifier = "CEDFDBAA2AAA058400B5A40D"
+               BuildableName = "RangeView.app"
+               BlueprintName = "RangeView"
+               ReferencedContainer = "container:RangeView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,10 +44,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CE270DAC26023FCF0079AB49"
-            BuildableName = "CenterMap.app"
-            BlueprintName = "CenterMap"
-            ReferencedContainer = "container:CenterMap.xcodeproj">
+            BlueprintIdentifier = "CEDFDBAA2AAA058400B5A40D"
+            BuildableName = "RangeView.app"
+            BlueprintName = "RangeView"
+            ReferencedContainer = "container:RangeView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -60,10 +61,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CE270DAC26023FCF0079AB49"
-            BuildableName = "CenterMap.app"
-            BlueprintName = "CenterMap"
-            ReferencedContainer = "container:CenterMap.xcodeproj">
+            BlueprintIdentifier = "CEDFDBAA2AAA058400B5A40D"
+            BuildableName = "RangeView.app"
+            BlueprintName = "RangeView"
+            ReferencedContainer = "container:RangeView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

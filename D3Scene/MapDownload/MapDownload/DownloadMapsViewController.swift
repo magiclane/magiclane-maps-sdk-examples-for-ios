@@ -265,7 +265,7 @@ class DownloadMapsViewController: UITableViewController, ContentStoreObjectDeleg
             
         } else if status == .unavailable || status == .paused {
             
-            object.download(withAllowCellularNetwork: false) { (success: Bool) in }
+            object.download(withAllowCellularNetwork: true) { (success: Bool) in }
         }
     }
     

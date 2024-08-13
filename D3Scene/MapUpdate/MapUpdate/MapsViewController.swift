@@ -181,7 +181,7 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
         
         context.delegateUpdate = self
         
-        context.update(withAllowCellularNetwork: false) { [weak self] success in
+        context.update(withAllowCellularNetwork: true) { [weak self] success in
             
             guard let strongSelf = self else { return }
             
@@ -595,7 +595,7 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
             
         } else if status == .unavailable || status == .paused {
             
-            object.download(withAllowCellularNetwork: false) { (success: Bool) in }
+            object.download(withAllowCellularNetwork: true) { (success: Bool) in }
         }
     }
     

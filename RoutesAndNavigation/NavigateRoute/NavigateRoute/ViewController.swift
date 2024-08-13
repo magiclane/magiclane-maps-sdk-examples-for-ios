@@ -48,12 +48,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         }
         
         let configuration = DataSourceConfigurationObject.init()
-        configuration.setPositionActivity(.automotive)
-        configuration.setPositionAccuracy(.whenMoving)
         configuration.setPositionDistanceFilter(0)
+        configuration.setPositionAccuracy(.whenMoving)
+        configuration.setPositionActivity(.automotive)
+        configuration.setAllowBackgroundLocationUpdates(true)
         
         self.dataSource = DataSourceContext.init()
-        self.dataSource!.setConfiguration(configuration, for: .position)
+        self.dataSource!.setConfiguration(configuration, for: .improvedPosition)
         
         self.positionContext = PositionContext.init(context: self.dataSource!)
         self.positionContext!.delegate = self
