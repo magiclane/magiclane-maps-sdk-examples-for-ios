@@ -2,15 +2,21 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PresentMap/PresentMap.xcodeproj">
+      location = "group:MapCompass/MapCompass.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MapSelection/MapSelection.xcodeproj">
+      location = "group:MapPositionTracker/MapPositionTracker.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapRender/MapRender.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapStyle/MapStyle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PresentMap/PresentMap.xcodeproj">
    </FileRef>
 </Workspace>

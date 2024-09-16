@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2023, Magic Lane B.V.
+// Copyright (C) 2019-2024, Magic Lane B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of Magic Lane
@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         
         let mapViewController = MapViewController.init()
         mapViewController.view.backgroundColor = UIColor.systemBackground
+        mapViewController.setCompassSize(20)
         
         mapViewController.view.layer.borderWidth = 1
         mapViewController.view.layer.borderColor = UIColor.darkGray.cgColor

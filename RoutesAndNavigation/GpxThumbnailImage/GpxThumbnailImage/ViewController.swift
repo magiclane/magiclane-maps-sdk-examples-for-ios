@@ -70,13 +70,7 @@ class ViewController: UIViewController, GEMSdkDelegate {
         
         self.prepareMapView()
         
-        self.showPath(buffer: data) { screenshotFinished in
-            
-            if screenshotFinished {
-                
-                self.cleanMapView()
-            }
-        }
+        self.showPath(buffer: data)
     }
     
     // MARK: - GEMSdkDelegate
@@ -144,7 +138,7 @@ class ViewController: UIViewController, GEMSdkDelegate {
         self.mapViewController = nil
     }
     
-    func showPath(buffer: Data, completion: @escaping (_ screenshotFinished: Bool) -> Void) {
+    func showPath(buffer: Data) {
         
         guard let mapViewController = self.mapViewController else { return }
         
@@ -211,7 +205,10 @@ class ViewController: UIViewController, GEMSdkDelegate {
                     
                     strongSelf.disableOverlays()
                     
-                    strongSelf.waitingMapTiles(completion: completion)
+                    strongSelf.waitingMapTiles() { finished in
+                        
+                        strongSelf.makeScreenshot()
+                    }
                 }
             }
         }
@@ -235,24 +232,21 @@ class ViewController: UIViewController, GEMSdkDelegate {
         label.text = message
     }
     
-    func waitingMapTiles(completion: @escaping (_ screenshotFinished: Bool) -> Void) {
+    func waitingMapTiles(completion: @escaping (_ finished: Bool) -> Void) {
         
         guard let mapViewController = self.mapViewController else { return }
         
         self.updateStatus(message: "Waiting data...")
         
-        mapViewController.setOnMapViewRendered { [weak self]  transitionStatus, cameraStatus in
-            
-            guard let strongSelf = self else { return }
+        mapViewController.setOnMapViewRendered { [weak self] transitionStatus, cameraStatus in
             
             if transitionStatus == .complete && cameraStatus == .stationary {
                 
-                strongSelf.makeScreenshot { finished in
-                    
-                    strongSelf.updateStatus(message: "Done.")
-                    
-                    completion(finished)
-                }
+                guard let strongSelf = self else { return }
+                
+                strongSelf.mapViewController?.resetOnMapViewRenderedCompletion()
+                
+                completion(true)
             }
         }
     }
@@ -264,18 +258,29 @@ class ViewController: UIViewController, GEMSdkDelegate {
         context.disableOverlay(Int32(CommonOverlayIdentifier.socialReports.rawValue))
     }
     
-    func makeScreenshot(completion: @escaping (_ finished: Bool) -> Void) {
+    func makeScreenshot() {
         
         guard let mapViewController = self.mapViewController else { return }
         
-        DispatchQueue.main.async {
+        print("makeScreenshot")
+        
+        self.updateStatus(message: "Done.")
+        
+        Task() {
             
-            let frame = mapViewController.view.frame
+            let image = mapViewController.snapshotImage(with: self.thumbnailSize, capture: .zero)
             
-            if let image = mapViewController.snapshotImage(with: frame.size, capture: .zero) {
+            let tag = 100
+            
+            if let imageView = self.view.viewWithTag(tag) as? UIImageView {
                 
-                let imageView = UIImageView.init(image: image)
-                imageView.backgroundColor = UIColor.black
+                imageView.image = image
+                
+            } else {
+                
+                let imageView = UIImageView.init()
+                imageView.tag = tag
+                imageView.image = image
                 imageView.contentMode = .scaleAspectFit
                 imageView.layer.borderWidth = 1
                 imageView.layer.borderColor = UIColor.black.cgColor
@@ -291,8 +296,6 @@ class ViewController: UIViewController, GEMSdkDelegate {
                 ]
                 NSLayoutConstraint.activate(array)
             }
-            
-            completion(true)
         }
     }
     

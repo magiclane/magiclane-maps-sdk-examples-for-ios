@@ -19,6 +19,7 @@ struct ContentView: View {
                 .mapStyle(getStyleFollowingOS())
                 .onAppear() {
                     goToPosition(proxy)
+                    // applyCustomMapStyle(proxy)
                 }
                 .ignoresSafeArea()
         }
@@ -32,6 +33,13 @@ struct ContentView: View {
         return colorScheme == .dark ?
         MapStyleIdentifiers.night.rawValue :
         MapStyleIdentifiers.day.rawValue
+    }
+    
+    func applyCustomMapStyle(_ proxy: MapProxy) {
+        guard let url = Bundle.main.url(forResource: "CustomMapStyle", withExtension: "style") else { return }
+        if let data = NSData.init(contentsOf: url) as Data? {
+            proxy.setMapStyle(data: data, smoothTransition: true)
+        }
     }
 }
 

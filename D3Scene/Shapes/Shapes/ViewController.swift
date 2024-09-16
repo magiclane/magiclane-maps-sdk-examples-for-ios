@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2023, Magic Lane B.V.
+// Copyright (C) 2019-2024, Magic Lane B.V.
 // All rights reserved.
 //
 // This software is confidential and proprietary information of Magic Lane
@@ -74,8 +74,8 @@ class ViewController: UIViewController {
     
     func addShapesButton() {
         
-        var image = UIImage.init(systemName: "circle.fill")
-        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(togglePoints(_:)))
+        var image = UIImage.init(systemName: "circle")
+        let barButton1 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(toggleCircle(_:)))
         barButton1.tag = 1
         
         image = UIImage.init(systemName: "line.diagonal")
@@ -93,63 +93,21 @@ class ViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = barButton
     }
     
-    @objc func togglePoints(_ barButton: UIBarButtonItem) {
+    @objc func toggleCircle(_ barButton: UIBarButtonItem) {
         
-        if let marker = self.markerAvailable(type: .point) {
+        let name = "My Circle"
+        
+        if let marker = self.markerAvailable(name: name) {
             
             self.mapViewController!.removeMarker(marker)
             
         } else {
             
-            let coordinates = self.generatePointsCoordinates()
+            let coordinates = CoordinatesObject.coordinates(withLatitude: 52.350934, longitude: 4.886882)
             
-            let marker = MarkerObject.init(coordinates: coordinates)
+            let marker = MarkerObject.init(circleCenter: coordinates, radius: 3000)
             
-            let markerCollection = MarkerCollectionObject.init(name: "My Points", type: .point);
-            markerCollection.addMarker(marker)
-            
-            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
-        }
-    }
-    
-    @objc func togglePolylines(_ barButton: UIBarButtonItem) {
-        
-        if let marker = self.markerAvailable(type: .polyline) {
-            
-            self.mapViewController!.removeMarker(marker)
-            
-        } else {
-            
-            let coordinates = self.generatePolylinesCoordinates()
-            
-            let marker = MarkerObject.init(coordinates: coordinates)
-            
-            let markerCollection = MarkerCollectionObject.init(name: "My Polyline", type: .polyline);
-            markerCollection.addMarker(marker)
-            
-            markerCollection.setInnerSize(1.0)
-            markerCollection.setInnerColor(UIColor.red)
-            
-            markerCollection.setOuterSize(1.2)
-            markerCollection.setOuterColor(UIColor.black)
-            
-            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
-        }
-    }
-    
-    @objc func togglePolygon(_ barButton: UIBarButtonItem) {
-        
-        if let marker = self.markerAvailable(type: .polygon) {
-            
-            self.mapViewController!.removeMarker(marker)
-            
-        } else {
-            
-            let coordinates = self.generatePolygonCoordinates()
-            
-            let marker = MarkerObject.init(coordinates: coordinates)
-            
-            let markerCollection = MarkerCollectionObject.init(name: "My Polygon", type: .polygon);
+            let markerCollection = MarkerCollectionObject.init(name: name, type: .polygon);
             markerCollection.addMarker(marker)
             
             markerCollection.setInnerSize(0.6)
@@ -160,7 +118,63 @@ class ViewController: UIViewController {
             
             markerCollection.setFill(UIColor.yellow.withAlphaComponent(0.25))
             
-            self.mapViewController!.addMarker(markerCollection, animationDuration: 900)
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 100)
+        }
+    }
+    
+    @objc func togglePolylines(_ barButton: UIBarButtonItem) {
+        
+        let name = "My Polyline"
+        
+        if let marker = self.markerAvailable(name: name) {
+            
+            self.mapViewController!.removeMarker(marker)
+            
+        } else {
+            
+            let coordinates = self.generatePolylinesCoordinates()
+            
+            let marker = MarkerObject.init(coordinates: coordinates)
+            
+            let markerCollection = MarkerCollectionObject.init(name: name, type: .polyline);
+            markerCollection.addMarker(marker)
+            
+            markerCollection.setInnerSize(1.0)
+            markerCollection.setInnerColor(UIColor.red)
+            
+            markerCollection.setOuterSize(1.2)
+            markerCollection.setOuterColor(UIColor.black)
+            
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 100)
+        }
+    }
+    
+    @objc func togglePolygon(_ barButton: UIBarButtonItem) {
+        
+        let name = "My Polygon"
+        
+        if let marker = self.markerAvailable(name: name) {
+            
+            self.mapViewController!.removeMarker(marker)
+            
+        } else {
+            
+            let coordinates = self.generatePolygonCoordinates()
+            
+            let marker = MarkerObject.init(coordinates: coordinates)
+            
+            let markerCollection = MarkerCollectionObject.init(name: name, type: .polygon);
+            markerCollection.addMarker(marker)
+            
+            markerCollection.setInnerSize(0.6)
+            markerCollection.setInnerColor(UIColor.red)
+            
+            markerCollection.setOuterSize(1.2)
+            markerCollection.setOuterColor(UIColor.black)
+            
+            markerCollection.setFill(UIColor.yellow.withAlphaComponent(0.25))
+            
+            self.mapViewController!.addMarker(markerCollection, animationDuration: 100)
         }
     }
     
@@ -209,26 +223,21 @@ class ViewController: UIViewController {
         return coordinates
     }
     
-    func markerAvailable(type: MarkerCollectionType) -> MarkerCollectionObject? {
+    func markerAvailable(name: String) -> MarkerCollectionObject? {
         
         let allMarkers = self.mapViewController!.getAvailableMarkers()
         
         for marker in allMarkers {
             
-            if marker.getType() == type {
+            let markerName = marker.getName()
+            
+            if markerName == name {
                 
                 return marker
             }
         }
         
         return nil
-    }
-    
-    func randomColor() -> UIColor {
-        
-        let random = { CGFloat(arc4random_uniform(255)) / 255.0 }
-        
-        return UIColor(red: random(), green: random(), blue: random(), alpha: 1)
     }
     
     func areaEdge(margin: CGFloat) -> UIEdgeInsets {
@@ -242,89 +251,5 @@ class ViewController: UIViewController {
         
         return insets
     }
-    
-    func showEdgeaArea(insets: UIEdgeInsets) {
-        
-        let scale = UIScreen.main.scale
-        
-        let insetsPoints = UIEdgeInsets.init(top: insets.top/scale, left: insets.left/scale,
-                                             bottom: insets.bottom/scale, right: insets.right/scale)
-        
-        if let view = self.view.viewWithTag(10) {
-            view.removeFromSuperview()
-        }
-        
-        if let view = self.view.viewWithTag(11) {
-            view.removeFromSuperview()
-        }
-
-        if let view = self.view.viewWithTag(12) {
-            view.removeFromSuperview()
-        }
-
-        if let view = self.view.viewWithTag(13) {
-            view.removeFromSuperview()
-        }
-        
-        let color = UIColor.systemRed.withAlphaComponent(0.2)
-        
-        let viewTop = UIView.init()
-        viewTop.tag = 10
-        viewTop.backgroundColor = color
-        viewTop.isUserInteractionEnabled = false
-        
-        let viewBottom = UIView.init()
-        viewBottom.tag = 12
-        viewBottom.backgroundColor = color
-        viewBottom.isUserInteractionEnabled = false
-        
-        let viewLeft = UIView.init()
-        viewLeft.tag = 11
-        viewLeft.backgroundColor = color
-        viewLeft.isUserInteractionEnabled = false
-        
-        let viewRight = UIView.init()
-        viewRight.tag = 13
-        viewRight.backgroundColor = color
-        viewRight.isUserInteractionEnabled = false
-        
-        
-        self.view.addSubview(viewTop)
-        self.view.addSubview(viewLeft)
-        self.view.addSubview(viewBottom)
-        self.view.addSubview(viewRight)
-        
-        
-        viewTop.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            viewTop.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
-            viewTop.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            viewTop.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            viewTop.heightAnchor.constraint(equalToConstant: insetsPoints.top)
-        ])
-        
-        viewLeft.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            viewLeft.topAnchor.constraint(equalTo: viewTop.bottomAnchor, constant: 0),
-            viewLeft.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            viewLeft.widthAnchor.constraint(equalToConstant: insetsPoints.left),
-            viewLeft.bottomAnchor.constraint(equalTo: viewBottom.topAnchor, constant: 0),
-        ])
-        
-        viewBottom.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            viewBottom.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            viewBottom.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            viewBottom.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            viewBottom.heightAnchor.constraint(equalToConstant: insetsPoints.bottom)
-        ])
-        
-        viewRight.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            viewRight.topAnchor.constraint(equalTo: viewTop.bottomAnchor, constant: 0),
-            viewRight.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            viewRight.widthAnchor.constraint(equalToConstant: insetsPoints.right),
-            viewRight.bottomAnchor.constraint(equalTo: viewBottom.topAnchor, constant: 0),
-        ])
-    }
 }
+

@@ -29,8 +29,9 @@ struct ContentView: View {
     
     func getRenderSettings() -> HighlightRenderSettings {
         let settings = HighlightRenderSettings.init()
+        settings.imageSize = 7
         settings.textSize = 4
-        settings.textColor = UIColor.red
+        settings.textColor = UIColor.black
         return settings
     }
     

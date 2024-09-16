@@ -17,8 +17,10 @@ struct ContentView: View {
             MapReader { proxy in
                 MapBase()
                     .mapRender(isRendering)
+                    .mapUserInteraction(isRendering)
                     .onAppear() {
                         goToPosition(proxy)
+                        // enableMapLabelsContinuousRendering(proxy)
                     }
                     .ignoresSafeArea(.all, edges: .bottom)
                     .navigationTitle("GEMKit - SwiftUI")
@@ -36,6 +38,10 @@ struct ContentView: View {
     
     func goToPosition(_ proxy: MapProxy) {
         proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
+    }
+    
+    func enableMapLabelsContinuousRendering(_ proxy: MapProxy) {
+        proxy.mapViewController?.getPreferences().setMapLabelsContinuousRendering(true)
     }
 }
 

@@ -13,6 +13,7 @@
 		CE93070E2BCEA7DC00B06509 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE93070D2BCEA7DC00B06509 /* Preview Assets.xcassets */; };
 		CE9307162BCEA80300B06509 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9307152BCEA80300B06509 /* GEMKit.xcframework */; };
 		CE9307172BCEA80300B06509 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE9307152BCEA80300B06509 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEACFAE62C7DD94500D6E0CD /* CustomMapStyle.style in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAE52C7DD94500D6E0CD /* CustomMapStyle.style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,7 @@
 		CE93070A2BCEA7DC00B06509 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE93070D2BCEA7DC00B06509 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE9307152BCEA80300B06509 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CEACFAE52C7DD94500D6E0CD /* CustomMapStyle.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = CustomMapStyle.style; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				CE9307062BCEA7DB00B06509 /* MapStyleApp.swift */,
 				CE9307082BCEA7DB00B06509 /* ContentView.swift */,
+				CEACFAE52C7DD94500D6E0CD /* CustomMapStyle.style */,
 				CE93070A2BCEA7DC00B06509 /* Assets.xcassets */,
 				CE93070C2BCEA7DC00B06509 /* Preview Content */,
 			);
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEACFAE62C7DD94500D6E0CD /* CustomMapStyle.style in Resources */,
 				CE93070E2BCEA7DC00B06509 /* Preview Assets.xcassets in Resources */,
 				CE93070B2BCEA7DC00B06509 /* Assets.xcassets in Resources */,
 			);
