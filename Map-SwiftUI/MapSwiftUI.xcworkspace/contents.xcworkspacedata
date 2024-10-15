@@ -2,7 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapCompass/MapCompass.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapMarkers/MapMarkers.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapPositionTracker/MapPositionTracker.xcodeproj">

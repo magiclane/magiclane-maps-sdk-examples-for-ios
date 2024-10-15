@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CEACFAD32C7DD16700D6E0CD /* MapCompassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */; };
-		CEACFAD52C7DD16700D6E0CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACFAD42C7DD16700D6E0CD /* ContentView.swift */; };
-		CEACFAD72C7DD16800D6E0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */; };
-		CEACFADA2C7DD16800D6E0CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */; };
-		CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; };
-		CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE39941A2C998F1200391048 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3994192C998F1200391048 /* GEMKit.xcframework */; };
+		CE39941B2C998F1200391048 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE3994192C998F1200391048 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE917A7B2C99996A00D81509 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE917A782C99996A00D81509 /* ContentView.swift */; };
+		CE917A7C2C99996A00D81509 /* MapMarkersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE917A792C99996A00D81509 /* MapMarkersApp.swift */; };
+		CE917A7D2C99996A00D81509 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE917A752C99996A00D81509 /* Preview Assets.xcassets */; };
+		CE917A7E2C99996A00D81509 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE917A772C99996A00D81509 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */ = {
+		CE39941C2C998F1200391048 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */,
+				CE39941B2C998F1200391048 /* GEMKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -30,107 +30,109 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CEACFACF2C7DD16700D6E0CD /* MapCompass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapCompass.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCompassApp.swift; sourceTree = "<group>"; };
-		CEACFAD42C7DD16700D6E0CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CE3993F52C998EA300391048 /* MapMarkers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapMarkers.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3994192C998F1200391048 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CE917A752C99996A00D81509 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CE917A772C99996A00D81509 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE917A782C99996A00D81509 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE917A792C99996A00D81509 /* MapMarkersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkersApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CEACFACC2C7DD16700D6E0CD /* Frameworks */ = {
+		CE3993F22C998EA300391048 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */,
+				CE39941A2C998F1200391048 /* GEMKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CEACFAC62C7DD16700D6E0CD = {
+		CE3993EC2C998EA300391048 = {
 			isa = PBXGroup;
 			children = (
-				CEACFAD12C7DD16700D6E0CD /* MapCompass */,
-				CEACFAD02C7DD16700D6E0CD /* Products */,
-				CEACFAE02C7DD26700D6E0CD /* Frameworks */,
+				CE917A7A2C99996A00D81509 /* MapMarkers */,
+				CE3994182C998F1100391048 /* Frameworks */,
+				CE3993F62C998EA300391048 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		CEACFAD02C7DD16700D6E0CD /* Products */ = {
+		CE3993F62C998EA300391048 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFACF2C7DD16700D6E0CD /* MapCompass.app */,
+				CE3993F52C998EA300391048 /* MapMarkers.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CEACFAD12C7DD16700D6E0CD /* MapCompass */ = {
+		CE3994182C998F1100391048 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */,
-				CEACFAD42C7DD16700D6E0CD /* ContentView.swift */,
-				CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */,
-				CEACFAD82C7DD16800D6E0CD /* Preview Content */,
+				CE3994192C998F1200391048 /* GEMKit.xcframework */,
 			);
-			path = MapCompass;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CEACFAD82C7DD16800D6E0CD /* Preview Content */ = {
+		CE917A762C99996A00D81509 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */,
+				CE917A752C99996A00D81509 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CEACFAE02C7DD26700D6E0CD /* Frameworks */ = {
+		CE917A7A2C99996A00D81509 /* MapMarkers */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */,
+				CE917A792C99996A00D81509 /* MapMarkersApp.swift */,
+				CE917A782C99996A00D81509 /* ContentView.swift */,
+				CE917A772C99996A00D81509 /* Assets.xcassets */,
+				CE917A762C99996A00D81509 /* Preview Content */,
 			);
-			name = Frameworks;
+			path = MapMarkers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CEACFACE2C7DD16700D6E0CD /* MapCompass */ = {
+		CE3993F42C998EA300391048 /* MapMarkers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEACFADD2C7DD16800D6E0CD /* Build configuration list for PBXNativeTarget "MapCompass" */;
+			buildConfigurationList = CE3994032C998EA300391048 /* Build configuration list for PBXNativeTarget "MapMarkers" */;
 			buildPhases = (
-				CEACFACB2C7DD16700D6E0CD /* Sources */,
-				CEACFACC2C7DD16700D6E0CD /* Frameworks */,
-				CEACFACD2C7DD16700D6E0CD /* Resources */,
-				CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */,
+				CE3993F12C998EA300391048 /* Sources */,
+				CE3993F22C998EA300391048 /* Frameworks */,
+				CE3993F32C998EA300391048 /* Resources */,
+				CE39941C2C998F1200391048 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MapCompass;
-			productName = MapCompass;
-			productReference = CEACFACF2C7DD16700D6E0CD /* MapCompass.app */;
+			name = MapMarkers;
+			packageProductDependencies = (
+			);
+			productName = MapMarkers;
+			productReference = CE3993F52C998EA300391048 /* MapMarkers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CEACFAC72C7DD16700D6E0CD /* Project object */ = {
+		CE3993ED2C998EA300391048 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					CEACFACE2C7DD16700D6E0CD = {
-						CreatedOnToolsVersion = 15.4;
+					CE3993F42C998EA300391048 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = CEACFACA2C7DD16700D6E0CD /* Build configuration list for PBXProject "MapCompass" */;
+			buildConfigurationList = CE3993F02C998EA300391048 /* Build configuration list for PBXProject "MapMarkers" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -138,42 +140,42 @@
 				en,
 				Base,
 			);
-			mainGroup = CEACFAC62C7DD16700D6E0CD;
-			productRefGroup = CEACFAD02C7DD16700D6E0CD /* Products */;
+			mainGroup = CE3993EC2C998EA300391048;
+			productRefGroup = CE3993F62C998EA300391048 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEACFACE2C7DD16700D6E0CD /* MapCompass */,
+				CE3993F42C998EA300391048 /* MapMarkers */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CEACFACD2C7DD16700D6E0CD /* Resources */ = {
+		CE3993F32C998EA300391048 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFADA2C7DD16800D6E0CD /* Preview Assets.xcassets in Resources */,
-				CEACFAD72C7DD16800D6E0CD /* Assets.xcassets in Resources */,
+				CE917A7D2C99996A00D81509 /* Preview Assets.xcassets in Resources */,
+				CE917A7E2C99996A00D81509 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CEACFACB2C7DD16700D6E0CD /* Sources */ = {
+		CE3993F12C998EA300391048 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFAD52C7DD16700D6E0CD /* ContentView.swift in Sources */,
-				CEACFAD32C7DD16700D6E0CD /* MapCompassApp.swift in Sources */,
+				CE917A7B2C99996A00D81509 /* ContentView.swift in Sources */,
+				CE917A7C2C99996A00D81509 /* MapMarkersApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		CEACFADB2C7DD16800D6E0CD /* Debug */ = {
+		CE3994012C998EA300391048 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -236,7 +238,7 @@
 			};
 			name = Debug;
 		};
-		CEACFADC2C7DD16800D6E0CD /* Release */ = {
+		CE3994022C998EA300391048 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -292,14 +294,14 @@
 			};
 			name = Release;
 		};
-		CEACFADE2C7DD16800D6E0CD /* Debug */ = {
+		CE3994042C998EA300391048 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MapCompass/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MapMarkers/Preview Content\"";
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -313,7 +315,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapCompass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapMarkers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -321,14 +323,14 @@
 			};
 			name = Debug;
 		};
-		CEACFADF2C7DD16800D6E0CD /* Release */ = {
+		CE3994052C998EA300391048 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MapCompass/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MapMarkers/Preview Content\"";
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -342,7 +344,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapCompass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapMarkers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -353,25 +355,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEACFACA2C7DD16700D6E0CD /* Build configuration list for PBXProject "MapCompass" */ = {
+		CE3993F02C998EA300391048 /* Build configuration list for PBXProject "MapMarkers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEACFADB2C7DD16800D6E0CD /* Debug */,
-				CEACFADC2C7DD16800D6E0CD /* Release */,
+				CE3994012C998EA300391048 /* Debug */,
+				CE3994022C998EA300391048 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEACFADD2C7DD16800D6E0CD /* Build configuration list for PBXNativeTarget "MapCompass" */ = {
+		CE3994032C998EA300391048 /* Build configuration list for PBXNativeTarget "MapMarkers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEACFADE2C7DD16800D6E0CD /* Debug */,
-				CEACFADF2C7DD16800D6E0CD /* Release */,
+				CE3994042C998EA300391048 /* Debug */,
+				CE3994052C998EA300391048 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CEACFAC72C7DD16700D6E0CD /* Project object */;
+	rootObject = CE3993ED2C998EA300391048 /* Project object */;
 }

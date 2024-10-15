@@ -3,26 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CEACFAD32C7DD16700D6E0CD /* MapCompassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */; };
-		CEACFAD52C7DD16700D6E0CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACFAD42C7DD16700D6E0CD /* ContentView.swift */; };
-		CEACFAD72C7DD16800D6E0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */; };
-		CEACFADA2C7DD16800D6E0CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */; };
-		CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; };
-		CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE2C78212CB523DB00D26186 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2C78202CB523DB00D26186 /* GEMKit.xcframework */; };
+		CE2C78222CB523DB00D26186 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE2C78202CB523DB00D26186 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */ = {
+		CE2C78232CB523DB00D26186 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */,
+				CE2C78222CB523DB00D26186 /* GEMKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -30,66 +26,51 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CEACFACF2C7DD16700D6E0CD /* MapCompass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapCompass.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCompassApp.swift; sourceTree = "<group>"; };
-		CEACFAD42C7DD16700D6E0CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
+		CE2C780E2CB523B200D26186 /* FingerDrawRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FingerDrawRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE2C78202CB523DB00D26186 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE2C78102CB523B200D26186 /* FingerDrawRoute */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FingerDrawRoute;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
-		CEACFACC2C7DD16700D6E0CD /* Frameworks */ = {
+		CE2C780B2CB523B200D26186 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */,
+				CE2C78212CB523DB00D26186 /* GEMKit.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CEACFAC62C7DD16700D6E0CD = {
+		CE2C78052CB523B200D26186 = {
 			isa = PBXGroup;
 			children = (
-				CEACFAD12C7DD16700D6E0CD /* MapCompass */,
-				CEACFAD02C7DD16700D6E0CD /* Products */,
-				CEACFAE02C7DD26700D6E0CD /* Frameworks */,
+				CE2C78102CB523B200D26186 /* FingerDrawRoute */,
+				CE2C781F2CB523DB00D26186 /* Frameworks */,
+				CE2C780F2CB523B200D26186 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		CEACFAD02C7DD16700D6E0CD /* Products */ = {
+		CE2C780F2CB523B200D26186 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFACF2C7DD16700D6E0CD /* MapCompass.app */,
+				CE2C780E2CB523B200D26186 /* FingerDrawRoute.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CEACFAD12C7DD16700D6E0CD /* MapCompass */ = {
+		CE2C781F2CB523DB00D26186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEACFAD22C7DD16700D6E0CD /* MapCompassApp.swift */,
-				CEACFAD42C7DD16700D6E0CD /* ContentView.swift */,
-				CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */,
-				CEACFAD82C7DD16800D6E0CD /* Preview Content */,
-			);
-			path = MapCompass;
-			sourceTree = "<group>";
-		};
-		CEACFAD82C7DD16800D6E0CD /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		CEACFAE02C7DD26700D6E0CD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */,
+				CE2C78202CB523DB00D26186 /* GEMKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,83 +78,85 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CEACFACE2C7DD16700D6E0CD /* MapCompass */ = {
+		CE2C780D2CB523B200D26186 /* FingerDrawRoute */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEACFADD2C7DD16800D6E0CD /* Build configuration list for PBXNativeTarget "MapCompass" */;
+			buildConfigurationList = CE2C781C2CB523B300D26186 /* Build configuration list for PBXNativeTarget "FingerDrawRoute" */;
 			buildPhases = (
-				CEACFACB2C7DD16700D6E0CD /* Sources */,
-				CEACFACC2C7DD16700D6E0CD /* Frameworks */,
-				CEACFACD2C7DD16700D6E0CD /* Resources */,
-				CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */,
+				CE2C780A2CB523B200D26186 /* Sources */,
+				CE2C780B2CB523B200D26186 /* Frameworks */,
+				CE2C780C2CB523B200D26186 /* Resources */,
+				CE2C78232CB523DB00D26186 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MapCompass;
-			productName = MapCompass;
-			productReference = CEACFACF2C7DD16700D6E0CD /* MapCompass.app */;
+			fileSystemSynchronizedGroups = (
+				CE2C78102CB523B200D26186 /* FingerDrawRoute */,
+			);
+			name = FingerDrawRoute;
+			packageProductDependencies = (
+			);
+			productName = FingerDrawRoute;
+			productReference = CE2C780E2CB523B200D26186 /* FingerDrawRoute.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CEACFAC72C7DD16700D6E0CD /* Project object */ = {
+		CE2C78062CB523B200D26186 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					CEACFACE2C7DD16700D6E0CD = {
-						CreatedOnToolsVersion = 15.4;
+					CE2C780D2CB523B200D26186 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = CEACFACA2C7DD16700D6E0CD /* Build configuration list for PBXProject "MapCompass" */;
-			compatibilityVersion = "Xcode 14.0";
+			buildConfigurationList = CE2C78092CB523B200D26186 /* Build configuration list for PBXProject "FingerDrawRoute" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = CEACFAC62C7DD16700D6E0CD;
-			productRefGroup = CEACFAD02C7DD16700D6E0CD /* Products */;
+			mainGroup = CE2C78052CB523B200D26186;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CE2C780F2CB523B200D26186 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEACFACE2C7DD16700D6E0CD /* MapCompass */,
+				CE2C780D2CB523B200D26186 /* FingerDrawRoute */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CEACFACD2C7DD16700D6E0CD /* Resources */ = {
+		CE2C780C2CB523B200D26186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFADA2C7DD16800D6E0CD /* Preview Assets.xcassets in Resources */,
-				CEACFAD72C7DD16800D6E0CD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CEACFACB2C7DD16700D6E0CD /* Sources */ = {
+		CE2C780A2CB523B200D26186 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFAD52C7DD16700D6E0CD /* ContentView.swift in Sources */,
-				CEACFAD32C7DD16700D6E0CD /* MapCompassApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		CEACFADB2C7DD16800D6E0CD /* Debug */ = {
+		CE2C781A2CB523B300D26186 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -225,7 +208,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -236,7 +219,7 @@
 			};
 			name = Debug;
 		};
-		CEACFADC2C7DD16800D6E0CD /* Release */ = {
+		CE2C781B2CB523B300D26186 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -282,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -292,14 +275,14 @@
 			};
 			name = Release;
 		};
-		CEACFADE2C7DD16800D6E0CD /* Debug */ = {
+		CE2C781D2CB523B300D26186 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MapCompass/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FingerDrawRoute/Preview Content\"";
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -308,12 +291,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapCompass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.FingerDrawRoute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -321,14 +305,14 @@
 			};
 			name = Debug;
 		};
-		CEACFADF2C7DD16800D6E0CD /* Release */ = {
+		CE2C781E2CB523B300D26186 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MapCompass/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FingerDrawRoute/Preview Content\"";
 				DEVELOPMENT_TEAM = W43E5E6BFR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -337,12 +321,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.MapCompass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.com.FingerDrawRoute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -353,25 +338,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEACFACA2C7DD16700D6E0CD /* Build configuration list for PBXProject "MapCompass" */ = {
+		CE2C78092CB523B200D26186 /* Build configuration list for PBXProject "FingerDrawRoute" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEACFADB2C7DD16800D6E0CD /* Debug */,
-				CEACFADC2C7DD16800D6E0CD /* Release */,
+				CE2C781A2CB523B300D26186 /* Debug */,
+				CE2C781B2CB523B300D26186 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEACFADD2C7DD16800D6E0CD /* Build configuration list for PBXNativeTarget "MapCompass" */ = {
+		CE2C781C2CB523B300D26186 /* Build configuration list for PBXNativeTarget "FingerDrawRoute" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEACFADE2C7DD16800D6E0CD /* Debug */,
-				CEACFADF2C7DD16800D6E0CD /* Release */,
+				CE2C781D2CB523B300D26186 /* Debug */,
+				CE2C781E2CB523B300D26186 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CEACFAC72C7DD16700D6E0CD /* Project object */;
+	rootObject = CE2C78062CB523B200D26186 /* Project object */;
 }
