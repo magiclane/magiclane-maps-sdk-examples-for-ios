@@ -136,7 +136,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.navigationItem.leftBarButtonItem = barButton
     }
     
-    @objc func startFollowLocation() {
+    @objc func startFollowLocation(animation: TimeInterval = 1000) {
         
         if self.isLocationAvailable() == false {
             
@@ -146,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             self.addRouteButton()
             
-            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1) { success in }
+            self.mapViewController!.startFollowingPosition(withAnimationDuration: animation, zoomLevel: -1) { success in }
         }
     }
     
@@ -169,7 +169,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         
         if manager.authorizationStatus == .authorizedWhenInUse {
             
-            self.startFollowLocation()
+            self.startFollowLocation(animation: 0)
         }
     }
     
@@ -467,26 +467,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
     
     // MARK: - MapViewControllerDelegate
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onTouch point: CGPoint) {
         
-        guard self.mainRoute == nil else {
-            return
-        }
+        guard let landmark = landmarks.first else { return }
         
-        self.destination = landmark
-        
-        self.showLandmark(landmark: landmark, centerLayout: true)
+        self.processSelection(landmark: landmark)
     }
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onLongTouch point: CGPoint) {
         
-        guard self.mainRoute == nil else {
-            return
-        }
+        guard let landmark = landmarks.first else { return }
         
-        self.destination = landmark
+        self.processSelection(landmark: landmark)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onTouch point: CGPoint) {
         
-        self.showLandmark(landmark: landmark, centerLayout: false)
+        guard let landmark = streets.first else { return }
+        
+        self.processSelection(landmark: landmark)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onLongTouch point: CGPoint) {
+        
+        guard let landmark = streets.first else { return }
+        
+        self.processSelection(landmark: landmark)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectRoute route: RouteObject) {
@@ -656,5 +662,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             
             self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 600)
         }
+    }
+    
+    func processSelection(landmark: LandmarkObject) {
+        
+        guard self.mainRoute == nil else { return }
+        
+        self.destination = landmark
+        
+        self.showLandmark(landmark: landmark, centerLayout: false)
     }
 }

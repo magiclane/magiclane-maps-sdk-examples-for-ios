@@ -97,7 +97,7 @@ class ViewController: UIViewController {
     
     @objc func searchButton1(item: UIBarButtonItem) {
         
-        guard let object = self.categoryContext!.getCategory(.accomodation) else { return }
+        guard let object = self.categoryContext!.getCategory(.accommodation) else { return }
         
         self.mapViewController!.center(onCoordinates: self.location, zoomLevel: 60, animationDuration: 1200)
         

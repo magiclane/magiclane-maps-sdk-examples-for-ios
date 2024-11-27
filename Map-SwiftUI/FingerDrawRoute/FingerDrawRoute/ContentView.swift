@@ -53,9 +53,7 @@ struct ContentView: View {
         mapViewController.view.layer.borderWidth = 16
         mapViewController.view.layer.borderColor = UIColor.gray.withAlphaComponent(0.26).cgColor
         
-        mapViewController.setTouchViewBehaviour(.fingerDraw) { coordinates in
-            
-            guard coordinates.count > 0 else { return }
+        mapViewController.setTouchViewBehaviour(.fingerDraw) { marker in
             
             mapViewController.showCompass()
             mapViewController.view.layer.borderWidth = 0
@@ -63,9 +61,14 @@ struct ContentView: View {
             
             mapViewController.setTouchViewBehaviour(.default)
             
-            let path = PathObject.init(coordinates: coordinates)
-            if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
-                calculateRoute(proxy, waypoints: [lmk])
+            if let coordinates = marker?.getCoordinates(), coordinates.count > 0 {
+                
+                let path = PathObject.init(coordinates: coordinates)
+                
+                if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
+                    
+                    calculateRoute(proxy, waypoints: [lmk])
+                }
             }
         }
         

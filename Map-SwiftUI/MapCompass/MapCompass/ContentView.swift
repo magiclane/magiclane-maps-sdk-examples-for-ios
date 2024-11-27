@@ -19,7 +19,7 @@ struct ContentView: View {
                 .mapCompass(true)
                 .mapCompassSize(40)
                 .mapCompassInsets(getInsets())
-                .mapCompassFollowInterfaceStyle(true)
+                .mapCompassFollowInterfaceStyle(true)                
                 .didTapCompass { mode in
                     print("tap compass")
                 }

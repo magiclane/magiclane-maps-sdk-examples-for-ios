@@ -10,15 +10,12 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var zoom = 54
     var body: some View {
         MapReader { proxy in
-            MapBase()
-                .onAppear() {
-                    proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
-                }
-                .ignoresSafeArea()
+            MapBase(initialPosition: .amsterdam, 
+                    initialZoomLevel: 54)
         }
+        .ignoresSafeArea()
     }
 }
 
@@ -28,5 +25,6 @@ struct ContentView: View {
 
 extension CoordinatesObject {
     static let amsterdam =
-    CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
+    CoordinatesObject.coordinates(withLatitude: 52.368447, 
+                                  longitude: 4.888229)
 }

@@ -135,7 +135,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
                 mapViewController.view.layer.borderWidth = 16
                 mapViewController.view.layer.borderColor = UIColor.gray.withAlphaComponent(0.26).cgColor
                 
-                mapViewController.setTouchViewBehaviour(.fingerDraw) { coordinates in
+                mapViewController.setTouchViewBehaviour(.fingerDraw) { marker in
                     
                     self.marketCollections = mapViewController.getAvailableMarkers()
                     
@@ -146,8 +146,6 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
                     button.configuration?.image = nil
                     button.isHidden = false
                     
-                    guard coordinates.count > 0 else { return }
-                    
                     mapViewController.view.layer.borderColor = nil
                     mapViewController.view.layer.borderWidth = 0
                     
@@ -155,13 +153,16 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
                     
                     self.refreshTitleViewButton(enabled: false)
                     
-                    let path = PathObject.init(coordinates: coordinates)
-                    
-                    if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
+                    if let coordinates = marker?.getCoordinates(), coordinates.count > 0 {
                         
-                        self.path = path
+                        let path = PathObject.init(coordinates: coordinates)
                         
-                        self.calculateRoute(with: [lmk])
+                        if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
+                            
+                            self.path = path
+                            
+                            self.calculateRoute(with: [lmk])
+                        }
                     }
                 }
                 

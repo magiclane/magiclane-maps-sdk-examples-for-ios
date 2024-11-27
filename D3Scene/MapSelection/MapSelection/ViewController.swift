@@ -152,7 +152,9 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
     
     // MARK: - MapViewControllerDelegate
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onTouch point: CGPoint) {
+        
+        guard let landmark = landmarks.first else { return }
         
         let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
         
@@ -166,7 +168,41 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         self.highlight(landmark: landmark)
     }
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onLongTouch point: CGPoint) {
+        
+        guard let landmark = landmarks.first else { return }
+        
+        let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
+        
+        self.label.text = text
+        self.label.isHidden = false
+        
+        let scale = UIScreen.main.scale
+        self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
+        self.imageView.isHidden = false
+        
+        self.highlight(landmark: landmark)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onTouch point: CGPoint) {
+        
+        guard let landmark = streets.first else { return }
+        
+        let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
+        
+        self.label.text = text
+        self.label.isHidden = false
+        
+        let scale = UIScreen.main.scale
+        self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40*scale, height: 40*scale))
+        self.imageView.isHidden = false
+        
+        self.highlight(landmark: landmark)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onLongTouch point: CGPoint) {
+        
+        guard let landmark = streets.first else { return }
         
         let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
         
@@ -195,6 +231,7 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         self.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: 0)
         
-        self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 900)
+        // Center animation
+        // self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 900)
     }
 }

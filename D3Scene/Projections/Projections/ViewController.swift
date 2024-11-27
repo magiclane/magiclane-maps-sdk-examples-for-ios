@@ -173,25 +173,32 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
     
     // MARK: - MapViewControllerDelegate
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onTouch point: CGPoint) {
+        
+        guard let landmark = landmarks.first else { return }
+        
+        self.handleSelection(landmark: landmark)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onLongTouch point: CGPoint) {
+        
+        guard let landmark = landmarks.first else { return }
         
         self.handleSelection(landmark: landmark)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onTouch point: CGPoint) {
         
-        if let lmk = streets.first {
-            
-            self.handleSelection(landmark: lmk)
-        }
+        guard let landmark = streets.first else { return }
+        
+        self.handleSelection(landmark: landmark)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onLongTouch point: CGPoint) {
         
-        if let lmk = streets.first {
-            
-            self.handleSelection(landmark: lmk)
-        }
+        guard let landmark = streets.first else { return }
+        
+        self.handleSelection(landmark: landmark)
     }
     
     // MARK: - UITableViewDataSource

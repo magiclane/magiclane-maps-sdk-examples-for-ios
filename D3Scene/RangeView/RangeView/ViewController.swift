@@ -159,17 +159,25 @@ class ViewController: UIViewController, MapViewControllerDelegate {
     
     // MARK: - MapViewControllerDelegate
     
-    func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onTouch point: CGPoint) {
         
-        self.handleSelection(landmark: landmark)
+        guard let lmk = landmarks.first else { return }
+        
+        self.handleSelection(landmark: lmk)
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onLongTouch point: CGPoint) {
+        
+        guard let lmk = landmarks.first else { return }
+        
+        self.handleSelection(landmark: lmk)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onTouch point: CGPoint) {
         
-        if let lmk = streets.first {
-            
-            self.handleSelection(landmark: lmk)
-        }
+        guard let lmk = streets.first else { return }
+        
+        self.handleSelection(landmark: lmk)
     }
     
     func mapViewController(_ mapViewController: MapViewController, didSelectStreets streets: [LandmarkObject], onLongTouch point: CGPoint) {
@@ -184,7 +192,10 @@ class ViewController: UIViewController, MapViewControllerDelegate {
     
     func handleSelection(landmark: LandmarkObject) {
         
-        guard self.rangeViewController == nil else { return }
+        if self.rangeViewController != nil {
+            
+            self.closeRangeView()
+        }
         
         self.highlight(landmark: landmark)
         
@@ -213,7 +224,8 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         
         mapViewController.presentHighlights([landmark], settings: settings, highlightId: 100)
         
-        mapViewController.center(onCoordinates: landmark.getCoordinates(), zoomLevel: 80, animationDuration: 800)
+        // Center animation
+        // mapViewController.center(onCoordinates: landmark.getCoordinates(), zoomLevel: 80, animationDuration: 800)
     }
     
     func calculateAreaInsets() -> UIEdgeInsets {
