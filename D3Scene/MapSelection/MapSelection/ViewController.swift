@@ -45,6 +45,8 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.381899)
         
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 1200)
+        
+        self.disableOverlays()
     }
     
     // MARK: - Map View
@@ -233,5 +235,12 @@ class ViewController: UIViewController, MapViewControllerDelegate  {
         
         // Center animation
         // self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 900)
+    }
+    
+    func disableOverlays() {
+        
+        let context = OverlayServiceContext.init()
+        context.disableOverlay(Int32(CommonOverlayIdentifier.publicTransport.rawValue))
+        context.disableOverlay(Int32(CommonOverlayIdentifier.socialReports.rawValue))
     }
 }

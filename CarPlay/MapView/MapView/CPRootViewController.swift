@@ -42,6 +42,8 @@ class CPRootViewController: UIViewController, CPMapTemplateDelegate  {
         
         self.mapViewController = MapViewController.init(ppi: ppi, scale: scale)
         self.mapViewController!.view.backgroundColor = UIColor.systemBackground
+        self.mapViewController!.hideCompass()
+        
         self.mapViewController!.view.alpha = 0
         
         self.addChild(self.mapViewController!)

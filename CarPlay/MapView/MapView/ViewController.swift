@@ -17,10 +17,6 @@ class ViewController: UIViewController  {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.title = "Map View"
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.largeTitleDisplayMode = .never
-        
         self.createMapView()
     }
     
@@ -35,6 +31,8 @@ class ViewController: UIViewController  {
     func createMapView() {
         
         self.mapViewController = MapViewController.init()
+        self.mapViewController!.view.backgroundColor = UIColor.systemBackground
+        self.mapViewController!.hideCompass()
         
         self.addChild(self.mapViewController!)
         self.view.addSubview(self.mapViewController!.view)

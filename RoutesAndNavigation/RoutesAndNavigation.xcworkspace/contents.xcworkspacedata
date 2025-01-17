@@ -17,6 +17,9 @@
       location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:FollowPositionPreferences/FollowPositionPreferences.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:GpxRoute/GpxRoute.xcodeproj">
    </FileRef>
    <FileRef
