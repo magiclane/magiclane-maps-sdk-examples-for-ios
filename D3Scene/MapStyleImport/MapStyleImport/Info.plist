@@ -25,7 +25,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>Map Stye</string>
+			<string>Map Style</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -42,7 +42,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Map Stye</string>
+			<string>Map Style</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>

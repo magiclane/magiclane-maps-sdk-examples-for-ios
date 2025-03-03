@@ -1,0 +1,57 @@
+# SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# Contact Magic Lane at <info@magiclane.com> for commercial licensing options.
+
+version = 1
+
+SPDX-PackageName = "Maps SDK Examples for iOS"
+SPDX-PackageSupplier = "Magic Lane International B.V."
+SPDX-PackageDownloadLocation = "https://issuetracker.magiclane.com/magiclane/maps-sdk-examples-for-ios"
+SPDX-PackageComment = "Example projects using the Magic Lane - Maps SDK Examples for iOS"
+
+[[annotations]]
+path = [
+    "**/.gitignore",
+    "**/README.md",
+    "CODE_OF_CONDUCT.md",
+    "README.md",
+    ".git-blame-ignore-revs",
+    ".gitignore",
+    ".gitreview",
+    "REUSE.toml"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "1995-2025 Magic Lane International B.V. <info@magiclane.com>"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+[[annotations]]
+path = [
+    "**/.xcassets/**",
+    "**.xcodeproj/**",
+    "**.lproj/**",
+    "**.framework/**",
+    "**.plist",
+    "**.xcconfig",
+    "**.xcworkspace/**",
+    "**.xcworkspacedata",
+    "**.entitlements",
+    "**.png",
+    "**.gpx",
+    "**.glb",
+    "**.mtl",
+    "**.obj",
+    "**.cmap",
+    "**.map",
+    "**.style",
+    "**.json"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "1995-2025 Magic Lane International B.V. <info@magiclane.com>"
+SPDX-License-Identifier = "BSD-3-Clause"
+
+[[annotations]]
+path = "**/BalloonMarker.swift"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015 Daniel Cohen Gindi & Philipp Jahoda"
+SPDX-License-Identifier = "Apache-2.0"
