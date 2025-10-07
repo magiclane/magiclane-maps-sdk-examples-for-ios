@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
-// SPDX-License-Identifier: BSD-3-Clause
+// SPDX-License-Identifier: Apache-2.0
 //
-// Contact Magic Lane at <info@magiclane.com> for commercial licensing options.
+// Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
 
 import SwiftUI
 import GEMKit
@@ -10,9 +10,20 @@ import GEMKit
 struct MapCompassApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     
+    let activeNotif = NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+    let backgrNotif = NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView()                
+                .onReceive(activeNotif) { (_) in
+                    print("UIApplication: active")
+                    GEMSdk.shared().appDidBecomeActive()
+                }
+                .onReceive(backgrNotif) { (_) in
+                    print("UIApplication: background")
+                    GEMSdk.shared().appDidEnterBackground()
+                }
         }
     }
 }

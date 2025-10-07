@@ -3,9 +3,7 @@
 
 # Xcode
 xcuserdata/
-
-# Podfiles
-Pods/
+Package.resolved
 
 # Build
 **/Build

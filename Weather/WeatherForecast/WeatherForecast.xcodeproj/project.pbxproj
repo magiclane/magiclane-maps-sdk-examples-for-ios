@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE24A37F26384A8F00688A63 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24A37E26384A8F00688A63 /* GEMKit.xcframework */; };
-		CE24A38026384A8F00688A63 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE24A37E26384A8F00688A63 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CED091182C2EF66B00E4D038 /* WeatherCurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED091172C2EF66B00E4D038 /* WeatherCurrentView.swift */; };
 		CED0911A2C2EF67D00E4D038 /* WeatherHourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED091192C2EF67D00E4D038 /* WeatherHourlyView.swift */; };
 		CED0911C2C2EF69D00E4D038 /* WeatherDailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0911B2C2EF69D00E4D038 /* WeatherDailyView.swift */; };
@@ -18,24 +16,10 @@
 		CEE68F762628343000CEDAEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE68F742628343000CEDAEE /* Main.storyboard */; };
 		CEE68F782628343200CEDAEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE68F772628343200CEDAEE /* Assets.xcassets */; };
 		CEE68F7B2628343200CEDAEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE68F792628343200CEDAEE /* LaunchScreen.storyboard */; };
+		CEEFB9842E95581000FDD412 /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEEFB9832E95581000FDD412 /* GEMKit */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		CE24A38126384A8F00688A63 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CE24A38026384A8F00688A63 /* GEMKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		CE24A37E26384A8F00688A63 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CED091172C2EF66B00E4D038 /* WeatherCurrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCurrentView.swift; sourceTree = "<group>"; };
 		CED091192C2EF67D00E4D038 /* WeatherHourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourlyView.swift; sourceTree = "<group>"; };
 		CED0911B2C2EF69D00E4D038 /* WeatherDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyView.swift; sourceTree = "<group>"; };
@@ -54,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE24A37F26384A8F00688A63 /* GEMKit.xcframework in Frameworks */,
+				CEEFB9842E95581000FDD412 /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +50,6 @@
 			children = (
 				CEE68F6D2628343000CEDAEE /* WeatherForecast */,
 				CEE68F6C2628343000CEDAEE /* Products */,
-				CEE68F852628347C00CEDAEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,14 +78,6 @@
 			path = WeatherForecast;
 			sourceTree = "<group>";
 		};
-		CEE68F852628347C00CEDAEE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CE24A37E26384A8F00688A63 /* GEMKit.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,9 +86,8 @@
 			buildConfigurationList = CEE68F7F2628343200CEDAEE /* Build configuration list for PBXNativeTarget "WeatherForecast" */;
 			buildPhases = (
 				CEE68F672628343000CEDAEE /* Sources */,
-				CEE68F682628343000CEDAEE /* Frameworks */,
 				CEE68F692628343000CEDAEE /* Resources */,
-				CE24A38126384A8F00688A63 /* Embed Frameworks */,
+				CEE68F682628343000CEDAEE /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -148,6 +122,9 @@
 				Base,
 			);
 			mainGroup = CEE68F622628343000CEDAEE;
+			packageReferences = (
+				CEEFB9822E95581000FDD412 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
+			);
 			productRefGroup = CEE68F6C2628343000CEDAEE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -386,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEEFB9822E95581000FDD412 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEEFB9832E95581000FDD412 /* GEMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEEFB9822E95581000FDD412 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			productName = GEMKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEE68F632628343000CEDAEE /* Project object */;
 }

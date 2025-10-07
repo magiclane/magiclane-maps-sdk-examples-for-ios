@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
-// SPDX-License-Identifier: BSD-3-Clause
+// SPDX-License-Identifier: Apache-2.0
 //
-// Contact Magic Lane at <info@magiclane.com> for commercial licensing options.
+// Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
 
 import SwiftUI
 import GEMKit
@@ -20,10 +20,12 @@ struct MapPositionTrackerApp: App {
                 .onReceive(activeNotif) { (_) in
                     print("UIApplication: active")
                     AppManager.shared.startLiveSensors()
+                    GEMSdk.shared().appDidBecomeActive()
                 }
                 .onReceive(backgrNotif) { (_) in
                     print("UIApplication: background")
                     AppManager.shared.stopLiveSensors()
+                    GEMSdk.shared().appDidEnterBackground()
                 }
         }
     }

@@ -3,35 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		CE3AB7E92B5151970087BD6E /* test.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CE3AB7E82B5151970087BD6E /* test.gpx */; };
+		CE71A0BD2E9552A9008B5F00 /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE71A0BC2E9552A9008B5F00 /* GEMKit */; };
 		CED50BD82B4FBE4C0065DB13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED50BD72B4FBE4C0065DB13 /* AppDelegate.swift */; };
 		CED50BDA2B4FBE4C0065DB13 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED50BD92B4FBE4C0065DB13 /* SceneDelegate.swift */; };
 		CED50BDC2B4FBE4C0065DB13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED50BDB2B4FBE4C0065DB13 /* ViewController.swift */; };
 		CED50BDF2B4FBE4C0065DB13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED50BDD2B4FBE4C0065DB13 /* Main.storyboard */; };
 		CED50BE12B4FBE4D0065DB13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CED50BE02B4FBE4D0065DB13 /* Assets.xcassets */; };
 		CED50BE42B4FBE4D0065DB13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED50BE22B4FBE4D0065DB13 /* LaunchScreen.storyboard */; };
-		CED50BED2B4FBE6F0065DB13 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED50BEC2B4FBE6F0065DB13 /* GEMKit.xcframework */; };
-		CED50BEE2B4FBE6F0065DB13 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CED50BEC2B4FBE6F0065DB13 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CED50BF52B4FCCB00065DB13 /* test_route.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CED50BF42B4FCCB00065DB13 /* test_route.gpx */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		CED50BEF2B4FBE6F0065DB13 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CED50BEE2B4FBE6F0065DB13 /* GEMKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CE3AB7E82B5151970087BD6E /* test.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = test.gpx; path = ../../GpxRoute/GpxRoute/test.gpx; sourceTree = "<group>"; };
@@ -43,7 +28,6 @@
 		CED50BE02B4FBE4D0065DB13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CED50BE32B4FBE4D0065DB13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CED50BE52B4FBE4D0065DB13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CED50BEC2B4FBE6F0065DB13 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CED50BF42B4FCCB00065DB13 /* test_route.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_route.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CED50BED2B4FBE6F0065DB13 /* GEMKit.xcframework in Frameworks */,
+				CE71A0BD2E9552A9008B5F00 /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +48,6 @@
 			children = (
 				CED50BD62B4FBE4C0065DB13 /* GpxThumbnailImage */,
 				CED50BD52B4FBE4C0065DB13 /* Products */,
-				CED50BEB2B4FBE6F0065DB13 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,14 +75,6 @@
 			path = GpxThumbnailImage;
 			sourceTree = "<group>";
 		};
-		CED50BEB2B4FBE6F0065DB13 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CED50BEC2B4FBE6F0065DB13 /* GEMKit.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -108,9 +83,8 @@
 			buildConfigurationList = CED50BE82B4FBE4D0065DB13 /* Build configuration list for PBXNativeTarget "GpxThumbnailImage" */;
 			buildPhases = (
 				CED50BD02B4FBE4C0065DB13 /* Sources */,
-				CED50BD12B4FBE4C0065DB13 /* Frameworks */,
 				CED50BD22B4FBE4C0065DB13 /* Resources */,
-				CED50BEF2B4FBE6F0065DB13 /* Embed Frameworks */,
+				CED50BD12B4FBE4C0065DB13 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -145,6 +119,9 @@
 				Base,
 			);
 			mainGroup = CED50BCB2B4FBE4C0065DB13;
+			packageReferences = (
+				CE71A0BB2E9552A9008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
+			);
 			productRefGroup = CED50BD52B4FBE4C0065DB13 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -399,6 +376,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE71A0BB2E9552A9008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE71A0BC2E9552A9008B5F00 /* GEMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE71A0BB2E9552A9008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			productName = GEMKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CED50BCC2B4FBE4C0065DB13 /* Project object */;
 }

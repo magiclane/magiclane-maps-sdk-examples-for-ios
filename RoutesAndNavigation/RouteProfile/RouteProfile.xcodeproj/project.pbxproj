@@ -3,18 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE71A0DE2E95547A008B5F00 /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE71A0DD2E95547A008B5F00 /* GEMKit */; };
 		CEFC873F2AAB379D003B8271 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC873E2AAB379D003B8271 /* AppDelegate.swift */; };
 		CEFC87412AAB379D003B8271 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87402AAB379D003B8271 /* SceneDelegate.swift */; };
 		CEFC87432AAB379D003B8271 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87422AAB379D003B8271 /* ViewController.swift */; };
 		CEFC87462AAB379D003B8271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEFC87442AAB379D003B8271 /* Main.storyboard */; };
 		CEFC87482AAB379E003B8271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFC87472AAB379E003B8271 /* Assets.xcassets */; };
 		CEFC874B2AAB379E003B8271 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEFC87492AAB379E003B8271 /* LaunchScreen.storyboard */; };
-		CEFC87542AAB37F0003B8271 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFC87532AAB37F0003B8271 /* GEMKit.xcframework */; };
-		CEFC87552AAB37F0003B8271 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEFC87532AAB37F0003B8271 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEFC875C2AAB38B5003B8271 /* SteepnessChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87572AAB38B5003B8271 /* SteepnessChartViewController.swift */; };
 		CEFC875D2AAB38B5003B8271 /* SurfacesChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87582AAB38B5003B8271 /* SurfacesChartViewController.swift */; };
 		CEFC875E2AAB38B5003B8271 /* RouteProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87592AAB38B5003B8271 /* RouteProfileViewController.swift */; };
@@ -36,7 +35,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CEFC87632AAB3904003B8271 /* Charts.xcframework in Embed Frameworks */,
-				CEFC87552AAB37F0003B8271 /* GEMKit.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,7 +50,6 @@
 		CEFC87472AAB379E003B8271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEFC874A2AAB379E003B8271 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEFC874C2AAB379E003B8271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEFC87532AAB37F0003B8271 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CEFC87572AAB38B5003B8271 /* SteepnessChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteepnessChartViewController.swift; sourceTree = "<group>"; };
 		CEFC87582AAB38B5003B8271 /* SurfacesChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfacesChartViewController.swift; sourceTree = "<group>"; };
 		CEFC87592AAB38B5003B8271 /* RouteProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteProfileViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +68,7 @@
 			files = (
 				CEFC87662AAB3931003B8271 /* Algorithms in Frameworks */,
 				CEFC87622AAB3904003B8271 /* Charts.xcframework in Frameworks */,
-				CEFC87542AAB37F0003B8271 /* GEMKit.xcframework in Frameworks */,
+				CE71A0DE2E95547A008B5F00 /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				CEFC87612AAB3904003B8271 /* Charts.xcframework */,
-				CEFC87532AAB37F0003B8271 /* GEMKit.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,6 +141,7 @@
 			name = RouteProfile;
 			packageProductDependencies = (
 				CEFC87652AAB3931003B8271 /* Algorithms */,
+				CE71A0DD2E95547A008B5F00 /* GEMKit */,
 			);
 			productName = RouteProfile;
 			productReference = CEFC873B2AAB379D003B8271 /* RouteProfile.app */;
@@ -176,6 +173,7 @@
 			mainGroup = CEFC87322AAB379D003B8271;
 			packageReferences = (
 				CEFC87642AAB3931003B8271 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				CE71A0DC2E95547A008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
 			);
 			productRefGroup = CEFC873C2AAB379D003B8271 /* Products */;
 			projectDirPath = "";
@@ -434,6 +432,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE71A0DC2E95547A008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.9;
+			};
+		};
 		CEFC87642AAB3931003B8271 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -445,6 +451,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE71A0DD2E95547A008B5F00 /* GEMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE71A0DC2E95547A008B5F00 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			productName = GEMKit;
+		};
 		CEFC87652AAB3931003B8271 /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CEFC87642AAB3931003B8271 /* XCRemoteSwiftPackageReference "swift-algorithms" */;

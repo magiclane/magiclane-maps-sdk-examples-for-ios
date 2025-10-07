@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,23 +11,8 @@
 		CEACFAD52C7DD16700D6E0CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACFAD42C7DD16700D6E0CD /* ContentView.swift */; };
 		CEACFAD72C7DD16800D6E0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */; };
 		CEACFADA2C7DD16800D6E0CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */; };
-		CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; };
-		CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEB335DC2E9533A4001F63CF /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEB335DB2E9533A4001F63CF /* GEMKit */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CEACFAE32C7DD26700D6E0CD /* GEMKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CEACFACF2C7DD16700D6E0CD /* MapCompass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapCompass.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,15 +20,14 @@
 		CEACFAD42C7DD16700D6E0CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEACFAD62C7DD16800D6E0CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEACFAD92C7DD16800D6E0CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CEACFACC2C7DD16700D6E0CD /* Frameworks */ = {
+		CEB335D92E9533A0001F63CF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEACFAE22C7DD26700D6E0CD /* GEMKit.xcframework in Frameworks */,
+				CEB335DC2E9533A4001F63CF /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +39,6 @@
 			children = (
 				CEACFAD12C7DD16700D6E0CD /* MapCompass */,
 				CEACFAD02C7DD16700D6E0CD /* Products */,
-				CEACFAE02C7DD26700D6E0CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,14 +69,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CEACFAE02C7DD26700D6E0CD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CEACFAE12C7DD26700D6E0CD /* GEMKit.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,9 +77,8 @@
 			buildConfigurationList = CEACFADD2C7DD16800D6E0CD /* Build configuration list for PBXNativeTarget "MapCompass" */;
 			buildPhases = (
 				CEACFACB2C7DD16700D6E0CD /* Sources */,
-				CEACFACC2C7DD16700D6E0CD /* Frameworks */,
 				CEACFACD2C7DD16700D6E0CD /* Resources */,
-				CEACFAE42C7DD26700D6E0CD /* Embed Frameworks */,
+				CEB335D92E9533A0001F63CF /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,6 +113,9 @@
 				Base,
 			);
 			mainGroup = CEACFAC62C7DD16700D6E0CD;
+			packageReferences = (
+				CEE8B0DB2E950C4100520D77 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
+			);
 			productRefGroup = CEACFAD02C7DD16700D6E0CD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -372,6 +349,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEE8B0DB2E950C4100520D77 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEB335DB2E9533A4001F63CF /* GEMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEE8B0DB2E950C4100520D77 /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			productName = GEMKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEACFAC72C7DD16700D6E0CD /* Project object */;
 }

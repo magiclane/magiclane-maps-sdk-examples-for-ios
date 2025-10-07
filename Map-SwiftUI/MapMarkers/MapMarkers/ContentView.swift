@@ -1,23 +1,27 @@
 // SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
-// SPDX-License-Identifier: BSD-3-Clause
+// SPDX-License-Identifier: Apache-2.0
 //
-// Contact Magic Lane at <info@magiclane.com> for commercial licensing options.
+// Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
 
 import SwiftUI
 import GEMKit
 
 enum ShapeType: Int { case triangle, circle, line } 
 
-struct ContentView: View {    
+struct ContentView: View {
+    @State var collType1: [MarkerCollectionObject] = []
+    @State var collType2: [MarkerCollectionObject] = []
+    @State var collType3: [MarkerCollectionObject] = []
     var body: some View {
         MapReader { proxy in
             ZStack() {
-                MapBase()
-                    .mapEdgeInsets(getInsets())
-                    .onAppear() {
-                        proxy.centerOn(coordinates: .amsterdam, zoomLevel: 56)
-                    }
-                    .ignoresSafeArea()
+                MapBase(initialPosition: .amsterdam, initialZoomLevel: 56, content: {
+                    MapMarker(title: "A", collections: collType1)
+                    MapMarker(title: "A", collections: collType2)
+                    MapMarker(title: "C", collections: collType3)
+                })
+                .mapCompass(false)
+                .ignoresSafeArea()
                 HStack() {
                     ShapeButton(type: .triangle) { type in                        
                         refreshMarkerCollections(proxy, .triangle)
@@ -41,24 +45,12 @@ struct ContentView: View {
     
     func refreshMarkerCollections(_ proxy: MapProxy, _ type: ShapeType) {
         
-        guard let mapViewController = proxy.mapViewController else { return }
-        
-        for markerCollection in mapViewController.getAvailableMarkers() {
-            if type == .triangle, markerCollection.getName() == "My Triangle" {
-                mapViewController.removeMarker(markerCollection)
-                return
-            }
-            if type == .circle, markerCollection.getName() == "My Circle" {
-                mapViewController.removeMarker(markerCollection)
-                return
-            }
-            if type == .line, markerCollection.getName() == "My Line" {
-                mapViewController.removeMarker(markerCollection)
-                return
-            }
-        }
-        
         if type == .triangle {
+            
+            if collType1.count > 0 {
+                collType1.removeAll()
+                return
+            }
             
             let markerCollection = MarkerCollectionObject.init(name: "My Triangle", type: .polygon);
             markerCollection.setInnerSize(0.8)
@@ -73,9 +65,14 @@ struct ContentView: View {
                     .coordinates(withLatitude: 52.379934, longitude: 4.896882),
                 ])
             )
-            mapViewController.addMarker(markerCollection, animationDuration: 2000)    
+            collType1.append(markerCollection)
             
         } else if type == .circle {
+            
+            if collType2.count > 0 {
+                collType2.removeAll()
+                return
+            }
             
             let markerCollection = MarkerCollectionObject.init(name: "My Circle", type: .polygon);
             markerCollection.setInnerSize(0.8)
@@ -87,9 +84,14 @@ struct ContentView: View {
                 MarkerObject.init(circleCenter: 
                         .coordinates(withLatitude: 52.379934, longitude: 4.896882),  radius: 800)
             )
-            mapViewController.addMarker(markerCollection, animationDuration: 2000)
+            collType2.append(markerCollection)
             
         } else if type == .line {
+            
+            if collType3.count > 0 {
+                collType3.removeAll()
+                return
+            }
             
             let markerCollection = MarkerCollectionObject.init(name: "My Line", type: .polyline);
             markerCollection.setInnerSize(0.8)
@@ -99,11 +101,11 @@ struct ContentView: View {
             markerCollection.setFill(UIColor.yellow.withAlphaComponent(0.25))
             markerCollection.addMarker(
                 MarkerObject.init(coordinates: [
-                    .coordinates(withLatitude: 52.370934, longitude: 4.908082),
-                    .coordinates(withLatitude: 52.362834, longitude: 4.889082),
+                    .coordinates(withLatitude: 52.370934, longitude: 4.907082),
+                    .coordinates(withLatitude: 52.370934, longitude: 4.875082),
                 ])
             )
-            mapViewController.addMarker(markerCollection, animationDuration: 2000)
+            collType3.append(markerCollection)
         }
     }    
     

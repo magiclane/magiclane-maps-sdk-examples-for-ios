@@ -1,6 +1,6 @@
 # Magic Lane - Maps SDK for iOS demo applications
 
-This repository holds a series of example projects using the **Magic Lane - Maps SDK for iOS**. More information about the API can be found on the [Documentation](https://developer.magiclane.com/documentation) page.
+This repository holds a series of example projects using the **Magic Lane - Maps SDK for iOS**. More information about the API can be found on the [Documentation](https://developer.magiclane.com/docs/ios) page.
 
 This set of individual, use-case based projects are designed to be cloned by developers for their own use.
 
@@ -10,4 +10,4 @@ This set of individual, use-case based projects are designed to be cloned by dev
 
 Copyright (C) 1995-2025 Magic Lane International B.V.
 
-Contact Magic Lane at info@magiclane.com for commercial licensing options.
+Contact Magic Lane at <info@magiclane.com> for SDK licensing options.

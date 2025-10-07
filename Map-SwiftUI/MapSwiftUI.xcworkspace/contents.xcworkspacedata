@@ -5,6 +5,9 @@
       location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:FreeTextSearch/FreeTextSearch.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapCompass/MapCompass.xcodeproj">
    </FileRef>
    <FileRef

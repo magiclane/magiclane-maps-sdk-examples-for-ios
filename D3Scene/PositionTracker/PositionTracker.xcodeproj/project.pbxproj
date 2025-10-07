@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,27 +13,12 @@
 		CE40EAA32791758B0024D0D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAA12791758B0024D0D1 /* Main.storyboard */; };
 		CE40EAA52791758C0024D0D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAA42791758C0024D0D1 /* Assets.xcassets */; };
 		CE40EAA82791758C0024D0D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAA62791758C0024D0D1 /* LaunchScreen.storyboard */; };
-		CE40EAB1279175F60024D0D1 /* GEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE40EAB0279175F60024D0D1 /* GEMKit.xcframework */; };
-		CE40EAB2279175F60024D0D1 /* GEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE40EAB0279175F60024D0D1 /* GEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE40EAB9279176800024D0D1 /* car.mtl in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB5279176800024D0D1 /* car.mtl */; };
 		CE40EABA279176800024D0D1 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB6279176800024D0D1 /* plane.obj */; };
 		CE40EABB279176800024D0D1 /* plane.mtl in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB7279176800024D0D1 /* plane.mtl */; };
 		CE40EABC279176800024D0D1 /* car.obj in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB8279176800024D0D1 /* car.obj */; };
+		CEB9FD212E953A600067513A /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9FD202E953A600067513A /* GEMKit */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		CE40EAB3279175F60024D0D1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CE40EAB2279175F60024D0D1 /* GEMKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CE40EA982791758B0024D0D1 /* PositionTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PositionTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +29,6 @@
 		CE40EAA42791758C0024D0D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE40EAA72791758C0024D0D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE40EAA92791758C0024D0D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE40EAB0279175F60024D0D1 /* GEMKit.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:W43E5E6BFR:General Magic GmbH"; lastKnownFileType = wrapper.xcframework; name = GEMKit.xcframework; path = ../../Frameworks/GEMKit.xcframework; sourceTree = "<group>"; };
 		CE40EAB5279176800024D0D1 /* car.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = car.mtl; sourceTree = "<group>"; };
 		CE40EAB6279176800024D0D1 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		CE40EAB7279176800024D0D1 /* plane.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.mtl; sourceTree = "<group>"; };
@@ -56,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE40EAB1279175F60024D0D1 /* GEMKit.xcframework in Frameworks */,
+				CEB9FD212E953A600067513A /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +52,6 @@
 			children = (
 				CE40EA9A2791758B0024D0D1 /* PositionTracker */,
 				CE40EA992791758B0024D0D1 /* Products */,
-				CE40EAAF279175F60024D0D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,14 +78,6 @@
 			path = PositionTracker;
 			sourceTree = "<group>";
 		};
-		CE40EAAF279175F60024D0D1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CE40EAB0279175F60024D0D1 /* GEMKit.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CE40EAB4279176800024D0D1 /* Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +97,8 @@
 			buildConfigurationList = CE40EAAC2791758C0024D0D1 /* Build configuration list for PBXNativeTarget "PositionTracker" */;
 			buildPhases = (
 				CE40EA942791758B0024D0D1 /* Sources */,
-				CE40EA952791758B0024D0D1 /* Frameworks */,
 				CE40EA962791758B0024D0D1 /* Resources */,
-				CE40EAB3279175F60024D0D1 /* Embed Frameworks */,
+				CE40EA952791758B0024D0D1 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -159,6 +133,9 @@
 				Base,
 			);
 			mainGroup = CE40EA8F2791758A0024D0D1;
+			packageReferences = (
+				CEB9FD1F2E953A600067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
+			);
 			productRefGroup = CE40EA992791758B0024D0D1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -418,6 +395,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEB9FD1F2E953A600067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEB9FD202E953A600067513A /* GEMKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEB9FD1F2E953A600067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			productName = GEMKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE40EA902791758A0024D0D1 /* Project object */;
 }
