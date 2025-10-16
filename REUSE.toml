@@ -1,8 +1,8 @@
 version = 1
 
-SPDX-PackageName = "maps-sdk-examples-for-ios"
+SPDX-PackageName = "magiclane-maps-sdk-examples-for-ios"
 SPDX-PackageSupplier = "magiclane-developer@users.noreply.github.com"
-SPDX-PackageDownloadLocation = "https://github.com/magiclane-international/maps-sdk-examples-for-ios"
+SPDX-PackageDownloadLocation = "https://github.com/magiclane/magiclane-maps-sdk-examples-for-ios"
 SPDX-PackageComment = "A collection of sample projects to support application development with the Magic Lane Maps SDK for iOS."
 
 [[annotations]]

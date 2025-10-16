@@ -355,10 +355,10 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		CEB9FD4C2E953EC90067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/magiclane-international/magiclane-maps-sdk-ios";
+			repositoryURL = "https://github.com/magiclane/magiclane-maps-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.9;
+				minimumVersion = 2.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
