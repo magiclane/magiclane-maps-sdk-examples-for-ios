@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>location</string>
+	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is displayed on the map and is used for route planning and navigation.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>We use bluetooth to demonstrate fundamental CoreBluetooth functionality</string>
+</dict>
+</plist>
