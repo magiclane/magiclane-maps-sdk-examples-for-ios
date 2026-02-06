@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2021-2026 Magic Lane International B.V. <info@magiclane.com>
 // SPDX-License-Identifier: Apache-2.0
 //
 // Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
@@ -9,8 +9,9 @@ import GEMKit
 struct ContentView: View {
     var body: some View {
         MapReader { proxy in
-            MapBase(initialPosition: .amsterdam, 
-                    initialZoomLevel: 54)
+            MapBase(
+                initialPosition: .amsterdam,
+                initialZoomLevel: 54)
         }
         .ignoresSafeArea()
     }
@@ -22,6 +23,7 @@ struct ContentView: View {
 
 extension CoordinatesObject {
     static let amsterdam =
-    CoordinatesObject.coordinates(withLatitude: 52.368447, 
-                                  longitude: 4.888229)
+        CoordinatesObject.coordinates(
+            withLatitude: 52.368447,
+            longitude: 4.888229)
 }

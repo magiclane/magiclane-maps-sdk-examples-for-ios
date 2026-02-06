@@ -24,7 +24,6 @@
 		CEFC87662AAB3931003B8271 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = CEFC87652AAB3931003B8271 /* Algorithms */; };
 		CEFC87682AAB397D003B8271 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87672AAB397D003B8271 /* BalloonMarker.swift */; };
 		CEFC876A2AAB39BC003B8271 /* ChartTypeBalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC87692AAB39BC003B8271 /* ChartTypeBalloonMarker.swift */; };
-		CEFC87702AAB5050003B8271 /* Basic_1_Modern_with_Elevation.style in Resources */ = {isa = PBXBuildFile; fileRef = CEFC876F2AAB5050003B8271 /* Basic_1_Modern_with_Elevation.style */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,7 +57,6 @@
 		CEFC87612AAB3904003B8271 /* Charts.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Charts.xcframework; path = Chart/Charts.xcframework; sourceTree = "<group>"; };
 		CEFC87672AAB397D003B8271 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		CEFC87692AAB39BC003B8271 /* ChartTypeBalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartTypeBalloonMarker.swift; sourceTree = "<group>"; };
-		CEFC876F2AAB5050003B8271 /* Basic_1_Modern_with_Elevation.style */ = {isa = PBXFileReference; lastKnownFileType = file; path = Basic_1_Modern_with_Elevation.style; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +103,6 @@
 				CEFC87582AAB38B5003B8271 /* SurfacesChartViewController.swift */,
 				CEFC87692AAB39BC003B8271 /* ChartTypeBalloonMarker.swift */,
 				CEFC87672AAB397D003B8271 /* BalloonMarker.swift */,
-				CEFC876F2AAB5050003B8271 /* Basic_1_Modern_with_Elevation.style */,
 				CEFC87442AAB379D003B8271 /* Main.storyboard */,
 				CEFC87472AAB379E003B8271 /* Assets.xcassets */,
 				CEFC87492AAB379E003B8271 /* LaunchScreen.storyboard */,
@@ -191,7 +188,6 @@
 			files = (
 				CEFC874B2AAB379E003B8271 /* LaunchScreen.storyboard in Resources */,
 				CEFC87482AAB379E003B8271 /* Assets.xcassets in Resources */,
-				CEFC87702AAB5050003B8271 /* Basic_1_Modern_with_Elevation.style in Resources */,
 				CEFC87462AAB379D003B8271 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,7 +433,7 @@
 			repositoryURL = "https://github.com/magiclane/magiclane-maps-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				minimumVersion = 2.1.3;
 			};
 		};
 		CEFC87642AAB3931003B8271 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {

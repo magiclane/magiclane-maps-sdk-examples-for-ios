@@ -9,7 +9,7 @@ This set of individual, use-case based projects are designed to be cloned by dev
 ## License
 
 ```
-Copyright (C) 1995-2025 Magic Lane International B.V.
+Copyright (C) 2021-2026 Magic Lane International B.V.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

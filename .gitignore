@@ -2,11 +2,13 @@
 *.DS_Store
 
 # Xcode
-xcuserdata/
-Package.resolved
+**/xcuserdata/
+**/DerivedData/
+**/*.xcworkspace/xcuserdata/
+**/*.xcodeproj/xcuserdata/
+**/Package.resolved
 
 # Build
 **/Build
-DerivedData
-Frameworks/
+**/Frameworks/
 !**/Data

@@ -15,7 +15,6 @@
 		CE18512B2A0A6CB700D20708 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1851292A0A6CB700D20708 /* LaunchScreen.storyboard */; };
 		CE1851382A0A6D5F00D20708 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1851372A0A6D5F00D20708 /* NavigationViewController.swift */; };
 		CE71A0C62E9552C8008B5F00 /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE71A0C52E9552C8008B5F00 /* GEMKit */; };
-		CEDD02052A0BCB5D00D3CAD0 /* DownloadMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDD02042A0BCB5D00D3CAD0 /* DownloadMapsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +27,6 @@
 		CE18512A2A0A6CB700D20708 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE18512C2A0A6CB700D20708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1851372A0A6D5F00D20708 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
-		CEDD02042A0BCB5D00D3CAD0 /* DownloadMapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadMapsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +64,6 @@
 				CE1851202A0A6CB600D20708 /* SceneDelegate.swift */,
 				CE1851222A0A6CB600D20708 /* ViewController.swift */,
 				CE1851372A0A6D5F00D20708 /* NavigationViewController.swift */,
-				CEDD02042A0BCB5D00D3CAD0 /* DownloadMapsViewController.swift */,
 				CE1851242A0A6CB600D20708 /* Main.storyboard */,
 				CE1851272A0A6CB700D20708 /* Assets.xcassets */,
 				CE1851292A0A6CB700D20708 /* LaunchScreen.storyboard */,
@@ -150,7 +147,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1851382A0A6D5F00D20708 /* NavigationViewController.swift in Sources */,
-				CEDD02052A0BCB5D00D3CAD0 /* DownloadMapsViewController.swift in Sources */,
 				CE1851232A0A6CB600D20708 /* ViewController.swift in Sources */,
 				CE18511F2A0A6CB600D20708 /* AppDelegate.swift in Sources */,
 				CE1851212A0A6CB600D20708 /* SceneDelegate.swift in Sources */,
@@ -378,7 +374,7 @@
 			repositoryURL = "https://github.com/magiclane/magiclane-maps-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				minimumVersion = 2.1.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

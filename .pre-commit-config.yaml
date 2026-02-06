@@ -1,0 +1,78 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+            .*LICENSE\.md|
+            .*\.swiftinterface
+          )$
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)^(
+            .*\.list|
+            .*\.swiftinterface
+          )$
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+        exclude: |
+          (?x)^(
+            .*/\.vscode/.*\.json
+          )$
+      - id: check-xml
+      - id: fix-byte-order-marker
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: local
+    hooks:
+      - id: swift-format
+        name: swift-format
+        entry: swift-format format --in-place --parallel
+        language: system
+        types: [swift]
+        exclude: |
+          (?x)^(
+            .*/Internal/.*|
+            .*/Pods/.*|
+            .*/Build/.*|
+            .*/BUILD/.*|
+            .*/DerivedData/.*|
+            .*\.swiftinterface
+          )$
+      - id: swiftlint
+        name: swiftlint
+        entry: swiftlint --fix --strict
+        language: system
+        types: [swift]
+        exclude: |
+          (?x)^(
+            .*/Internal/.*|
+            .*/Pods/.*|
+            .*/Build/.*|
+            .*/BUILD/.*|
+            .*/DerivedData/.*
+          )$
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.11.0
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.12.0-2
+    hooks:
+      - id: shfmt
+        args: [-i, "4", -ci, -bn]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks

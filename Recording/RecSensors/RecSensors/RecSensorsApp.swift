@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2021-2026 Magic Lane International B.V. <info@magiclane.com>
 // SPDX-License-Identifier: Apache-2.0
 //
 // Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
@@ -10,10 +10,10 @@ import CoreLocation
 @main
 struct RecSensorsApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
-    
+
     let activeNotif = NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
     let backgrNotif = NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView(model: AppManager.shared.recordingModel)
@@ -34,29 +34,29 @@ struct RecSensorsApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate {
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        let token = "YOUR_TOKEN"
-        
+
+    func application(
+        _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+
+        let token = "" // YOUR_TOKEN
+
         let success = GEMSdk.shared().initSdk(token)
-        
+
         if success {
-            
+
             GEMSdk.shared().delegate = self
-            
+
             AppManager.shared.prepareServices()
         }
-        
+
         return true
     }
-    
+
     // MARK: - GEMSdkDelegate
-    
+
     func onConnectionStatusUpdated(_ connected: Bool) {
-        
+
         print("AppDelegate: onConnectionStatusUpdated:", connected)
     }
 }
-
-

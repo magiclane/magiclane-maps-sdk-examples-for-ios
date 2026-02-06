@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2021-2026 Magic Lane International B.V. <info@magiclane.com>
 // SPDX-License-Identifier: Apache-2.0
 //
 // Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
@@ -10,12 +10,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard (scene as? UIWindowScene) != nil else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -28,15 +27,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        
+
         GEMSdk.shared().appDidBecomeActive()
-        
+
         if let navigationController = window?.rootViewController as? UINavigationController {
-            
+
             if let viewController = navigationController.viewControllers.first as? ViewController {
-                
+
                 if let mapView = viewController.mapViewController {
-                    
+
                     mapView.startRender()
                 }
             }
@@ -57,15 +56,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        
+
         GEMSdk.shared().appDidEnterBackground()
-        
+
         if let navigationController = window?.rootViewController as? UINavigationController {
-            
+
             if let viewController = navigationController.viewControllers.first as? ViewController {
-                
+
                 if let mapView = viewController.mapViewController {
-                    
+
                     mapView.stopRender()
                 }
             }

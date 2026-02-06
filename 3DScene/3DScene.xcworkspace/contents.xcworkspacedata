@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:CenterMap/CenterMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FollowingPosition/FollowingPosition.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:HelloMap/HelloMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapCompass/MapCompass.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapDownload/MapDownload.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapPerspective/MapPerspective.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapStyleImport/MapStyleImport.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapUpdate/MapUpdate.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapViewCustomStyle/MapViewCustomStyle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MultiMapView/MultiMapView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PositionTracker/PositionTracker.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Projections/Projections.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RangeView/RangeView.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Shapes/Shapes.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:StackMapViews/StackMapViews.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:WorldMapUpdate/WorldMapUpdate.xcodeproj">
+   </FileRef>
+</Workspace>

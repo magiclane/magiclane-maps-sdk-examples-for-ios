@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2021-2026 Magic Lane International B.V. <info@magiclane.com>
 // SPDX-License-Identifier: Apache-2.0
 //
 // Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
@@ -18,18 +18,18 @@ struct ContentView: View {
                     proxy.present(highlights: landmarks, settings: getRenderSettings())
                 }
                 .didSelectOverlays { overlays, touchPoint, isLongTouch in
-                    print("didSelectOverlays")   
+                    print("didSelectOverlays")
                 }
                 .didSelectTrafficEvents { events, touchPoint, isLongTouch in
                     print("didSelectTrafficEvents")
                 }
-                .onAppear() {
+                .onAppear {
                     goToPosition(proxy)
                 }
                 .ignoresSafeArea()
         }
     }
-    
+
     func getRenderSettings() -> HighlightRenderSettings {
         let settings = HighlightRenderSettings.init()
         settings.imageSize = 7
@@ -37,7 +37,7 @@ struct ContentView: View {
         settings.textColor = UIColor.black
         return settings
     }
-    
+
     func goToPosition(_ proxy: MapProxy) {
         proxy.centerOn(coordinates: .amsterdam, zoomLevel: zoom)
     }
@@ -49,6 +49,5 @@ struct ContentView: View {
 
 extension CoordinatesObject {
     static let amsterdam =
-    CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
+        CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
 }
-

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 1995-2025 Magic Lane International B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2021-2026 Magic Lane International B.V. <info@magiclane.com>
 // SPDX-License-Identifier: Apache-2.0
 //
 // Contact Magic Lane at <info@magiclane.com> for SDK licensing options.
@@ -9,104 +9,90 @@ import GEMKit
 
 private let carPlayInterfaceSingleton = CarPlayInterface()
 
-class CarPlayInterface: NSObject, CPInterfaceControllerDelegate, CPSessionConfigurationDelegate
-{
+class CarPlayInterface: NSObject, CPInterfaceControllerDelegate, CPSessionConfigurationDelegate {
     // MARK: - Variables
-    
+
     var carWindow: CPWindow?
     var carInterfaceController: CPInterfaceController?
     var rootViewController: CPRootViewController?
-    
+
     // MARK: - Singleton
-    
-    @objc class func sharedInstance() -> CarPlayInterface
-    {
+
+    @objc class func sharedInstance() -> CarPlayInterface {
         return carPlayInterfaceSingleton
     }
-    
+
     // MARK: - Init
-    
-    override init()
-    {
+
+    override init() {
         super.init()
     }
-    
+
     // MARK: - Properties
-    
-    func getWindow() -> CPWindow?
-    {
+
+    func getWindow() -> CPWindow? {
         return self.carWindow
     }
-    
-    func getInterfaceController() -> CPInterfaceController?
-    {
+
+    func getInterfaceController() -> CPInterfaceController? {
         return self.carInterfaceController
     }
-    
-    func isConnected() -> Bool
-    {
+
+    func isConnected() -> Bool {
         let state: Bool = (self.carWindow != nil)
-        
+
         return state
     }
-    
-    func didConnectCarInterfaceController(interfaceController: CPInterfaceController, to window: CPWindow)
-    {
+
+    func didConnectCarInterfaceController(interfaceController: CPInterfaceController, to window: CPWindow) {
         self.carWindow = window
         self.carInterfaceController = interfaceController
         self.carInterfaceController?.delegate = self
-        
+
         self.rootViewController = CPRootViewController.init()
         self.rootViewController!.view.frame = self.carWindow!.frame
-        
+
         self.carWindow!.rootViewController = self.rootViewController
-        
+
         if let template = self.rootViewController!.mapTemplate {
-            
+
             self.carInterfaceController?.setRootTemplate(template, animated: false)
-            
+
             self.rootViewController!.createMapView()
-            
+
             if self.isSceneInBackground() == false {
-                
+
                 self.rootViewController!.startRender()
             }
         }
     }
-    
-    func sceneDidBecomeActive()
-    {
+
+    func sceneDidBecomeActive() {
         GEMSdk.shared().appDidBecomeActive()
-        
+
         self.rootViewController!.startRender()
     }
-        
-    func sceneDidEnterBackground()
-    {
+
+    func sceneDidEnterBackground() {
         GEMSdk.shared().appDidEnterBackground()
-        
+
         self.rootViewController!.stopRender()
     }
-    
-    func isSceneInBackground() -> Bool
-    {
+
+    func isSceneInBackground() -> Bool {
         var state: Bool = false
-        
-        if let window = self.getWindow()
-        {
-            if let scene = window.templateApplicationScene
-            {
-                let sceneState = scene.activationState;
-                
-                if sceneState == .background || sceneState == .unattached
-                {
+
+        if let window = self.getWindow() {
+            if let scene = window.templateApplicationScene {
+                let sceneState = scene.activationState
+
+                if sceneState == .background || sceneState == .unattached {
                     state = true
                 }
             }
         }
-        
+
         return state
     }
-    
-}
 
+}
