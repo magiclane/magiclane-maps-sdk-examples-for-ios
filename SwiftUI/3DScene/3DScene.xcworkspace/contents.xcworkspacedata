@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:HelloMap/HelloMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapCustomStyle/MapCustomStyle.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapStyleFollowingTheme/MapStyleFollowingTheme.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapCompass/MapCompass.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:CenterMap/CenterMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapSelection/MapSelection.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Shapes/Shapes.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapPositionTracker/MapPositionTracker.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapRender/MapRender.xcodeproj">
+   </FileRef>
+</Workspace>

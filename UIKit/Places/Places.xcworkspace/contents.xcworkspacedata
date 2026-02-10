@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:AddressSearch/AddressSearch.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SaveFavorites/SaveFavorites.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchAlongRoute/SearchAlongRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchAlongRoute/../SearchCategory/SearchCategory.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchCategoryList/SearchCategoryList.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchQueryLocation/SearchQueryLocation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchQueryOnMap/SearchQueryOnMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SearchText/SearchText.xcodeproj">
+   </FileRef>
+</Workspace>
