@@ -378,7 +378,7 @@ class ViewController: UIViewController, GEMSdkDelegate, MapViewControllerDelegat
         self.stopButtonAction()
     }
 
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationError code: Int) {
+    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject?, navigationError code: Int) {
 
     }
 

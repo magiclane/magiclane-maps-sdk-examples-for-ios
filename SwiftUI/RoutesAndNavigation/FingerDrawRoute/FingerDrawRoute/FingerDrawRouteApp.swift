@@ -15,15 +15,17 @@ struct FingerDrawRouteApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onReceive(activeNotif) { (_) in
-                    print("UIApplication: active")
-                    GEMSdk.shared().appDidBecomeActive()
-                }
-                .onReceive(backgrNotif) { (_) in
-                    print("UIApplication: background")
-                    GEMSdk.shared().appDidEnterBackground()
-                }
+            NavigationStack {
+                ContentView()
+                    .onReceive(activeNotif) { (_) in
+                        print("UIApplication: active")
+                        GEMSdk.shared().appDidBecomeActive()
+                    }
+                    .onReceive(backgrNotif) { (_) in
+                        print("UIApplication: background")
+                        GEMSdk.shared().appDidEnterBackground()
+                    }
+            }
         }
     }
 }

@@ -7,8 +7,18 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State var drawPathOn: Bool = true
+    @State var drawPathOn: Bool = false
+    @State var routeCalculated: Bool = false
+    @State private var showStatusLabel: Bool = false
+    
     @State var navigationContext: NavigationContext?
+    @State var routeTransportMode: RouteTransportMode = .bicycle
+    @State private var routeStatus: RouteStatus = .uninitialized
+    @State private var markerCollections: [MarkerCollectionObject] = []
+        
+    @State var gpxFileURL: URL?
+    
+    @State var refreshTitleMenuId: UUID = UUID()
 
     var body: some View {
         MapReader { proxy in
@@ -18,24 +28,128 @@ struct ContentView: View {
                         proxy.centerOn(coordinates: .amsterdam, zoomLevel: 66)
                     }
                     .ignoresSafeArea()
-                Button {
-                    drawPath(proxy)
-                } label: {
-                    VStack(alignment: .leading) {
-                        Image(systemName: "hand.draw")
-                            .font(.system(size: 32, weight: .semibold))
-                            .frame(width: 60, height: 60)
-                            .foregroundStyle(.blue)
+                
+                if drawPathOn == false {
+                    VStack {
+                        Button {
+                            routeCalculated ? clearRoute(proxy) : drawPath(proxy)
+                        } label: {
+                            
+                            VStack {
+                                
+                                if routeCalculated {
+                                    Text("Clear")
+                                        .font(.title2)
+                                        .padding(.horizontal)
+                                } else {
+                                    Image(systemName: "hand.draw")
+                                        .font(.system(size: 32, weight: .semibold))
+                                }
+                            }
+                            .frame(minWidth: 70, minHeight: 70)
+                            .foregroundStyle(.primary)
                             .background(.background)
-                            .clipShape(Circle())
+                            .clipShape(Capsule())
                             .shadow(color: .gray, radius: 3)
+                            .padding()
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
                         Spacer()
                     }
-                    .padding()
                 }
-                .buttonStyle(PlainButtonStyle())
-                .disabled(!drawPathOn)
+                
+                VStack {
+                    
+                    Spacer()
+                    
+                    // Route status Label
+                    if showStatusLabel {
+                        HStack {
+                            Text(statusText)
+                                .font(.system(size: 24, weight: .semibold))
+                                .frame(maxWidth: .infinity)
+                            
+                            Button(action: {
+                                handlePencilButtonTap(proxy: proxy)
+                            }) {
+                                Image(systemName: "pencil.and.outline")
+                                    .font(.system(size: 26, weight: .semibold))
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(
+                                        Color.black,
+                                        Color.orange,
+                                        Color.clear
+                                    )
+                                    .frame(width: 50, height: 50)
+                            }
+                            .padding(.trailing, 10)
+                        }
+                        .padding(.horizontal)
+                        .frame(height: 60)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
+                        .padding(.horizontal, 15)
+                    }
+                }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .title, content: {
+                    
+                    Menu(content: {
+                        Button("Bike") {
+                            
+                            refreshTitleMenuId = UUID()
+                            routeTransportMode = .bicycle
+                        }
+                        Button("Pedestrian") {
+                            
+                            refreshTitleMenuId = UUID()
+                            routeTransportMode = .pedestrian
+                        }
+                    }, label: {
+                        
+                        HStack {
+                            Text(routeTransportMode == .bicycle ? "Bike Route" : "Pedestrian Route")
+                            
+                            Image(systemName: "chevron.down.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                        }
+                        .padding(8)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemGray5)))
+                    })
+                    .id(refreshTitleMenuId)
+                })
+                
+                ToolbarItem(placement: .topBarTrailing, content: {
+                    
+                    if let url = gpxFileURL {
+                        ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                })
+            }
+        }
+    }
+    
+    var statusText: String {
+        switch routeStatus {
+        case .calculating:
+            return "Calculating"
+        case .uninitialized:
+            return "Uninitialized"
+        case .waitingInternetConnection:
+            return "Waiting Internet Connection"
+        case .ready:
+            return "Ready"
+        case .error:
+            return "Error"
+        default:
+            return ""
         }
     }
 
@@ -55,12 +169,18 @@ struct ContentView: View {
             mapViewController.showCompass()
             mapViewController.view.layer.borderWidth = 0
             mapViewController.view.layer.borderColor = nil
+            
+            markerCollections = mapViewController.getAvailableMarkers()
 
             mapViewController.setTouchViewBehaviour(.default)
 
+            showStatusLabel = true
+            
             if let coordinates = marker?.getCoordinates(), !coordinates.isEmpty {
 
                 let path = PathObject.init(coordinates: coordinates)
+                
+                createShareRoute(path: path)
 
                 if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
 
@@ -69,16 +189,85 @@ struct ContentView: View {
             }
         }
 
-        drawPathOn = false
+        drawPathOn = true
+    }
+    
+    func createShareRoute(path: PathObject) {
+        
+        guard let data = path.export(as: .gpx) else { return }
+        guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+        let name = "Track.gpx"
+
+        let fileURL = documentsURL.appendingPathComponent(name)
+
+        let success = FileManager.default.createFile(atPath: fileURL.path, contents: data)
+
+        if success {
+            
+            self.gpxFileURL = fileURL
+        }
+    }
+    
+    func clearRoute(_ proxy: MapProxy) {
+        
+        guard let mapViewController = proxy.mapViewController else { return }
+        
+        markerCollections.removeAll()
+        
+        if let navigationContext = navigationContext {
+            navigationContext.cancelCalculateRoute()
+            self.navigationContext = nil
+        }
+        
+        showStatusLabel = false
+        routeCalculated = false
+        routeStatus = .uninitialized
+        gpxFileURL = nil
+        
+        mapViewController.showCompass()
+        mapViewController.setTouchViewBehaviour(.default)
+        
+        mapViewController.removeAllMarkers()
+        mapViewController.removeAllRoutes()
+    }
+    
+    func handlePencilButtonTap(proxy: MapProxy) {
+        guard let mapViewController = proxy.mapViewController else { return }
+        
+        if mapViewController.getAvailableMarkers().isEmpty {
+            if let collection = markerCollections.first {
+                mapViewController.addMarker(collection)
+            }
+        } else {
+            mapViewController.removeAllMarkers()
+        }
+    }
+    
+    func createNavigationContext() -> NavigationContext {
+
+        guard navigationContext == nil else { return navigationContext! }
+
+        let preferences = RoutePreferencesObject.init()
+        preferences.setRouteType(.fastest)
+        preferences.setIgnoreRestrictionsOverTrack(true)
+        preferences.setAccurateTrackMatch(false)  // only for track data
+        preferences.setTransportMode(routeTransportMode)
+
+        navigationContext = NavigationContext.init(preferences: preferences)
+
+        return navigationContext!
     }
 
     func calculateRoute(_ proxy: MapProxy, waypoints: [LandmarkObject]) {
 
         guard let mapViewController = proxy.mapViewController else { return }
 
-        let navigationContext = self.createNavigationContext()
+        let navigationContext = createNavigationContext()
 
         navigationContext.calculateRoute(withWaypoints: waypoints) { routeStatus in
+            
+            self.routeStatus = routeStatus
 
         } completionHandler: { results, code in
 
@@ -98,24 +287,10 @@ struct ContentView: View {
                     preferences.setRenderSettings(settings, route: route)
                 }
             }
-
-            drawPathOn = true
+            
+            routeCalculated = true
+            drawPathOn = false
         }
-    }
-
-    func createNavigationContext() -> NavigationContext {
-
-        guard self.navigationContext == nil else { return self.navigationContext! }
-
-        let preferences = RoutePreferencesObject.init()
-        preferences.setRouteType(.fastest)
-        preferences.setIgnoreRestrictionsOverTrack(true)
-        preferences.setAccurateTrackMatch(false)  // only for track data
-        preferences.setTransportMode(.bicycle)
-
-        self.navigationContext = NavigationContext.init(preferences: preferences)
-
-        return self.navigationContext!
     }
 }
 
