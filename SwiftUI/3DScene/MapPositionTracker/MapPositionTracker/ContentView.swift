@@ -55,6 +55,7 @@ struct ContentView: View {
     
     func defaultPositionTracker(_ proxy: MapProxy) {
 
+        proxy.mapViewController?.setPositionTrackerScaleFactor(1)
         proxy.mapViewController?.setDefaultPositionTracker()
     }
 
@@ -70,6 +71,7 @@ struct ContentView: View {
 
                     if let object = NSData.init(contentsOf: urlObj) as Data? {
 
+                        proxy.mapViewController?.setPositionTrackerScaleFactor(1)
                         proxy.mapViewController?.customizePositionTracker(object, material: material)
                     }
                 }
@@ -89,6 +91,7 @@ struct ContentView: View {
 
                     if let object = NSData.init(contentsOf: urlObj) as Data? {
 
+                        proxy.mapViewController?.setPositionTrackerScaleFactor(1)
                         proxy.mapViewController?.customizePositionTracker(object, material: material)
                     }
                 }
@@ -97,15 +100,12 @@ struct ContentView: View {
     }
     
     func imagePositionTracker(_ proxy: MapProxy) {
-            guard let image = UIImage.init(named: "DotRay") else { return }
-            if let data = image.pngData() {
-                proxy.mapViewController?.customizePositionTracker(data)
-                proxy.mapViewController?.setPositionTrackerScaleFactor(2)
-
-                let point = CGPoint.init(x: 0.5, y: 0.5)  // center screen
-                proxy.mapViewController?.setFollowPositionCameraFocus(point)
-            }
+        guard let image = UIImage.init(named: "DotRay") else { return }
+        if let data = image.pngData() {
+            proxy.mapViewController?.setPositionTrackerScaleFactor(2)
+            proxy.mapViewController?.customizePositionTracker(data)
         }
+    }
 
     func goToUserPosition(_ proxy: MapProxy) {
         AppManager.shared.requestLocationPermission()

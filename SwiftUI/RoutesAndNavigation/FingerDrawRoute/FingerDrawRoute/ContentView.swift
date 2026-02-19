@@ -25,9 +25,9 @@ struct ContentView: View {
             ZStack(alignment: .leading) {
                 MapBase()
                     .onAppear {
-                        proxy.centerOn(coordinates: .amsterdam, zoomLevel: 66)
+                        proxy.centerOn(coordinates: .milano, zoomLevel: 70)
                     }
-                    .ignoresSafeArea()
+                    .ignoresSafeArea(edges: [.bottom, .horizontal])
                 
                 if drawPathOn == false {
                     VStack {
@@ -152,6 +152,21 @@ struct ContentView: View {
             return ""
         }
     }
+    
+    func createNavigationContext() -> NavigationContext {
+
+        guard navigationContext == nil else { return navigationContext! }
+
+        let preferences = RoutePreferencesObject.init()
+        preferences.setRouteType(.fastest)
+        preferences.setIgnoreRestrictionsOverTrack(true)
+        preferences.setAccurateTrackMatch(false)  // only for track data
+        preferences.setTransportMode(routeTransportMode)
+
+        navigationContext = NavigationContext.init(preferences: preferences)
+
+        return navigationContext!
+    }
 
     func drawPath(_ proxy: MapProxy) {
 
@@ -192,23 +207,6 @@ struct ContentView: View {
         drawPathOn = true
     }
     
-    func createShareRoute(path: PathObject) {
-        
-        guard let data = path.export(as: .gpx) else { return }
-        guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-
-        let name = "Track.gpx"
-
-        let fileURL = documentsURL.appendingPathComponent(name)
-
-        let success = FileManager.default.createFile(atPath: fileURL.path, contents: data)
-
-        if success {
-            
-            self.gpxFileURL = fileURL
-        }
-    }
-    
     func clearRoute(_ proxy: MapProxy) {
         
         guard let mapViewController = proxy.mapViewController else { return }
@@ -232,6 +230,23 @@ struct ContentView: View {
         mapViewController.removeAllRoutes()
     }
     
+    func createShareRoute(path: PathObject) {
+        
+        guard let data = path.export(as: .gpx) else { return }
+        guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+        let name = "Track.gpx"
+
+        let fileURL = documentsURL.appendingPathComponent(name)
+
+        let success = FileManager.default.createFile(atPath: fileURL.path, contents: data)
+
+        if success {
+            
+            self.gpxFileURL = fileURL
+        }
+    }
+    
     func handlePencilButtonTap(proxy: MapProxy) {
         guard let mapViewController = proxy.mapViewController else { return }
         
@@ -242,21 +257,6 @@ struct ContentView: View {
         } else {
             mapViewController.removeAllMarkers()
         }
-    }
-    
-    func createNavigationContext() -> NavigationContext {
-
-        guard navigationContext == nil else { return navigationContext! }
-
-        let preferences = RoutePreferencesObject.init()
-        preferences.setRouteType(.fastest)
-        preferences.setIgnoreRestrictionsOverTrack(true)
-        preferences.setAccurateTrackMatch(false)  // only for track data
-        preferences.setTransportMode(routeTransportMode)
-
-        navigationContext = NavigationContext.init(preferences: preferences)
-
-        return navigationContext!
     }
 
     func calculateRoute(_ proxy: MapProxy, waypoints: [LandmarkObject]) {
@@ -299,5 +299,5 @@ struct ContentView: View {
 }
 
 extension CoordinatesObject {
-    static let amsterdam = CoordinatesObject.coordinates(withLatitude: 52.296245, longitude: 4.582780)
+    static let milano = CoordinatesObject.coordinates(withLatitude: 45.462514, longitude: 9.188443)
 }

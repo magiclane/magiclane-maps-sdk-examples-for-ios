@@ -6,7 +6,7 @@
 import UIKit
 import GEMKit
 
-class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDelegate {
+class ViewController: UIViewController {
 
     var mapViewController: MapViewController?
     var navigationContext: NavigationContext?
@@ -21,7 +21,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
     var showHideButton: UIButton?
     var routeType: RouteTransportMode = .bicycle
 
-    var marketCollections: [MarkerCollectionObject] = []
+    var markerCollections: [MarkerCollectionObject] = []
 
     override func viewDidLoad() {
 
@@ -81,7 +81,6 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
         let viewController = MapViewController.init()
         viewController.view.alpha = 0
         viewController.view.backgroundColor = UIColor.systemBackground
-        viewController.delegate = self
 
         self.addChild(viewController)
         self.view.addSubview(viewController.view)
@@ -132,7 +131,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
 
                 mapViewController.setTouchViewBehaviour(.fingerDraw) { marker in
 
-                    self.marketCollections = mapViewController.getAvailableMarkers()
+                    self.markerCollections = mapViewController.getAvailableMarkers()
 
                     self.refreshPencilImage()
 
@@ -163,7 +162,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
 
             } else {
 
-                self.marketCollections.removeAll()
+                self.markerCollections.removeAll()
 
                 if let navigationContext = self.navigationContext {
 
@@ -361,7 +360,7 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
 
             if mapViewController.getAvailableMarkers().isEmpty {
 
-                if let collection = self.marketCollections.first {
+                if let collection = self.markerCollections.first {
 
                     mapViewController.addMarker(collection)
                 }
@@ -552,20 +551,5 @@ class ViewController: UIViewController, UISearchBarDelegate, MapViewControllerDe
 
             button.isEnabled = enabled
         }
-    }
-
-    // MARK: - MapViewControllerDelegate
-
-    func mapViewController(
-        _ mapViewController: MapViewController, onPinch startPoint1: CGPoint, startPoint2: CGPoint,
-        toPoint1 endPoint1: CGPoint, toPoint2 endPoint2: CGPoint,
-        center: CGPoint
-    ) {
-
-        guard let button = self.drawButton else { return }
-
-        let zoomLevel = mapViewController.getZoomLevel()
-
-        button.isHidden = (zoomLevel > 90 || zoomLevel < 15)
     }
 }

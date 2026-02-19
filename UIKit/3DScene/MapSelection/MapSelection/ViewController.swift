@@ -39,11 +39,9 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         super.viewDidAppear(animated)
 
         // Paris
-        let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.381899)
+        let location = CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
 
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 1200)
-
-        self.disableOverlays()
     }
 
     // MARK: - Map View
@@ -171,6 +169,21 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         self.highlight(landmark: landmark)
     }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectOverlays overlays: [OverlayItemObject], onTouch point: CGPoint) {
+        
+        print("didSelectOverlays")
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectOverlays overlays: [OverlayItemObject], onLongTouch point: CGPoint) {
+        
+        print("didSelectOverlays")
+    }
+    
+    func mapViewController(_ mapViewController: MapViewController, didSelectTrafficEvents events: [TrafficEventObject]) {
+        
+        print("didSelectTrafficEvents")
+    }
 
     func highlight(landmark: LandmarkObject) {
 
@@ -190,12 +203,5 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         // Center animation
         // self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 900)
-    }
-
-    func disableOverlays() {
-
-        let context = OverlayServiceContext.init()
-        context.disableOverlay(Int32(CommonOverlayIdentifier.publicTransport.rawValue))
-        context.disableOverlay(Int32(CommonOverlayIdentifier.socialReports.rawValue))
     }
 }

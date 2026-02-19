@@ -17,6 +17,8 @@
 		CE40EABA279176800024D0D1 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB6279176800024D0D1 /* plane.obj */; };
 		CE40EABB279176800024D0D1 /* plane.mtl in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB7279176800024D0D1 /* plane.mtl */; };
 		CE40EABC279176800024D0D1 /* car.obj in Resources */ = {isa = PBXBuildFile; fileRef = CE40EAB8279176800024D0D1 /* car.obj */; };
+		CE7D6D4B2F434F9200117EC8 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D6D4A2F434F9200117EC8 /* AppManager.swift */; };
+		CE7D6D4D2F434F9D00117EC8 /* LiveDataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D6D4C2F434F9D00117EC8 /* LiveDataSourceController.swift */; };
 		CEB9FD212E953A600067513A /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9FD202E953A600067513A /* GEMKit */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		CE40EAB6279176800024D0D1 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		CE40EAB7279176800024D0D1 /* plane.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.mtl; sourceTree = "<group>"; };
 		CE40EAB8279176800024D0D1 /* car.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = car.obj; sourceTree = "<group>"; };
+		CE7D6D4A2F434F9200117EC8 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		CE7D6D4C2F434F9D00117EC8 /* LiveDataSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDataSourceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				CE40EA9B2791758B0024D0D1 /* AppDelegate.swift */,
+				CE7D6D4A2F434F9200117EC8 /* AppManager.swift */,
+				CE7D6D4C2F434F9D00117EC8 /* LiveDataSourceController.swift */,
 				CE40EA9D2791758B0024D0D1 /* SceneDelegate.swift */,
 				CE40EA9F2791758B0024D0D1 /* ViewController.swift */,
 				CE40EAB4279176800024D0D1 /* Files */,
@@ -169,7 +175,9 @@
 			files = (
 				CE40EAA02791758B0024D0D1 /* ViewController.swift in Sources */,
 				CE40EA9C2791758B0024D0D1 /* AppDelegate.swift in Sources */,
+				CE7D6D4D2F434F9D00117EC8 /* LiveDataSourceController.swift in Sources */,
 				CE40EA9E2791758B0024D0D1 /* SceneDelegate.swift in Sources */,
+				CE7D6D4B2F434F9200117EC8 /* AppManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

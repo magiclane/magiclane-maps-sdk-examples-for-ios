@@ -172,18 +172,6 @@ class ViewController: UIViewController {
 
     // MARK: - Utils
 
-    func generatePointsCoordinates() -> [CoordinatesObject] {
-
-        var coordinates: [CoordinatesObject] = []
-
-        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.930882))
-        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.900882))
-        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.870882))
-        coordinates.append(CoordinatesObject.coordinates(withLatitude: 52.380495, longitude: 4.840882))
-
-        return coordinates
-    }
-
     func generatePolylinesCoordinates() -> [CoordinatesObject] {
 
         var coordinates: [CoordinatesObject] = []

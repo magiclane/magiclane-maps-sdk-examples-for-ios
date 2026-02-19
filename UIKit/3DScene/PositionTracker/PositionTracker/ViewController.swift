@@ -11,12 +11,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     var mapViewController: MapViewController?
 
-    var locationManager: CLLocationManager?
-
-    var positionContext: PositionContext?
-
-    var dataSource: DataSourceContext?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,27 +27,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 UIBarButtonItem.init(
                     image: UIImage.init(systemName: "car.fill"), style: .done, target: self, action: #selector(carPositionTracker)),
                 UIBarButtonItem.init(
-                    image: UIImage.init(systemName: "airplane"), style: .done, target: self, action: #selector(planePositionTracker))
+                    image: UIImage.init(systemName: "airplane"), style: .done, target: self, action: #selector(planePositionTracker)),
+                UIBarButtonItem.init(
+                    image: UIImage.init(systemName: "circle.fill"), style: .done, target: self, action: #selector(imagePositionTracker))
             ]
 
             self.navigationItem.leftBarButtonItems = array
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "location"), style: .done, target: self, action: #selector(startFollowLocation))
         }
 
-        let configuration = DataSourceConfigurationObject.init()
-        configuration.setPositionActivity(.automotive)
-        configuration.setPositionAccuracy(.whenMoving)
-        configuration.setPositionDistanceFilter(0)
-
-        self.dataSource = DataSourceContext.init()
-        self.dataSource!.setConfiguration(configuration, for: .position)
-
-        self.positionContext = PositionContext.init(context: self.dataSource!)
+        AppManager.shared.startLiveSensors()
 
         self.createMapView()
 
         self.mapViewController!.startRender()
-
-        self.addLocationButton()
     }
 
     // MARK: - Map View
@@ -78,68 +66,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     // MARK: - Location
 
-    func addLocationButton() {
-
-        if self.locationManager == nil {
-
-            self.locationManager = CLLocationManager.init()
-            self.locationManager!.delegate = self
-        }
-
-        if self.isLocationAvailable() {
-
-            if let context = self.dataSource {
-
-                if context.isStopped() == false {
-
-                    context.start()
-                }
-            }
-        }
-
-        var image = UIImage.init(systemName: "location")
-
-        if self.isLocationAvailable() == false {
-
-            image = UIImage.init(systemName: "location.slash")
-        }
-
-        let barButton = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startFollowLocation))
-        self.navigationItem.rightBarButtonItem = barButton
-    }
-
     @objc func startFollowLocation() {
 
-        if self.isLocationAvailable() == false {
-
-            self.requestLocationPermission()
-
-        } else {
-
-            self.mapViewController!.startFollowingPosition(withAnimationDuration: 1000, zoomLevel: -1, viewAngle: 0) { success in }
-        }
-    }
-
-    func isLocationAvailable() -> Bool {
-
-        return (self.locationManager!.authorizationStatus == .authorizedWhenInUse)
-    }
-
-    func requestLocationPermission() {
-
-        if self.locationManager!.authorizationStatus == .notDetermined {
-
-            self.locationManager!.requestWhenInUseAuthorization()
-        }
-    }
-
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-
-        self.addLocationButton()
+        AppManager.shared.requestLocationPermission()
+        self.mapViewController!.startFollowingPosition(withAnimationDuration: 0, zoomLevel: 70, viewAngle: 0) { success in }
     }
 
     @objc func defaultPositionTracker() {
 
+        self.mapViewController!.setPositionTrackerScaleFactor(1)
         self.mapViewController!.setDefaultPositionTracker()
     }
 
@@ -155,6 +90,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
                     if let object = NSData.init(contentsOf: urlObj) as Data? {
 
+                        self.mapViewController!.setPositionTrackerScaleFactor(1)
                         self.mapViewController!.customizePositionTracker(object, material: material)
                     }
                 }
@@ -174,10 +110,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
                     if let object = NSData.init(contentsOf: urlObj) as Data? {
 
+                        self.mapViewController!.setPositionTrackerScaleFactor(1)
                         self.mapViewController!.customizePositionTracker(object, material: material)
                     }
                 }
             }
+        }
+    }
+    
+    @objc func imagePositionTracker() {
+        guard let image = UIImage.init(named: "DotRay") else { return }
+        if let data = image.pngData() {
+            
+            self.mapViewController!.setPositionTrackerScaleFactor(2)
+            self.mapViewController!.customizePositionTracker(data)
         }
     }
 }

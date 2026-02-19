@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let token = self.getProjectApiToken()
 
         let success = GEMSdk.shared().initSdk(token)
+        
+        if success {
+            
+            AppManager.shared.prepareServices()
+        }
 
         NSLog("GEMKit init with success:%@", String(success))
 

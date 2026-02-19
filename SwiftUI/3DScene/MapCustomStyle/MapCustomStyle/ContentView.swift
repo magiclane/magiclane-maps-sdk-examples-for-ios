@@ -7,8 +7,6 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    @State private var zoom = 54
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         MapReader { proxy in

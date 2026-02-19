@@ -47,7 +47,7 @@ struct ContentView: View {
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("", systemImage: "x.square") {
+                        Button("", systemImage: "xmark.square") {
                             
                             removeAllMarkers(proxy)
                         }
@@ -57,11 +57,6 @@ struct ContentView: View {
                 .ignoresSafeArea()
             }
         }
-    }
-
-    func getInsets() -> UIEdgeInsets {
-        let offset = UIScreen.main.scale * 60
-        return UIEdgeInsets.init(top: offset, left: offset, bottom: offset, right: offset)
     }
 
     func refreshMarkerCollections(_ proxy: MapProxy, _ type: ShapeType) {

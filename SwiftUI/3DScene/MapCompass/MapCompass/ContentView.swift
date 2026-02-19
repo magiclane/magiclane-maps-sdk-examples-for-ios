@@ -33,7 +33,7 @@ struct ContentView: View {
 
     func getInsets() -> UIEdgeInsets {
         if horizontalSizeClass == .compact, verticalSizeClass == .regular {
-            return UIEdgeInsets.init(top: -40, left: 0, bottom: 0, right: 20)
+            return UIEdgeInsets.init(top: -10, left: 0, bottom: 0, right: 20)
         }
         return UIEdgeInsets.init(top: 15, left: 0, bottom: 0, right: -40)
     }
