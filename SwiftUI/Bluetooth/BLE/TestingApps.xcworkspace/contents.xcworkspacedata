@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:BaseApp/BaseApp.xcodeproj">
+      location = "group:PeripheralApp/PeripheralApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DestinationApp/DestinationApp.xcodeproj">
+      location = "group:CentralApp/CentralApp.xcodeproj">
    </FileRef>
 </Workspace>

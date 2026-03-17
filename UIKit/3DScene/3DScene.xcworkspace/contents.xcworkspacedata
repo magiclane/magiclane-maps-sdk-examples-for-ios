@@ -46,10 +46,4 @@
    <FileRef
       location = "group:Shapes/Shapes.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:StackMapViews/StackMapViews.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:WorldMapUpdate/WorldMapUpdate.xcodeproj">
-   </FileRef>
 </Workspace>

@@ -14,14 +14,17 @@ struct Place: Identifiable, Equatable {
 }
 
 struct ContentView: View {
+    
     let context = SearchContext.init()
     private let defaultHighlightId = 10
-
+    
     @State private var searchQuery = ""
     @State private var landmarks: [LandmarkObject] = []
     @State private var results: [Place] = []
     @State private var selectedItem: Place?
     @State private var isSearching: Bool = false
+
+    @Environment(\.displayScale) var displayScale
 
     var body: some View {
         MapReader { proxy in
@@ -101,11 +104,6 @@ struct ContentView: View {
         results.removeAll()
         isSearching = true
 
-        // Filter based on category:
-        /*let categoriesContext = GenericCategoriesContext.init()
-        guard let category = categoriesContext.getCategory(.parking) else { return }
-        context.setCategory(category)*/
-
         // Location Hit support: narrow the search area to a specific radius
         context.setLocationHint(
             RectangleGeographicAreaObject(
@@ -159,10 +157,9 @@ struct ContentView: View {
 
     func getInsets() -> UIEdgeInsets {
         let margin: CGFloat = 35
-        let scale = UIScreen.main.scale
         return UIEdgeInsets.init(
-            top: scale * margin, left: scale * margin,
-            bottom: scale * margin, right: scale * margin)
+            top: displayScale * margin, left: displayScale * margin,
+            bottom: displayScale * margin, right: displayScale * margin)
     }
 }
 

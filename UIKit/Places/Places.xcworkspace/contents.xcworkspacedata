@@ -14,15 +14,12 @@
       location = "group:SearchAlongRoute/../SearchCategory/SearchCategory.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:SearchCategoryList/SearchCategoryList.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:SearchQueryLocation/SearchQueryLocation.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:SearchQueryOnMap/SearchQueryOnMap.xcodeproj">
+      location = "group:SearchOnMap/SearchOnMap.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SearchText/SearchText.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:WhatsNearby/WhatsNearby.xcodeproj">
    </FileRef>
 </Workspace>

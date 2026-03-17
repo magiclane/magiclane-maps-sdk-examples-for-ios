@@ -377,19 +377,6 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
         }
     }
 
-    func getMapViewCenterPoint() -> CGPoint {
-
-        guard let mapViewController = self.mapViewController else { return .zero }
-
-        let scale = UIScreen.main.scale
-
-        let center = mapViewController.view.center
-
-        let point = CGPoint.init(x: center.x * scale, y: center.y * scale)
-
-        return point
-    }
-
     func convertFrom(
         coordinates: CoordinatesObject, toType: ProjectionType,
         completionHandler: (@escaping (_ error: SDKErrorCode, _ details: NSAttributedString) -> Void)

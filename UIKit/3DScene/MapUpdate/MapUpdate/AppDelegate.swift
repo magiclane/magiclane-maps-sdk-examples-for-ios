@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         // Override point for customization after application launch.
 
-        let token = self.getProjectApiToken()
+        let token = getProjectApiToken()
 
         let success = GEMSdk.shared().initSdk(token)
 
@@ -41,21 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-    // MARK: - Project API Token
-
-    func getProjectApiToken() -> String {
-
-        //
-        // Project API token is available at:
-        //
-        // https://developer.magiclane.com/api/projects
-        //
-
-        let token = "" // YOUR_TOKEN
-
-        return token
-    }
-
     func addSkipBackupAttribute() {
 
         let fileManager = FileManager.default
@@ -78,4 +63,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+}
+
+
+// MARK: - Project API Token
+
+func getProjectApiToken() -> String {
+
+    //
+    // Project API token is available at:
+    //
+    // https://developer.magiclane.com/api/projects
+    //
+
+    let token = "" // YOUR_TOKEN
+
+    return token
 }

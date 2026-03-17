@@ -24,8 +24,17 @@ class ViewController: UIViewController {
         self.createMapView()
 
         self.mapViewController!.startRender()
-
         self.mapViewController!.showCompass()
+
+        self.mapViewController!.setCompassFollowUserInterfaceStyle(true)
+        
+        self.setCompassTapHandler()
+        self.changeCompassSize()
+        self.changeCompassInsets()
+        
+        // Different approach to change compass layout
+        //
+        // self.changeCompassConstraints()
     }
 
     // MARK: - Map View
@@ -45,6 +54,37 @@ class ViewController: UIViewController {
             self.mapViewController!.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.mapViewController!.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
+    
+    func setCompassTapHandler() {
+        
+        self.mapViewController!.setTapCompassCompletionHandler({ mode in 
+            
+            print("tap compass")
+        })
+    }
+    
+    func changeCompassSize() {
+        
+        self.mapViewController!.setCompassSize(60.0)
+    }
+    
+    func changeCompassInsets() {
+        
+        self.mapViewController!.setCompassInsets(UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 40))
+    }
+    
+    // Change constraints directly after map loads
+    func changeCompassConstraints() {
+        
+        let compassImageView = self.mapViewController!.getCompassImageView()
+        
+        NSLayoutConstraint.deactivate(self.mapViewController!.getCompassLayoutConstraints())
+        
+        NSLayoutConstraint.activate([
+            compassImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            compassImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
         ])
     }
 }

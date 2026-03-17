@@ -19,6 +19,7 @@ class RangeViewController: UIViewController {
     var landmark: LandmarkObject?
 
     var mapViewController: MapViewController?
+    var navigationContext: NavigationContext = NavigationContext.init()
 
     var rangeView: RangeView?
 
@@ -60,20 +61,6 @@ class RangeViewController: UIViewController {
         self.title = "Range"
 
         self.navigationItem.largeTitleDisplayMode = .never
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-
-        super.viewWillAppear(animated)
-
-        self.showNavigationController()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-
-        super.viewWillDisappear(animated)
-
-        self.hideNavigationController()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -184,6 +171,9 @@ class RangeViewController: UIViewController {
                     let renderSettings = MapViewRouteRenderSettings.init()
                     renderSettings.options = Int32(MapViewRouteRenderOption.main.rawValue)
                     renderSettings.fillColor = item.routeColor
+                    
+                    renderSettings.contourInnerSize = 0.3
+                    renderSettings.contourOuterSize = 0.3
 
                     let preferences = mapViewController.getPreferences()
                     preferences.setRenderSettings(renderSettings, route: route)
@@ -257,19 +247,21 @@ class RangeViewController: UIViewController {
 
         guard let mapViewController = self.mapViewController else { return }
 
-        guard let locationDetailsLmk = landmark else { return }
+        guard let rangeLandmark = landmark else { return }
 
         let value = NSNumber.init(value: model.rangeType == .time ? Int(model.rangeValue) * 60 : Int(model.rangeValue))
 
         let routePreferences = self.getRoutePreferences(transportMode: model.mode)
+        
+        //Range value setting for the route calculation.
         routePreferences.setRouteRanges([value], quality: 100)
 
-        let navigationContext = NavigationContext.init(preferences: routePreferences)
+        self.navigationContext = NavigationContext.init(preferences: routePreferences)
 
         self.model.isCalculating = true
 
-        navigationContext.calculateRoute(
-            withWaypoints: [locationDetailsLmk],
+        self.navigationContext.calculateRoute(
+            withWaypoints: [rangeLandmark],
             completionHandler: { [weak self] (results: [RouteObject]) in
 
                 guard let strongSelf = self else { return }
@@ -306,10 +298,7 @@ class RangeViewController: UIViewController {
 
                     let preferences = mapViewController.getPreferences()
                     preferences.setRenderSettings(renderSettings, route: route)
-
                 }
-
-                _ = navigationContext.getRoutePreferencesObject()
             })
     }
 
@@ -409,22 +398,6 @@ class RangeViewController: UIViewController {
 
         case .pedestrian:
             return .pedestrian
-        }
-    }
-
-    func showNavigationController() {
-
-        if let navigationController = self.navigationController {
-
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    func hideNavigationController() {
-
-        if let navigationController = self.navigationController {
-
-            navigationController.setNavigationBarHidden(true, animated: true)
         }
     }
 

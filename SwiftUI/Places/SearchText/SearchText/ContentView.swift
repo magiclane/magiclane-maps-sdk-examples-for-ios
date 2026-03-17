@@ -87,11 +87,10 @@ struct ContentView: View {
         proxy.centerOn(coordinates: .amsterdam, zoomLevel: 60)
         results.removeAll()
         isSearching = true
-
-        // Filter based on category:
-        /*let categoriesContext = GenericCategoriesContext.init()
-        guard let category = categoriesContext.getCategory(.parking) else { return }
-        context.setCategory(category)*/
+        
+        context.setMaxMatches(40)
+        context.setSearchMapPOIs(true)
+        context.setSearchAddresses(true)
 
         // Location Hint support: narrow the search area to a specific radius
         context.setLocationHint(
@@ -101,7 +100,7 @@ struct ContentView: View {
 
         context.search(withQuery: searchQuery, location: .amsterdam) { response in
             isSearching = false
-
+            
             results = response.map { item in
                 return Place(
                     image: item.getLandmarkImage(CGSize(width: 40 * displayScale, height: 40 * displayScale)) ?? UIImage(),

@@ -14,6 +14,7 @@
 		CE2AFE6D266A4AF7000C9A62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2AFE6C266A4AF7000C9A62 /* Assets.xcassets */; };
 		CE2AFE70266A4AF7000C9A62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2AFE6E266A4AF7000C9A62 /* LaunchScreen.storyboard */; };
 		CE4578EC2E954C0100FDE93C /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE4578EB2E954C0100FDE93C /* GEMKit */; };
+		CE6BDC772F5ECFEF000AB15E /* PoiCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BDC762F5ECFEF000AB15E /* PoiCategoriesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		CE2AFE6C266A4AF7000C9A62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE2AFE6F266A4AF7000C9A62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE2AFE71266A4AF7000C9A62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6BDC762F5ECFEF000AB15E /* PoiCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiCategoriesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				CE2AFE63266A4AF6000C9A62 /* AppDelegate.swift */,
 				CE2AFE65266A4AF6000C9A62 /* SceneDelegate.swift */,
 				CE2AFE67266A4AF6000C9A62 /* ViewController.swift */,
+				CE6BDC762F5ECFEF000AB15E /* PoiCategoriesViewController.swift */,
 				CE2AFE69266A4AF6000C9A62 /* Main.storyboard */,
 				CE2AFE6C266A4AF7000C9A62 /* Assets.xcassets */,
 				CE2AFE6E266A4AF7000C9A62 /* LaunchScreen.storyboard */,
@@ -146,6 +149,7 @@
 				CE2AFE68266A4AF6000C9A62 /* ViewController.swift in Sources */,
 				CE2AFE64266A4AF6000C9A62 /* AppDelegate.swift in Sources */,
 				CE2AFE66266A4AF6000C9A62 /* SceneDelegate.swift in Sources */,
+				CE6BDC772F5ECFEF000AB15E /* PoiCategoriesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

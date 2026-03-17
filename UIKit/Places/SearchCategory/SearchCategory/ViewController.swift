@@ -10,12 +10,6 @@ class ViewController: UIViewController {
 
     var mapViewController: MapViewController?
 
-    var searchContext: SearchContext?
-
-    var categoryContext: GenericCategoriesContext?
-
-    let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.371899)
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -31,13 +25,7 @@ class ViewController: UIViewController {
 
         self.mapViewController!.startRender()
 
-        self.searchContext = SearchContext.init()
-        self.searchContext?.setMaxMatches(40)
-        self.searchContext?.setSearchMapPOIs(true)
-
-        self.categoryContext = GenericCategoriesContext.init()
-
-        self.addSearchButtons()
+        self.addSearchButton()
     }
 
     // MARK: - Map View
@@ -62,61 +50,18 @@ class ViewController: UIViewController {
 
     // MARK: - Search
 
-    func addSearchButtons() {
+    func addSearchButton() {
 
-        let barButton1 = UIBarButtonItem.init(title: "Accommodation", style: .done, target: self, action: #selector(searchButton1))
+        let barButton = UIBarButtonItem.init(
+            image: UIImage.init(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(searchButton(item:)))
 
-        let barButton2 = UIBarButtonItem.init(title: "Gas Station", style: .done, target: self, action: #selector(searchButton2))
-
-        self.navigationItem.rightBarButtonItems = [barButton1]
-        self.navigationItem.leftBarButtonItems = [barButton2]
+        self.navigationItem.rightBarButtonItems = [barButton]
     }
 
-    @objc func searchButton1(item: UIBarButtonItem) {
+    @objc func searchButton(item: UIBarButtonItem) {
 
-        guard let object = self.categoryContext!.getCategory(.accommodation) else { return }
+        let poiListViewController = PoiCategoriesViewController.init()
 
-        self.mapViewController!.center(onCoordinates: self.location, zoomLevel: 60, animationDuration: 1200)
-
-        self.searchContext?.setCategory(object)
-
-        self.searchContext?
-            .searchAround(withLocation: location) { [weak self] (results: [LandmarkObject]) in
-
-                guard let strongSelf = self else { return }
-
-                if !results.isEmpty {
-
-                    strongSelf.mapViewController!.removeHighlights()
-
-                    let settings = HighlightRenderSettings.init()
-
-                    strongSelf.mapViewController!.presentHighlights(results, settings: settings)
-                }
-            }
-    }
-
-    @objc func searchButton2(item: UIBarButtonItem) {
-
-        guard let object = self.categoryContext!.getCategory(.gasStation) else { return }
-
-        self.mapViewController!.center(onCoordinates: self.location, zoomLevel: 60, animationDuration: 800)
-
-        self.searchContext?.setCategory(object)
-
-        self.searchContext?
-            .searchAround(withLocation: location) { [weak self] (results: [LandmarkObject]) in
-
-                guard let strongSelf = self else { return }
-
-                if !results.isEmpty {
-
-                    strongSelf.mapViewController!.removeHighlights()
-
-                    let settings = HighlightRenderSettings.init()
-
-                    strongSelf.mapViewController!.presentHighlights(results, settings: settings)
-                }
-            }
+        self.navigationController?.pushViewController(poiListViewController, animated: true)
     }
 }

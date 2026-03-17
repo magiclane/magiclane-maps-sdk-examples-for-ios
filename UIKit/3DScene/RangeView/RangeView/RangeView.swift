@@ -1073,19 +1073,3 @@ struct RangeValueSliderView: View {
         .padding(.vertical, 5)
     }
 }
-
-extension Color {
-
-    static var randomRangeColor: Color {
-
-        let r: Double = .random(in: 0...0.8)
-        let g: Double = .random(in: 0...0.8)
-        let b: Double = .random(in: 0...0.8)
-
-        let color = Color(red: r, green: g, blue: b, opacity: 0.26)
-
-        // ui_log("Color: randomRangeColor: red:%f, green:%f, blue:%f", r, g, b)
-
-        return color
-    }
-}

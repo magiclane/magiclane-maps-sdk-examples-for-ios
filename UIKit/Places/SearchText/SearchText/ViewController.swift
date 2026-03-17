@@ -50,7 +50,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
 
         super.viewDidAppear(animated)
 
-        let location = CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991)
+        let location = CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
 
         self.mapViewController!.center(onCoordinates: location, zoomLevel: 50, animationDuration: 0)
     }
@@ -108,7 +108,13 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
             self.searchContext?.setSearchMapPOIs(true)
             self.searchContext?.setSearchAddresses(true)
         }
-
+        
+        // Location Hint support: narrow the search area to a specific radius
+        self.searchContext?.setLocationHint(
+            RectangleGeographicAreaObject(
+                location: self.getMapCenterLocation(),
+                horizontalRadius: 2000, verticalRadius: 2000))
+        
         let location = self.getMapCenterLocation()
 
         self.searchContext?

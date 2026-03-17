@@ -7,121 +7,104 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE0AA6F0268D946000D7BCCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AA6EF268D946000D7BCCE /* AppDelegate.swift */; };
-		CE0AA6F2268D946000D7BCCE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AA6F1268D946000D7BCCE /* SceneDelegate.swift */; };
-		CE0AA6F4268D946000D7BCCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AA6F3268D946000D7BCCE /* ViewController.swift */; };
-		CE0AA6F7268D946000D7BCCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0AA6F5268D946000D7BCCE /* Main.storyboard */; };
-		CE0AA6F9268D946100D7BCCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0AA6F8268D946100D7BCCE /* Assets.xcassets */; };
-		CE0AA6FC268D946100D7BCCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0AA6FA268D946100D7BCCE /* LaunchScreen.storyboard */; };
-		CE0AA70E268D9C7500D7BCCE /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0AA70D268D9C7500D7BCCE /* MapsViewController.swift */; };
-		CE61DF742F56E190001C97D7 /* WM_7_406.map in Resources */ = {isa = PBXBuildFile; fileRef = CEA56F952F559E0D000AE06A /* WM_7_406.map */; };
-		CEA56F972F559E0D000AE06A /* AndorraOSM_2021Q1.cmap in Resources */ = {isa = PBXBuildFile; fileRef = CEA56F942F559E0D000AE06A /* AndorraOSM_2021Q1.cmap */; };
-		CEB9FD302E953D970067513A /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEB9FD2F2E953D970067513A /* GEMKit */; };
+		CE062746260BA569009449EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062745260BA569009449EA /* AppDelegate.swift */; };
+		CE062748260BA569009449EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062747260BA569009449EA /* SceneDelegate.swift */; };
+		CE06274A260BA569009449EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE062749260BA569009449EA /* ViewController.swift */; };
+		CE06274D260BA569009449EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE06274B260BA569009449EA /* Main.storyboard */; };
+		CE06274F260BA56B009449EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE06274E260BA56B009449EA /* Assets.xcassets */; };
+		CE062752260BA56B009449EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE062750260BA56B009449EA /* LaunchScreen.storyboard */; };
+		CE4578F52E954C1D00FDE93C /* GEMKit in Frameworks */ = {isa = PBXBuildFile; productRef = CE4578F42E954C1D00FDE93C /* GEMKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE0AA6EC268D946000D7BCCE /* MapUpdate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapUpdate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE0AA6EF268D946000D7BCCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE0AA6F1268D946000D7BCCE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE0AA6F3268D946000D7BCCE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CE0AA6F6268D946000D7BCCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CE0AA6F8268D946100D7BCCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE0AA6FB268D946100D7BCCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CE0AA6FD268D946100D7BCCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE0AA70D268D9C7500D7BCCE /* MapsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
-		CEA56F942F559E0D000AE06A /* AndorraOSM_2021Q1.cmap */ = {isa = PBXFileReference; lastKnownFileType = file; path = AndorraOSM_2021Q1.cmap; sourceTree = "<group>"; };
-		CEA56F952F559E0D000AE06A /* WM_7_406.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = WM_7_406.map; sourceTree = "<group>"; };
+		CE062742260BA569009449EA /* WhatsNearby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsNearby.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE062745260BA569009449EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CE062747260BA569009449EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CE062749260BA569009449EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE06274C260BA569009449EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CE06274E260BA56B009449EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE062751260BA56B009449EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CE062753260BA56B009449EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CE0AA6E9268D946000D7BCCE /* Frameworks */ = {
+		CE06273F260BA569009449EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB9FD302E953D970067513A /* GEMKit in Frameworks */,
+				CE4578F52E954C1D00FDE93C /* GEMKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CE0AA6E3268D946000D7BCCE = {
+		CE062739260BA569009449EA = {
 			isa = PBXGroup;
 			children = (
-				CE0AA6EE268D946000D7BCCE /* MapUpdate */,
-				CE0AA6ED268D946000D7BCCE /* Products */,
+				CE062744260BA569009449EA /* WhatsNearby */,
+				CE062743260BA569009449EA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		CE0AA6ED268D946000D7BCCE /* Products */ = {
+		CE062743260BA569009449EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE0AA6EC268D946000D7BCCE /* MapUpdate.app */,
+				CE062742260BA569009449EA /* WhatsNearby.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CE0AA6EE268D946000D7BCCE /* MapUpdate */ = {
+		CE062744260BA569009449EA /* WhatsNearby */ = {
 			isa = PBXGroup;
 			children = (
-				CE0AA6EF268D946000D7BCCE /* AppDelegate.swift */,
-				CE0AA6F1268D946000D7BCCE /* SceneDelegate.swift */,
-				CE0AA6F3268D946000D7BCCE /* ViewController.swift */,
-				CE0AA70D268D9C7500D7BCCE /* MapsViewController.swift */,
-				CE0AA6F5268D946000D7BCCE /* Main.storyboard */,
-				CE0AA6F8268D946100D7BCCE /* Assets.xcassets */,
-				CE0AA6FA268D946100D7BCCE /* LaunchScreen.storyboard */,
-				CE0AA6FD268D946100D7BCCE /* Info.plist */,
-				CEA56F962F559E0D000AE06A /* TestingResources */,
+				CE062745260BA569009449EA /* AppDelegate.swift */,
+				CE062747260BA569009449EA /* SceneDelegate.swift */,
+				CE062749260BA569009449EA /* ViewController.swift */,
+				CE06274B260BA569009449EA /* Main.storyboard */,
+				CE06274E260BA56B009449EA /* Assets.xcassets */,
+				CE062750260BA56B009449EA /* LaunchScreen.storyboard */,
+				CE062753260BA56B009449EA /* Info.plist */,
 			);
-			path = MapUpdate;
-			sourceTree = "<group>";
-		};
-		CEA56F962F559E0D000AE06A /* TestingResources */ = {
-			isa = PBXGroup;
-			children = (
-				CEA56F942F559E0D000AE06A /* AndorraOSM_2021Q1.cmap */,
-				CEA56F952F559E0D000AE06A /* WM_7_406.map */,
-			);
-			path = TestingResources;
+			path = WhatsNearby;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CE0AA6EB268D946000D7BCCE /* MapUpdate */ = {
+		CE062741260BA569009449EA /* WhatsNearby */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE0AA700268D946100D7BCCE /* Build configuration list for PBXNativeTarget "MapUpdate" */;
+			buildConfigurationList = CE062756260BA56B009449EA /* Build configuration list for PBXNativeTarget "WhatsNearby" */;
 			buildPhases = (
-				CE0AA6E8268D946000D7BCCE /* Sources */,
-				CE0AA6EA268D946000D7BCCE /* Resources */,
-				CE0AA6E9268D946000D7BCCE /* Frameworks */,
+				CE06273E260BA569009449EA /* Sources */,
+				CE062740260BA569009449EA /* Resources */,
+				CE06273F260BA569009449EA /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MapUpdate;
-			productName = MapUpdate;
-			productReference = CE0AA6EC268D946000D7BCCE /* MapUpdate.app */;
+			name = WhatsNearby;
+			productName = SearchQueryOnMap;
+			productReference = CE062742260BA569009449EA /* WhatsNearby.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CE0AA6E4268D946000D7BCCE /* Project object */ = {
+		CE06273A260BA569009449EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 2620;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
-					CE0AA6EB268D946000D7BCCE = {
-						CreatedOnToolsVersion = 12.5.1;
+					CE062741260BA569009449EA = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
-			buildConfigurationList = CE0AA6E7268D946000D7BCCE /* Build configuration list for PBXProject "MapUpdate" */;
+			buildConfigurationList = CE06273D260BA569009449EA /* Build configuration list for PBXProject "WhatsNearby" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -129,61 +112,58 @@
 				en,
 				Base,
 			);
-			mainGroup = CE0AA6E3268D946000D7BCCE;
+			mainGroup = CE062739260BA569009449EA;
 			packageReferences = (
-				CEB9FD2E2E953D970067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
+				CE4578F32E954C1D00FDE93C /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */,
 			);
-			productRefGroup = CE0AA6ED268D946000D7BCCE /* Products */;
+			productRefGroup = CE062743260BA569009449EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CE0AA6EB268D946000D7BCCE /* MapUpdate */,
+				CE062741260BA569009449EA /* WhatsNearby */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CE0AA6EA268D946000D7BCCE /* Resources */ = {
+		CE062740260BA569009449EA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE61DF742F56E190001C97D7 /* WM_7_406.map in Resources */,
-				CE0AA6FC268D946100D7BCCE /* LaunchScreen.storyboard in Resources */,
-				CEA56F972F559E0D000AE06A /* AndorraOSM_2021Q1.cmap in Resources */,
-				CE0AA6F9268D946100D7BCCE /* Assets.xcassets in Resources */,
-				CE0AA6F7268D946000D7BCCE /* Main.storyboard in Resources */,
+				CE062752260BA56B009449EA /* LaunchScreen.storyboard in Resources */,
+				CE06274F260BA56B009449EA /* Assets.xcassets in Resources */,
+				CE06274D260BA569009449EA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CE0AA6E8268D946000D7BCCE /* Sources */ = {
+		CE06273E260BA569009449EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE0AA6F4268D946000D7BCCE /* ViewController.swift in Sources */,
-				CE0AA6F0268D946000D7BCCE /* AppDelegate.swift in Sources */,
-				CE0AA6F2268D946000D7BCCE /* SceneDelegate.swift in Sources */,
-				CE0AA70E268D9C7500D7BCCE /* MapsViewController.swift in Sources */,
+				CE06274A260BA569009449EA /* ViewController.swift in Sources */,
+				CE062746260BA569009449EA /* AppDelegate.swift in Sources */,
+				CE062748260BA569009449EA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CE0AA6F5268D946000D7BCCE /* Main.storyboard */ = {
+		CE06274B260BA569009449EA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CE0AA6F6268D946000D7BCCE /* Base */,
+				CE06274C260BA569009449EA /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		CE0AA6FA268D946100D7BCCE /* LaunchScreen.storyboard */ = {
+		CE062750260BA56B009449EA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CE0AA6FB268D946100D7BCCE /* Base */,
+				CE062751260BA56B009449EA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -191,11 +171,10 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		CE0AA6FE268D946100D7BCCE /* Debug */ = {
+		CE062754260BA56B009449EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -256,11 +235,10 @@
 			};
 			name = Debug;
 		};
-		CE0AA6FF268D946100D7BCCE /* Release */ = {
+		CE062755260BA56B009449EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -315,40 +293,40 @@
 			};
 			name = Release;
 		};
-		CE0AA701268D946100D7BCCE /* Debug */ = {
+		CE062757260BA56B009449EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = MapUpdate/Info.plist;
+				INFOPLIST_FILE = WhatsNearby/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.MapUpdate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.WhatsNearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		CE0AA702268D946100D7BCCE /* Release */ = {
+		CE062758260BA56B009449EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = MapUpdate/Info.plist;
+				INFOPLIST_FILE = WhatsNearby/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.MapUpdate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magiclane.WhatsNearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -358,20 +336,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CE0AA6E7268D946000D7BCCE /* Build configuration list for PBXProject "MapUpdate" */ = {
+		CE06273D260BA569009449EA /* Build configuration list for PBXProject "WhatsNearby" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE0AA6FE268D946100D7BCCE /* Debug */,
-				CE0AA6FF268D946100D7BCCE /* Release */,
+				CE062754260BA56B009449EA /* Debug */,
+				CE062755260BA56B009449EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE0AA700268D946100D7BCCE /* Build configuration list for PBXNativeTarget "MapUpdate" */ = {
+		CE062756260BA56B009449EA /* Build configuration list for PBXNativeTarget "WhatsNearby" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE0AA701268D946100D7BCCE /* Debug */,
-				CE0AA702268D946100D7BCCE /* Release */,
+				CE062757260BA56B009449EA /* Debug */,
+				CE062758260BA56B009449EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -379,23 +357,23 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CEB9FD2E2E953D970067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
+		CE4578F32E954C1D00FDE93C /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/magiclane/magiclane-maps-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
+				minimumVersion = 2.1.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CEB9FD2F2E953D970067513A /* GEMKit */ = {
+		CE4578F42E954C1D00FDE93C /* GEMKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB9FD2E2E953D970067513A /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
+			package = CE4578F32E954C1D00FDE93C /* XCRemoteSwiftPackageReference "magiclane-maps-sdk-ios" */;
 			productName = GEMKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = CE0AA6E4268D946000D7BCCE /* Project object */;
+	rootObject = CE06273A260BA569009449EA /* Project object */;
 }

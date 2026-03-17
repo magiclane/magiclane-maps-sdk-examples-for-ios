@@ -9,12 +9,12 @@ import GEMKit
 class ViewController: UIViewController, MapViewControllerDelegate, NavigationContextDelegate {
 
     var mapViewController: MapViewController?
-
     var navigationContext: NavigationContext?
 
     var mainRoute: RouteObject?
-
-    var myResults: [RouteObject] = []
+    var routeResults: [RouteObject] = []
+    
+    let defaultHighlightId: Int32 = 10
 
     var searchContext: SearchContext?
 
@@ -50,6 +50,8 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.addChild(self.mapViewController!)
         self.view.addSubview(self.mapViewController!.view)
         self.mapViewController!.didMove(toParent: self)
+        
+        self.mapViewController!.setEdgeAreaInsets(UIEdgeInsets(top: 30, left: 40, bottom: 30, right: 40))
 
         self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -70,10 +72,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         image = UIImage.init(systemName: "clear")
         let barButton2 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(clearRouteButtonAction))
 
-        image = UIImage.init(systemName: "play")
-        let barButton3 = UIBarButtonItem.init(image: image, style: .done, target: self, action: #selector(startStopSimulation(item:)))
-
-        self.navigationItem.rightBarButtonItems = [barButton1, barButton2, barButton3]
+        self.navigationItem.rightBarButtonItems = [barButton1, barButton2]
     }
 
     @objc func routeButtonAction(item: UIBarButtonItem) {
@@ -111,7 +110,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
 
                     NSLog("Found %d routes.", results.count)
 
-                    strongSelf.myResults = results
+                    strongSelf.routeResults = results
 
                     for route in results {
 
@@ -127,6 +126,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
                     if !results.isEmpty {
 
                         strongSelf.mainRoute = results.first
+                        strongSelf.addSearch()
 
                         strongSelf.mapViewController?.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1000)
                     }
@@ -138,57 +138,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
     @objc func clearRouteButtonAction(item: UIBarButtonItem) {
 
         self.mapViewController?.removeAllRoutes()
-    }
-
-    @objc func startStopSimulation(item: UIBarButtonItem) {
-
-        for route in self.myResults {
-
-            if self.mapViewController!.isMainRoute(route) == false {
-
-                self.mapViewController!.removeRoutes([route])
-            }
-        }
-
-        self.myResults = []
-
-        guard self.mainRoute != nil else {
-            return
-        }
-
-        if self.navigationContext!.isSimulationActive() {
-
-            let image = UIImage.init(systemName: "play")
-            item.image = image
-
-            self.navigationContext!.cancelSimulateRoute()
-
-            self.mapViewController!.stopFollowingPosition()
-
-            self.mapViewController!.removeRoutes([self.mainRoute!])
-
-            self.mainRoute = nil
-
-        } else {
-
-            let image = UIImage.init(systemName: "stop")
-            item.image = image
-
-            self.navigationContext!
-                .simulate(withRoute: self.mainRoute!, speedMultiplier: 1) { [weak self] (success) in
-
-                    guard let strongSelf = self else { return }
-
-                    NSLog("Simulation Route started with success:%@", String(success))
-
-                    if success {
-
-                        strongSelf.addSearch()
-
-                        strongSelf.mapViewController!.hideSummary(for: [strongSelf.mainRoute!])
-                    }
-                }
-        }
+        self.mapViewController?.removeHighlights()
     }
 
     func addSearch() {
@@ -217,12 +167,16 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         }
 
         self.searchContext!
-            .searchAlong(withRoute: mainRoute, query: "Gas station") { (results: [LandmarkObject]) in
+            .searchAlong(withRoute: mainRoute, query: "Gas station") { [weak self] (results: [LandmarkObject]) in
 
-                for landmark in results {
-
-                    NSLog("results:%@", landmark.getLandmarkName())
-                }
+                guard let strongSelf = self else { return }
+                
+                let settings = HighlightRenderSettings()
+                
+                settings.imageSize = 7
+                settings.options = Int32(HighlightOption.group.rawValue)
+                
+                strongSelf.mapViewController?.presentHighlights(results, settings: settings, highlightId: strongSelf.defaultHighlightId)
             }
     }
 
@@ -233,67 +187,6 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.mainRoute = route
 
         mapViewController.setMainRoute(route)
-    }
-
-    // MARK: - NavigationContextDelegate
-
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationStatusChanged status: NavigationStatus) {
-
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, navigationStartedForRoute route: RouteObject) {
-
-        self.mapViewController!.startFollowingPosition(withAnimationDuration: 1200, zoomLevel: -1) { success in }
-    }
-
-    func navigationContext(
-        _ navigationContext: NavigationContext, navigationInstructionUpdatedForRoute route: RouteObject, updatedEvents: Int32
-    ) {
-
-        let eta = navigationContext.getEstimateTimeOfArrivalFormatted() + navigationContext.getEstimateTimeOfArrivalUnitFormatted()
-
-        let rtt = navigationContext.getRemainingTravelTimeFormatted() + navigationContext.getRemainingTravelTimeUnitFormatted()
-
-        let rtd = navigationContext.getRemainingTravelDistanceFormatted() + navigationContext.getRemainingTravelDistanceUnitFormatted()
-
-        NSLog("Navigation: refresh: eta:%@, rtt:%@, rtd:%@", eta, rtt, rtd)
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, navigationRouteUpdated route: RouteObject) {
-
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationWaypointReached waypoint: LandmarkObject) {
-
-    }
-
-    func navigationContext(
-        _ navigationContext: NavigationContext, route: RouteObject, navigationDestinationReached waypoint: LandmarkObject
-    ) {
-
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationError code: Int) {
-
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, canPlayNavigationSoundForRoute route: RouteObject) -> Bool {
-
-        return false
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationSound sound: SoundObject) {
-
-    }
-
-    func navigationContext(
-        _ navigationContext: NavigationContext, onBetterRouteDetected route: RouteObject, travelTime: Int, delay: Int, timeGain: Int
-    ) {
-
-    }
-
-    func navigationContext(_ navigationContext: NavigationContext, onBetterRouteInvalidated state: Bool) {
-
     }
 
     func mapViewController(
