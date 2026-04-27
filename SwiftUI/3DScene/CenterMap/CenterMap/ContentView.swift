@@ -7,18 +7,18 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    
+
     let location = CoordinatesObject.coordinates(
         withLatitude: 48.840827,
         longitude: 2.381899)
-    
+
     var body: some View {
         MapReader { proxy in
             MapBase()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("", systemImage: "target") {
-                            
+
                             proxy.centerOn(coordinates: location, zoomLevel: 50, duration: 1000)
                         }
                         .buttonStyle(.borderedProminent)

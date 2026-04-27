@@ -97,7 +97,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         ]
 
         item.isEnabled = false
-        
+
         self.navigationContext?
             .calculateRoute(
                 withWaypoints: waypoints,

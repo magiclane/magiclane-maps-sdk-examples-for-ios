@@ -28,12 +28,12 @@ class ViewController: UIViewController, GEMSdkDelegate {
         self.createMapView()
 
         self.mapViewController!.startRender()
-        
+
         self.addMapsButton()
-        
+
         GEMSdk.shared().delegate = self
     }
-    
+
     // MARK: - Map View
 
     func createMapView() {
@@ -68,15 +68,15 @@ class ViewController: UIViewController, GEMSdkDelegate {
         let viewController = MapsViewController.init(context: self.mapsContext!)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
-    
+
     func addPrepareTestButton() {
-        
+
         let barButton = UIBarButtonItem.init(title: "Prepare Test", style: .done, target: self, action: #selector(prepareTestingScenario))
         self.navigationItem.leftBarButtonItem = barButton
     }
-    
+
     // MARK: - GEMSdkDelegate
-    
+
     func shouldUpdateWorldwideRoadMap(for status: ContentStoreOnlineSupportStatus) -> Bool {
 
         let value = (status == .expiredData || status == .oldData)
@@ -84,118 +84,118 @@ class ViewController: UIViewController, GEMSdkDelegate {
         print("shouldUpdateWorldwideRoadMap:%@", value ? "YES" : "NO")
 
         if value == false {
-            
+
             self.addPrepareTestButton()
         }
-        
+
         return value
     }
-    
+
     func updateWorldwideRoadMapFinished(_ success: Bool) {
 
         print("updateWorldwideRoadMapFinished, success:%@", success ? "YES" : "NO")
-        
+
         self.addPrepareTestButton()
     }
-    
+
     func onWorldwideRoadMapVersionUpdated() {
-        
+
         print("onWorldwideRoadMapVersionUpdated")
-        
+
         self.addPrepareTestButton()
     }
-    
+
     // Show the test preparation button only when map is up to date to ensure correct resource handling.
     func onConnectionStatusUpdated(_ connected: Bool) {
-        
+
         print("onConnectionStatusUpdated:%@", connected ? "Connected" : "No connection")
-        
+
         if connected {
-            
-            self.mapsContext!.checkForUpdate { status in 
-                
+
+            self.mapsContext!.checkForUpdate { status in
+
                 if status == .upToDate {
-                    
+
                     self.addPrepareTestButton()
                 }
             }
         }
     }
-    
+
     // MARK: - Utils
-    
+
     // Hack for this example to simulate the need of a map update. After this has been called
     // the screen should flash for a moment and a map with old data will be loaded.
     @objc func prepareTestingScenario() {
-        
+
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
+
         let resourceURL = documentsURL.appendingPathComponent("Data/Res")
         let mapsURL = documentsURL.appendingPathComponent("Data/Maps")
-        
+
         let oldOfflineMapURL = Bundle.main.url(forResource: "AndorraOSM_2021Q1", withExtension: "cmap")!
         let oldWorldMapURL = Bundle.main.url(forResource: "WM_7_406", withExtension: "map")!
-        
+
         do {
             // Offline Map
             let mapsFiles = try FileManager.default.contentsOfDirectory(atPath: mapsURL.path())
-            
+
             if let offlineMapFile = mapsFiles.first(where: { $0.hasPrefix("AndorraOSM") }) {
-                
+
                 try FileManager.default.removeItem(at: mapsURL.appendingPathComponent(offlineMapFile))
             }
-            
+
             if let data = try? Data(contentsOf: oldOfflineMapURL) {
-                
+
                 try data.write(to: mapsURL.appending(component: oldOfflineMapURL.lastPathComponent))
             }
-            
+
             // Comment out the above code under // Offline Map if you want to test the automatic update process without the use of offline maps,
             // but make sure to delete the existing offline maps manually or by reinstalling the app.
-            
+
             // World Map
             let resourceFiles = try FileManager.default.contentsOfDirectory(atPath: resourceURL.path())
-            
+
             if let resourceFile = resourceFiles.first(where: {
-                
+
                 let pref = $0.hasPrefix("WM_")
-                
+
                 return pref
             }) {
-                
+
                 try FileManager.default.removeItem(at: resourceURL.appendingPathComponent(resourceFile))
             }
-                
+
             if let data = try? Data(contentsOf: oldWorldMapURL) {
-                
+
                 try data.write(to: resourceURL.appending(component: oldWorldMapURL.lastPathComponent))
             }
-            
+
             self.reinitSDKAndCreateMap()
-            
+
         } catch {
-            
+
             print(error.localizedDescription)
         }
     }
-    
+
     // Clean the map and reinitialize SDK to make sure the map update process is triggered. ONLY FOR DEMONSTRATION PURPOSES.
     func reinitSDKAndCreateMap() {
-        
+
         self.navigationItem.leftBarButtonItem = nil
-        
+
         self.mapViewController!.stopRender()
         self.mapViewController!.view.removeFromSuperview()
         self.mapViewController!.destroy()
         self.mapViewController = nil
-        
+
         GEMSdk.shared().cleanDestroy()
         GEMSdk.shared().initSdk(getProjectApiToken())
         GEMSdk.shared().delegate = self
-        
+
         self.createMapView()
         self.mapViewController!.startRender()
-        
+
         self.mapsContext = MapsContext.init()
     }
 }

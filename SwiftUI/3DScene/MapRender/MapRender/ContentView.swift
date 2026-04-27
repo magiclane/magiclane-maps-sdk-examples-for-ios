@@ -7,11 +7,11 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    
+
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @State private var isAppActive = true
-    
+
     var body: some View {
         MapReader { proxy in
             MapBase(initialPosition: .amsterdam, initialZoomLevel: 54)

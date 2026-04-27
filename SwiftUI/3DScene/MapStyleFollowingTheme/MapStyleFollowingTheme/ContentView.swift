@@ -7,7 +7,7 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    
+
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {

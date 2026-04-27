@@ -7,7 +7,7 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    
+
     var body: some View {
         MapReader { proxy in
             MapBase()
@@ -15,35 +15,35 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "location") {
-                            
+
                             goToUserPosition(proxy)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "location.fill") {
-                            
+
                             defaultPositionTracker(proxy)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "car.fill") {
-                            
+
                             carPositionTracker(proxy)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "airplane") {
-                            
+
                             planePositionTracker(proxy)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "circle.fill") {
-                            
+
                             imagePositionTracker(proxy)
                         }
                         .buttonStyle(.borderedProminent)
@@ -52,7 +52,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
     }
-    
+
     func defaultPositionTracker(_ proxy: MapProxy) {
 
         proxy.mapViewController?.setPositionTrackerScaleFactor(1)
@@ -98,7 +98,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func imagePositionTracker(_ proxy: MapProxy) {
         guard let image = UIImage.init(named: "DotRay") else { return }
         if let data = image.pngData() {

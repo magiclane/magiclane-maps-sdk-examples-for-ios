@@ -10,11 +10,11 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
     var mapViewController: MapViewController?
     var landmark: LandmarkObject?
-    
+
     let searchContext = SearchContext.init()
-    
+
     let label = UILabel.init()
-    
+
     let defaultHighlightId: Int32 = 10
 
     override func viewDidLoad() {
@@ -36,9 +36,9 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         self.addSearch()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
-        
+
         super.viewDidAppear(animated)
 
         let location = CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
@@ -65,7 +65,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    
+
     // MARK: - Label
 
     func addLabelText() {
@@ -81,7 +81,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.label.layer.borderWidth = 1.4
         self.label.layer.cornerRadius = 8.0
         self.label.layer.masksToBounds = true
-        
+
         self.label.text = "Select a point on the map and tap the button in the top right to search around it"
 
         self.view.addSubview(self.label)
@@ -94,7 +94,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
             self.label.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
-    
+
     // MARK: - MapViewControllerDelegate
 
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmarks landmarks: [LandmarkObject], onTouch point: CGPoint) {
@@ -136,32 +136,32 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         let barButton1 = UIBarButtonItem.init(image: image1, style: .done, target: self, action: #selector(cleanMap))
         let barButton2 = UIBarButtonItem.init(image: image2, style: .done, target: self, action: #selector(searchNearbyButton))
-        
+
         self.navigationItem.leftBarButtonItems = [barButton1]
         self.navigationItem.rightBarButtonItems = [barButton2]
     }
 
     @objc func searchNearbyButton() {
-        
+
         guard let landmark = self.landmark else { return }
-        
+
         self.searchContext.searchAround(withLocation: landmark.getCoordinates()) { [weak self] (results: [LandmarkObject]) in
-                
+
                 guard let strongSelf = self else { return }
-                
+
                 strongSelf.mapViewController!.removeHighlights()
-                
+
                 let settings = HighlightRenderSettings.init()
                 settings.options = Int32(HighlightOption.group.rawValue)
                 settings.showPin = true
                 settings.imageSize = 7
-                
+
                 strongSelf.mapViewController!.presentHighlights(results, settings: settings, highlightId: strongSelf.defaultHighlightId)
-                
+
                 strongSelf.centerOnHighlightArea()
             }
     }
-    
+
     // MARK: - Utils
 
     func showLandmark(landmark: LandmarkObject) {
@@ -180,7 +180,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
     func processSelection(landmark: LandmarkObject) {
 
         self.cleanMap()
-        
+
         self.landmark = landmark
         self.showLandmark(landmark: landmark)
     }
@@ -188,16 +188,16 @@ class ViewController: UIViewController, MapViewControllerDelegate {
     @objc func cleanMap() {
 
         self.mapViewController!.removeHighlights()
-        
+
         self.landmark = nil
         self.label.text = "Select a point on the map and tap the button in the top right to search around it"
     }
-    
+
     func centerOnHighlightArea() {
         let list = self.mapViewController!.getHighlight(self.defaultHighlightId)
         guard !list.isEmpty else { return }
         guard let area = self.mapViewController!.getHighlightArea(self.defaultHighlightId) else { return }
-        
+
         self.mapViewController!.center(onArea: area, zoomLevel: -1, animationDuration: 1200)
     }
 }

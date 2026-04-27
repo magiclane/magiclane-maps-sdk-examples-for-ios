@@ -16,36 +16,36 @@ struct Place: Identifiable {
 }
 
 struct ContentView: View {
-    
+
     let context = SearchContext.init()
     private let defaultHighlightId = 10
-    
+
     @State private var searchQuery = ""
     @State private var results: [Place] = []
     @State private var selectedItem: Place?
     @State private var isSearching: Bool = false
-    
+
     @FocusState private var searchFocused: Bool
-    
+
     @Environment(\.displayScale) private var displayScale
-    
+
     var body: some View {
         MapReader { proxy in
-            
+
             ZStack {
                 MapBase(initialPosition: .amsterdam, initialZoomLevel: 64)
                     .mapCompass(false)
                     .ignoresSafeArea()
 
                 if searchFocused {
-                    
+
                     List(results) { place in
-                        
+
                         HStack {
-                            
+
                             Image(uiImage: place.image)
                                 .frame(width: 40, height: 40)
-                            
+
                             VStack(alignment: .leading) {
                                 Text(place.title)
                                     .font(.headline)
@@ -53,9 +53,9 @@ struct ContentView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
-                            
+
                             Spacer()
-                            
+
                             Text(place.distance)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -76,7 +76,7 @@ struct ContentView: View {
             .searchable(text: $searchQuery, placement: .automatic)
             .searchFocused($searchFocused)
             .onChange(of: searchQuery) { oldValue, newValue in
-                
+
                 performSearch(proxy)
             }
         }
@@ -87,7 +87,7 @@ struct ContentView: View {
         proxy.centerOn(coordinates: .amsterdam, zoomLevel: 60)
         results.removeAll()
         isSearching = true
-        
+
         context.setMaxMatches(40)
         context.setSearchMapPOIs(true)
         context.setSearchAddresses(true)
@@ -100,7 +100,7 @@ struct ContentView: View {
 
         context.search(withQuery: searchQuery, location: .amsterdam) { response in
             isSearching = false
-            
+
             results = response.map { item in
                 return Place(
                     image: item.getLandmarkImage(CGSize(width: 40 * displayScale, height: 40 * displayScale)) ?? UIImage(),
@@ -116,7 +116,7 @@ struct ContentView: View {
         let settings = HighlightRenderSettings.init()
         settings.showPin = true
         settings.imageSize = 7
-        
+
         return settings
     }
 }

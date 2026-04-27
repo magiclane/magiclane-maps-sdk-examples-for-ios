@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2026 Magic Lane Intellectual Property B.V. <info@magiclane.com>
+// SPDX-FileCopyrightText: 2025-2026 Magic Lane Intellectual Property B.V. <info@magiclane.com>
 // SPDX-License-Identifier: LicenseRef-MagicLane-Proprietary
 //
 // Magic Lane Intellectual Property B.V, its affiliates and licensors retain all

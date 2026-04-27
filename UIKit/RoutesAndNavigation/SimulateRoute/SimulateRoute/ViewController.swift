@@ -43,7 +43,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.createMapView()
 
         self.setMapFollowPositionPreferences()
-        
+
         self.mapViewController!.startRender()
 
         self.addRouteButton()
@@ -70,19 +70,19 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    
+
     func setMapFollowPositionPreferences() {
-        
+
         guard let mapViewController = self.mapViewController else { return }
-        
+
         let followPositionPreferences = mapViewController.getPreferences().getFollowPositionPreferences()
-        
+
         // Allow user to change follow position angle and zoom by touch (pinch or 2xfinger drag)
         followPositionPreferences.setTouchHandlerModifyPersistent(true)
     }
-    
+
     // MARK: - Buttons
-    
+
     func addRouteButton() {
 
         var image = UIImage.init(systemName: "point.topleft.down.curvedto.point.bottomright.up")
@@ -300,9 +300,9 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
 
         // restore to default in case it was changed by pinch gesture
         self.mapViewController!.restoreFollowingPosition(withAnimationDuration: 0) { success in }
-        
+
         self.mapViewController!.removeAllRoutes()
-        
+
         self.navigationContext!
             .simulate(withRoute: self.mainRoute!, speedMultiplier: 2) { [weak self] (success) in
 

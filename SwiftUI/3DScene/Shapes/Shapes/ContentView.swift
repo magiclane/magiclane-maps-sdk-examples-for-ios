@@ -9,11 +9,11 @@ import GEMKit
 enum ShapeType: Int { case triangle, circle, line }
 
 struct ContentView: View {
-    
+
     @State var collType1: [MarkerCollectionObject] = []
     @State var collType2: [MarkerCollectionObject] = []
     @State var collType3: [MarkerCollectionObject] = []
-    
+
     var body: some View {
         MapReader { proxy in
             ZStack {
@@ -27,28 +27,28 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "triangle") {
-                            
+
                             refreshMarkerCollections(proxy, .triangle)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "circle") {
-                            
+
                             refreshMarkerCollections(proxy, .circle)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("", systemImage: "line.diagonal") {
-                            
+
                             refreshMarkerCollections(proxy, .line)
                         }
                         .buttonStyle(.borderedProminent)
                     }
                     ToolbarItem(placement: .topBarLeading) {
                         Button("", systemImage: "xmark.square") {
-                            
+
                             removeAllMarkers(proxy)
                         }
                         .buttonStyle(.borderedProminent)
@@ -125,9 +125,9 @@ struct ContentView: View {
             collType3.append(markerCollection)
         }
     }
-    
+
     func removeAllMarkers(_ proxy: MapProxy) {
-        
+
         collType1.removeAll()
         collType2.removeAll()
         collType3.removeAll()

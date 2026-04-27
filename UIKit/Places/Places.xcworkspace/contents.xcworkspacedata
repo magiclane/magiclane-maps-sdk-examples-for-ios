@@ -22,4 +22,7 @@
    <FileRef
       location = "group:WhatsNearby/WhatsNearby.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:GroupSearchResults/GroupSearchResults.xcodeproj">
+   </FileRef>
 </Workspace>

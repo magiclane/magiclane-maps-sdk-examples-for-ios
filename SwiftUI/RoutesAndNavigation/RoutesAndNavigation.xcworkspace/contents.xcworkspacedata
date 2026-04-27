@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CalculateRoute/CalculateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:FingerDrawRoute/FingerDrawRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:NavigateRoute/NavigateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:SimulateRoute/SimulateRoute.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RouteInstructions/RouteInstructions.xcodeproj">
    </FileRef>
 </Workspace>

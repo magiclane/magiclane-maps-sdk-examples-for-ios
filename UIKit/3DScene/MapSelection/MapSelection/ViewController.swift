@@ -169,19 +169,19 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         self.highlight(landmark: landmark)
     }
-    
+
     func mapViewController(_ mapViewController: MapViewController, didSelectOverlays overlays: [OverlayItemObject], onTouch point: CGPoint) {
-        
+
         print("didSelectOverlays")
     }
-    
+
     func mapViewController(_ mapViewController: MapViewController, didSelectOverlays overlays: [OverlayItemObject], onLongTouch point: CGPoint) {
-        
+
         print("didSelectOverlays")
     }
-    
+
     func mapViewController(_ mapViewController: MapViewController, didSelectTrafficEvents events: [TrafficEventObject]) {
-        
+
         print("didSelectTrafficEvents")
     }
 

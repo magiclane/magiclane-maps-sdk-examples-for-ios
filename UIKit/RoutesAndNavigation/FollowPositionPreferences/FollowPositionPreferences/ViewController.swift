@@ -180,7 +180,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
 
             button.setImage(image, for: .normal)
         }
-        
+
         button.setTitle("Reset", for: .normal)
 
         let height: CGFloat = 50

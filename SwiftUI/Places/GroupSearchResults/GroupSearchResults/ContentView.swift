@@ -14,10 +14,10 @@ struct Place: Identifiable, Equatable {
 }
 
 struct ContentView: View {
-    
+
     let context = SearchContext.init()
     private let defaultHighlightId = 10
-    
+
     @State private var searchQuery = ""
     @State private var landmarks: [LandmarkObject] = []
     @State private var results: [Place] = []
@@ -37,7 +37,7 @@ struct ContentView: View {
                         }
                     )
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     if isSearching {
                         ProgressView()
                             .transition(.opacity)

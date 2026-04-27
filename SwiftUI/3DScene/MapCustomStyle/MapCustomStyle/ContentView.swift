@@ -17,7 +17,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
         }
     }
-    
+
     func applyCustomMapStyle(_ proxy: MapProxy) {
         guard let url = Bundle.main.url(forResource: "CustomMapStyle", withExtension: "style") else { return }
         if let data = NSData.init(contentsOf: url) as Data? {

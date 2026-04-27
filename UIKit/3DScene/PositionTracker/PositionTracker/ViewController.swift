@@ -33,7 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             ]
 
             self.navigationItem.leftBarButtonItems = array
-            
+
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "location"), style: .done, target: self, action: #selector(startFollowLocation))
         }
 
@@ -117,11 +117,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
-    
+
     @objc func imagePositionTracker() {
         guard let image = UIImage.init(named: "DotRay") else { return }
         if let data = image.pngData() {
-            
+
             self.mapViewController!.setPositionTrackerScaleFactor(2)
             self.mapViewController!.customizePositionTracker(data)
         }

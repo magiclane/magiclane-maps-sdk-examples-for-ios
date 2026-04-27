@@ -63,7 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.createMapView()
 
         self.setMapFollowPositionPreferences()
-        
+
         self.mapViewController!.startRender()
 
         self.refreshLocationButton()
@@ -91,13 +91,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    
+
     func setMapFollowPositionPreferences() {
-        
+
         guard let mapViewController = self.mapViewController else { return }
-        
+
         let followPositionPreferences = mapViewController.getPreferences().getFollowPositionPreferences()
-        
+
         // Allow user to change follow position angle and zoom by touch (pinch or 2xfinger drag)
         followPositionPreferences.setTouchHandlerModifyPersistent(true)
     }
@@ -198,7 +198,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.label.layer.borderWidth = 1.4
         self.label.layer.cornerRadius = 8.0
         self.label.layer.masksToBounds = true
-        
+
         self.label.text = "Select a point on the map and tap the route button."
 
         self.view.addSubview(self.label)
@@ -310,7 +310,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         let waypoints = [start, stop]
 
         item.isEnabled = false
-        
+
         self.navigationContext?
             .calculateRoute(
                 withWaypoints: waypoints,
@@ -356,7 +356,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         self.mapViewController?.removeAllRoutes()
 
         self.label.isHidden = false
-        
+
         self.label.text = "Select a point on the map and tap the route button."
     }
 
@@ -366,7 +366,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
 
         // restore to default in case it was changed by pinch gesture
         self.mapViewController!.restoreFollowingPosition(withAnimationDuration: 0) { success in }
-        
+
         self.mapViewController!.removeAllRoutes()
 
         self.navigationContext!
@@ -381,7 +381,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
                     strongSelf.mapViewController!
                         .presentRoutes(
                             [strongSelf.mainRoute!], withTraffic: strongSelf.trafficContext!, showSummary: false, animationDuration: 1600)
-                    
+
                     strongSelf.startFollowLocation()
                 }
             }

@@ -13,7 +13,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
 
     var mainRoute: RouteObject?
     var routeResults: [RouteObject] = []
-    
+
     let defaultHighlightId: Int32 = 10
 
     var searchContext: SearchContext?
@@ -50,7 +50,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.addChild(self.mapViewController!)
         self.view.addSubview(self.mapViewController!.view)
         self.mapViewController!.didMove(toParent: self)
-        
+
         self.mapViewController!.setEdgeAreaInsets(UIEdgeInsets(top: 30, left: 40, bottom: 30, right: 40))
 
         self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
@@ -170,12 +170,12 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
             .searchAlong(withRoute: mainRoute, query: "Gas station") { [weak self] (results: [LandmarkObject]) in
 
                 guard let strongSelf = self else { return }
-                
+
                 let settings = HighlightRenderSettings()
-                
+
                 settings.imageSize = 7
                 settings.options = Int32(HighlightOption.group.rawValue)
-                
+
                 strongSelf.mapViewController?.presentHighlights(results, settings: settings, highlightId: strongSelf.defaultHighlightId)
             }
     }

@@ -5,6 +5,12 @@
       location = "group:GroupSearchResults/GroupSearchResults.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SearchAlongRoute/SearchAlongRoute.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:SearchText/SearchText.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:WhatsNearby/WhatsNearby.xcodeproj">
    </FileRef>
 </Workspace>

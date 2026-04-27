@@ -171,7 +171,7 @@ class RangeViewController: UIViewController {
                     let renderSettings = MapViewRouteRenderSettings.init()
                     renderSettings.options = Int32(MapViewRouteRenderOption.main.rawValue)
                     renderSettings.fillColor = item.routeColor
-                    
+
                     renderSettings.contourInnerSize = 0.3
                     renderSettings.contourOuterSize = 0.3
 
@@ -252,7 +252,7 @@ class RangeViewController: UIViewController {
         let value = NSNumber.init(value: model.rangeType == .time ? Int(model.rangeValue) * 60 : Int(model.rangeValue))
 
         let routePreferences = self.getRoutePreferences(transportMode: model.mode)
-        
+
         //Range value setting for the route calculation.
         routePreferences.setRouteRanges([value], quality: 100)
 
@@ -292,7 +292,7 @@ class RangeViewController: UIViewController {
                     let renderSettings = MapViewRouteRenderSettings.init()
                     renderSettings.options = Int32(MapViewRouteRenderOption.main.rawValue)
                     renderSettings.fillColor = color
-                    
+
                     renderSettings.contourInnerSize = 0.3
                     renderSettings.contourOuterSize = 0.3
 

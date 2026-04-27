@@ -10,14 +10,14 @@ struct ContentView: View {
     @State var drawPathOn: Bool = false
     @State var routeCalculated: Bool = false
     @State private var showStatusLabel: Bool = false
-    
+
     @State var navigationContext: NavigationContext?
     @State var routeTransportMode: RouteTransportMode = .bicycle
     @State private var routeStatus: RouteStatus = .uninitialized
     @State private var markerCollections: [MarkerCollectionObject] = []
-        
+
     @State var gpxFileURL: URL?
-    
+
     @State var refreshTitleMenuId: UUID = UUID()
 
     var body: some View {
@@ -28,15 +28,15 @@ struct ContentView: View {
                         proxy.centerOn(coordinates: .milano, zoomLevel: 70)
                     }
                     .ignoresSafeArea(edges: [.bottom, .horizontal])
-                
+
                 if drawPathOn == false {
                     VStack {
                         Button {
                             routeCalculated ? clearRoute(proxy) : drawPath(proxy)
                         } label: {
-                            
+
                             VStack {
-                                
+
                                 if routeCalculated {
                                     Text("Clear")
                                         .font(.title2)
@@ -54,22 +54,22 @@ struct ContentView: View {
                             .padding()
                         }
                         .buttonStyle(PlainButtonStyle())
-                        
+
                         Spacer()
                     }
                 }
-                
+
                 VStack {
-                    
+
                     Spacer()
-                    
+
                     // Route status Label
                     if showStatusLabel {
                         HStack {
                             Text(statusText)
                                 .font(.system(size: 24, weight: .semibold))
                                 .frame(maxWidth: .infinity)
-                            
+
                             Button(action: {
                                 handlePencilButtonTap(proxy: proxy)
                             }) {
@@ -95,23 +95,23 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .title, content: {
-                    
+
                     Menu(content: {
                         Button("Bike") {
-                            
+
                             refreshTitleMenuId = UUID()
                             routeTransportMode = .bicycle
                         }
                         Button("Pedestrian") {
-                            
+
                             refreshTitleMenuId = UUID()
                             routeTransportMode = .pedestrian
                         }
                     }, label: {
-                        
+
                         HStack {
                             Text(routeTransportMode == .bicycle ? "Bike Route" : "Pedestrian Route")
-                            
+
                             Image(systemName: "chevron.down.circle.fill")
                                 .resizable()
                                 .scaledToFit()
@@ -122,9 +122,9 @@ struct ContentView: View {
                     })
                     .id(refreshTitleMenuId)
                 })
-                
+
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    
+
                     if let url = gpxFileURL {
                         ShareLink(item: url) {
                             Image(systemName: "square.and.arrow.up")
@@ -135,7 +135,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     var statusText: String {
         switch routeStatus {
         case .calculating:
@@ -152,7 +152,7 @@ struct ContentView: View {
             return ""
         }
     }
-    
+
     func createNavigationContext() -> NavigationContext {
 
         guard navigationContext == nil else { return navigationContext! }
@@ -184,17 +184,17 @@ struct ContentView: View {
             mapViewController.showCompass()
             mapViewController.view.layer.borderWidth = 0
             mapViewController.view.layer.borderColor = nil
-            
+
             markerCollections = mapViewController.getAvailableMarkers()
 
             mapViewController.setTouchViewBehaviour(.default)
 
             showStatusLabel = true
-            
+
             if let coordinates = marker?.getCoordinates(), !coordinates.isEmpty {
 
                 let path = PathObject.init(coordinates: coordinates)
-                
+
                 createShareRoute(path: path)
 
                 if let lmk = RouteBookmarksObject.setWaypointTrackData(path) {
@@ -206,32 +206,32 @@ struct ContentView: View {
 
         drawPathOn = true
     }
-    
+
     func clearRoute(_ proxy: MapProxy) {
-        
+
         guard let mapViewController = proxy.mapViewController else { return }
-        
+
         markerCollections.removeAll()
-        
+
         if let navigationContext = navigationContext {
             navigationContext.cancelCalculateRoute()
             self.navigationContext = nil
         }
-        
+
         showStatusLabel = false
         routeCalculated = false
         routeStatus = .uninitialized
         gpxFileURL = nil
-        
+
         mapViewController.showCompass()
         mapViewController.setTouchViewBehaviour(.default)
-        
+
         mapViewController.removeAllMarkers()
         mapViewController.removeAllRoutes()
     }
-    
+
     func createShareRoute(path: PathObject) {
-        
+
         guard let data = path.export(as: .gpx) else { return }
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
 
@@ -242,14 +242,14 @@ struct ContentView: View {
         let success = FileManager.default.createFile(atPath: fileURL.path, contents: data)
 
         if success {
-            
+
             self.gpxFileURL = fileURL
         }
     }
-    
+
     func handlePencilButtonTap(proxy: MapProxy) {
         guard let mapViewController = proxy.mapViewController else { return }
-        
+
         if mapViewController.getAvailableMarkers().isEmpty {
             if let collection = markerCollections.first {
                 mapViewController.addMarker(collection)
@@ -266,7 +266,7 @@ struct ContentView: View {
         let navigationContext = createNavigationContext()
 
         navigationContext.calculateRoute(withWaypoints: waypoints) { routeStatus in
-            
+
             self.routeStatus = routeStatus
 
         } completionHandler: { results, code in
@@ -287,7 +287,7 @@ struct ContentView: View {
                     preferences.setRenderSettings(settings, route: route)
                 }
             }
-            
+
             routeCalculated = true
             drawPathOn = false
         }

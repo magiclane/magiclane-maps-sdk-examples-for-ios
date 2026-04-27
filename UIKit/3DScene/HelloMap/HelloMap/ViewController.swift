@@ -56,6 +56,8 @@ class ViewController: UIViewController {
         self.addChild(self.mapViewController!)
         self.view.addSubview(self.mapViewController!.view)
         self.mapViewController!.didMove(toParent: self)
+        
+        self.mapViewController!.hideCompass()
 
         self.mapViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -64,5 +66,31 @@ class ViewController: UIViewController {
             self.mapViewController!.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -0),
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -0)
         ])
+        
+        guard let paths = mapViewController!.getPreferences().getPaths() else { return }
+
+        let path = PathObject(coordinates: [
+            CoordinatesObject.coordinates(withLatitude: 52.3676, longitude: 4.9041),
+            CoordinatesObject.coordinates(withLatitude: 52.3610, longitude: 4.9156),
+            CoordinatesObject.coordinates(withLatitude: 52.3540, longitude: 4.9230)
+        ])
+        path.setName("Recorded track")
+        
+        let first = paths.getPathAt(0)
+        let byName = paths.getPathByName("")
+        
+        paths.remove(at: <#T##Int32#>)
+
+        _ = paths.add(
+            path,
+            colorBorder: .black,
+            colorInner: .red,
+            szBorder: 1.2,
+            szInner: 0.7
+        )
+
+        if let area = path.getArea() {
+            mapViewController!.center(onArea: area, zoomLevel: -1, animationDuration: 700)
+        }
     }
 }

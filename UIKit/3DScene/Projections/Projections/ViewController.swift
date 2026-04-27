@@ -132,7 +132,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
         self.view.addSubview(buttonExit)
 
         buttonExit.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             buttonExit.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5),
             buttonExit.bottomAnchor.constraint(equalTo: self.tableView!.topAnchor, constant: size + 5),

@@ -64,7 +64,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, NavigationCon
         self.addChild(self.mapViewController!)
         self.view.addSubview(self.mapViewController!.view)
         self.mapViewController!.didMove(toParent: self)
-        
+
         self.mapViewController?.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.mapViewController!.view.topAnchor.constraint(equalTo: self.view.topAnchor),

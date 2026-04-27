@@ -165,15 +165,14 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.saveButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
         // self.saveButton.layer.borderWidth = 1
         // self.saveButton.layer.borderColor = UIColor.darkGray.cgColor
-
+        
         self.mapInfoLabel.numberOfLines = 0
-        self.mapInfoLabel.backgroundColor = UIColor.systemBackground
-        self.mapInfoLabel.layer.masksToBounds = true
-        self.mapInfoLabel.layer.cornerRadius = 8.0
 
         let borderView = UIView.init()
         borderView.layer.shadowColor = UIColor.lightGray.cgColor
         borderView.layer.shadowOpacity = 0.8
+        borderView.layer.cornerRadius = 8.0
+        borderView.backgroundColor = UIColor.systemBackground
 
         borderView.addSubview(self.mapInfoLabel)
         borderView.addSubview(self.saveButton)
@@ -183,7 +182,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         self.mapInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.mapInfoLabel.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 0.0),
+            self.mapInfoLabel.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 8.0),
             self.mapInfoLabel.trailingAnchor.constraint(equalTo: borderView.trailingAnchor, constant: -0.0),
             self.mapInfoLabel.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: 0),
             self.mapInfoLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 0)
@@ -199,15 +198,15 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
         self.closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.closeButton.trailingAnchor.constraint(equalTo: borderView.trailingAnchor, constant: 10.0),
-            self.closeButton.topAnchor.constraint(equalTo: borderView.topAnchor, constant: -size / 2),
+            self.closeButton.trailingAnchor.constraint(equalTo: borderView.trailingAnchor, constant: -2.5),
+            self.closeButton.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 2.5),
             self.closeButton.widthAnchor.constraint(equalToConstant: size),
             self.closeButton.heightAnchor.constraint(equalToConstant: size)
         ])
 
         borderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            borderView.heightAnchor.constraint(equalToConstant: 100),
+            borderView.heightAnchor.constraint(equalToConstant: 120),
             borderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
             borderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
             borderView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)

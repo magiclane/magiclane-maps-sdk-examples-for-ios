@@ -15,6 +15,137 @@ class ViewController: UIViewController, MapViewControllerDelegate {
     var label = UILabel.init()
     var imageView = UIImageView()
 
+    // MARK: - Search Progress UI
+    var progressContainer: UIView!
+    var stageLabels: [UILabel] = []
+    var stageSpinners: [UIActivityIndicatorView] = []
+    var stageIcons: [UIImageView] = []
+    var progressTitleLabel: UILabel!
+
+    func createProgressPanel() {
+        progressContainer = UIView()
+        progressContainer.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.92)
+        progressContainer.layer.cornerRadius = 12
+        progressContainer.translatesAutoresizingMaskIntoConstraints = false
+        progressContainer.isHidden = true
+        self.view.addSubview(progressContainer)
+
+        NSLayoutConstraint.activate([
+            progressContainer.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            progressContainer.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            progressContainer.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8)
+        ])
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 6
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        progressContainer.addSubview(stack)
+
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: progressContainer.topAnchor, constant: 12),
+            stack.leadingAnchor.constraint(equalTo: progressContainer.leadingAnchor, constant: 14),
+            stack.trailingAnchor.constraint(equalTo: progressContainer.trailingAnchor, constant: -14),
+            stack.bottomAnchor.constraint(equalTo: progressContainer.bottomAnchor, constant: -12)
+        ])
+
+        progressTitleLabel = UILabel()
+        progressTitleLabel.text = "Searching Address…"
+        progressTitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        progressTitleLabel.textColor = .label
+        stack.addArrangedSubview(progressTitleLabel)
+
+        stageLabels = []
+        stageSpinners = []
+        stageIcons = []
+
+        for stage in SearchStage.allCases {
+            let row = UIStackView()
+            row.axis = .horizontal
+            row.spacing = 8
+            row.alignment = .center
+
+            let icon = UIImageView()
+            icon.translatesAutoresizingMaskIntoConstraints = false
+            icon.widthAnchor.constraint(equalToConstant: 18).isActive = true
+            icon.heightAnchor.constraint(equalToConstant: 18).isActive = true
+            icon.contentMode = .scaleAspectFit
+            icon.tintColor = .tertiaryLabel
+            icon.image = UIImage(systemName: "circle")
+            row.addArrangedSubview(icon)
+            stageIcons.append(icon)
+
+            let spinner = UIActivityIndicatorView(style: .medium)
+            spinner.hidesWhenStopped = true
+            spinner.translatesAutoresizingMaskIntoConstraints = false
+            spinner.widthAnchor.constraint(equalToConstant: 18).isActive = true
+            spinner.heightAnchor.constraint(equalToConstant: 18).isActive = true
+            row.addArrangedSubview(spinner)
+            stageSpinners.append(spinner)
+
+            let lbl = UILabel()
+            lbl.text = stage.displayName
+            lbl.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+            lbl.textColor = .secondaryLabel
+            row.addArrangedSubview(lbl)
+            stageLabels.append(lbl)
+
+            stack.addArrangedSubview(row)
+        }
+    }
+
+    func showProgress() {
+        // Reset all stages
+        for i in SearchStage.allCases.indices {
+            stageIcons[i].image = UIImage(systemName: "circle")
+            stageIcons[i].tintColor = .tertiaryLabel
+            stageIcons[i].isHidden = false
+            stageSpinners[i].stopAnimating()
+            stageLabels[i].textColor = .secondaryLabel
+            stageLabels[i].font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        }
+        progressTitleLabel.text = "Searching Address…"
+        progressContainer.isHidden = false
+        progressContainer.alpha = 0
+        UIView.animate(withDuration: 0.25) { self.progressContainer.alpha = 1 }
+    }
+
+    func updateStage(_ stage: SearchStage, active: Bool = false, completed: Bool = false, skipped: Bool = false) {
+        DispatchQueue.main.async {
+            let i = stage.rawValue
+            if completed {
+                self.stageSpinners[i].stopAnimating()
+                self.stageIcons[i].isHidden = false
+                self.stageIcons[i].image = UIImage(systemName: "checkmark.circle.fill")
+                self.stageIcons[i].tintColor = .systemGreen
+                self.stageLabels[i].textColor = .label
+                self.stageLabels[i].font = UIFont.systemFont(ofSize: 13, weight: .medium)
+            } else if active {
+                self.stageIcons[i].isHidden = true
+                self.stageSpinners[i].startAnimating()
+                self.stageLabels[i].textColor = .label
+                self.stageLabels[i].font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+            } else if skipped {
+                self.stageSpinners[i].stopAnimating()
+                self.stageIcons[i].isHidden = false
+                self.stageIcons[i].image = UIImage(systemName: "minus.circle")
+                self.stageIcons[i].tintColor = .tertiaryLabel
+                self.stageLabels[i].textColor = .tertiaryLabel
+            }
+        }
+    }
+
+    func hideProgress() {
+        DispatchQueue.main.async {
+            self.progressTitleLabel.text = "Address Found ✓"
+            UIView.animate(withDuration: 0.3, delay: 2.0, options: []) {
+                self.progressContainer.alpha = 0
+            } completion: { _ in
+                self.progressContainer.isHidden = true
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -31,6 +162,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         self.navigationItem.largeTitleDisplayMode = .never
 
         self.createMapView()
+        self.createProgressPanel()
 
         self.mapViewController!.startRender()
 
@@ -57,61 +189,13 @@ class ViewController: UIViewController, MapViewControllerDelegate {
             self.mapViewController!.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    
+
     // MARK: - MapViewControllerDelegate
 
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onTouch point: CGPoint) {
-
-        let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
-
-        self.label.text = text
-        self.label.isHidden = false
-
-        let scale = UIScreen.main.scale
-        self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40 * scale, height: 40 * scale))
-        self.imageView.isHidden = false
-
-        let settings = HighlightRenderSettings.init()
-        settings.showPin = true
-        settings.imageSize = 7
-
-        if landmark.isContourGeograficAreaEmpty() == false {
-
-            settings.options = Int32(
-                HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)
-            settings.contourInnerColor = UIColor.blue
-            settings.contourOuterColor = UIColor.blue
-        }
-
-        self.mapViewController!.presentHighlights([landmark], settings: settings)
-
-        self.mapViewController!.center(onCoordinates: landmark.getCoordinates(), zoomLevel: -1, animationDuration: 800)
     }
 
     func mapViewController(_ mapViewController: MapViewController, didSelectLandmark landmark: LandmarkObject, onLongTouch point: CGPoint) {
-
-        let text = "  " + landmark.getLandmarkName() + "\n" + "  " + landmark.getLandmarkDescription()
-
-        self.label.text = text
-        self.label.isHidden = false
-
-        let scale = UIScreen.main.scale
-        self.imageView.image = landmark.getLandmarkImage(CGSize.init(width: 40 * scale, height: 40 * scale))
-        self.imageView.isHidden = false
-
-        let settings = HighlightRenderSettings.init()
-        settings.showPin = true
-        settings.imageSize = 7
-
-        if landmark.isContourGeograficAreaEmpty() == false {
-
-            settings.options = Int32(
-                HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)
-            settings.contourInnerColor = UIColor.orange
-            settings.contourOuterColor = UIColor.orange
-        }
-
-        self.mapViewController!.presentHighlights([landmark], settings: settings)
     }
 
     // MARK: - Address Search
@@ -147,22 +231,23 @@ class ViewController: UIViewController, MapViewControllerDelegate {
             self.searchContext = SearchContext.init()
         }
 
-        // Address Search:
-        //
-        // California / Cuppertino / Infinite Loop / No 1
+        showProgress()
+        updateStage(.country, active: true)
 
         let location = CoordinatesObject.coordinates(withLatitude: 37.33141, longitude: -122.03042)
 
         let country = self.searchContext!.addressSearchGetCountry(withCoordinates: location)
 
+        updateStage(.country, completed: true)
+
         self.searchContext!.setAddressSearchMaximumMatches(40)
 
         if self.searchContext!.hasAddressSearchState(withCountry: country) {
-
+            updateStage(.state, active: true)
             self.searchState(inCountry: country)
-
         } else {
-
+            updateStage(.state, skipped: true)
+            updateStage(.city, active: true)
             self.searchCity(inCountry: country)
         }
     }
@@ -178,8 +263,10 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
                     NSLog("address: state name:%@", state.getLandmarkName())
 
-                    DispatchQueue.main.async {
+                    strongSelf.updateStage(.state, completed: true)
+                    strongSelf.updateStage(.city, active: true)
 
+                    DispatchQueue.main.async {
                         strongSelf.searchCity(inState: state)
                     }
                 }
@@ -197,8 +284,10 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
                     NSLog("address: city name:%@", city.getLandmarkName())
 
-                    DispatchQueue.main.async {
+                    strongSelf.updateStage(.city, completed: true)
+                    strongSelf.updateStage(.street, active: true)
 
+                    DispatchQueue.main.async {
                         strongSelf.searchStreet(inCity: city)
                     }
                 }
@@ -216,8 +305,10 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
                     NSLog("address: city name:%@", city.getLandmarkName())
 
-                    DispatchQueue.main.async {
+                    strongSelf.updateStage(.city, completed: true)
+                    strongSelf.updateStage(.street, active: true)
 
+                    DispatchQueue.main.async {
                         strongSelf.searchStreet(inCity: city)
                     }
                 }
@@ -235,8 +326,10 @@ class ViewController: UIViewController, MapViewControllerDelegate {
 
                     NSLog("address: street name:%@", street.getLandmarkName())
 
-                    DispatchQueue.main.async {
+                    strongSelf.updateStage(.street, completed: true)
+                    strongSelf.updateStage(.houseNumber, active: true)
 
+                    DispatchQueue.main.async {
                         strongSelf.searchHouseNumber(inStreet: street)
                     }
                 }
@@ -253,6 +346,9 @@ class ViewController: UIViewController, MapViewControllerDelegate {
                 if let houseNumber = results.first {
 
                     NSLog("address: street house number:%@", houseNumber.getLandmarkName())
+
+                    strongSelf.updateStage(.houseNumber, completed: true)
+                    strongSelf.hideProgress()
 
                     strongSelf.mapViewController!.removeHighlights()
 
@@ -273,5 +369,19 @@ class ViewController: UIViewController, MapViewControllerDelegate {
                     strongSelf.mapViewController!.center(onCoordinates: houseNumber.getCoordinates(), zoomLevel: -1, animationDuration: 800)
                 }
             }
+    }
+}
+
+enum SearchStage: Int, CaseIterable {
+    case country = 0, state, city, street, houseNumber
+
+    var displayName: String {
+        switch self {
+        case .country: return "Country"
+        case .state: return "State"
+        case .city: return "City"
+        case .street: return "Street"
+        case .houseNumber: return "House Number"
+        }
     }
 }

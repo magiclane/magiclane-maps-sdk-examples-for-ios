@@ -20,10 +20,16 @@
       location = "group:MapPerspective/MapPerspective.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MapRender/MapRender.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:MapSelection/MapSelection.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapStyleImport/MapStyleImport.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MapStyleFollowingTheme/MapStyleFollowingTheme.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:MapUpdate/MapUpdate.xcodeproj">

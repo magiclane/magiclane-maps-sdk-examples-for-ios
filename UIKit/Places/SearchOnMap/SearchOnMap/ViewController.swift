@@ -9,7 +9,7 @@ import GEMKit
 class ViewController: UIViewController {
 
     var mapViewController: MapViewController?
-    
+
     let defaultHighlightId: Int32 = 10
 
     override func viewDidLoad() {
@@ -29,9 +29,9 @@ class ViewController: UIViewController {
 
         self.addSearch()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
-        
+
         super.viewDidAppear(animated)
 
         let location = CoordinatesObject.coordinates(withLatitude: 52.368447, longitude: 4.888229)
@@ -70,49 +70,49 @@ class ViewController: UIViewController {
         let barButton1 = UIBarButtonItem.init(image: image1, style: .done, target: self, action: #selector(cleanMap))
         let barButton2 = UIBarButtonItem.init(image: image2, style: .done, target: self, action: #selector(searchNearbyButton))
         let barButton3 = UIBarButtonItem.init(image: image3, style: .done, target: self, action: #selector(searchQueryButton))
-        
+
         self.navigationItem.leftBarButtonItems = [barButton1]
         self.navigationItem.rightBarButtonItems = [barButton2, barButton3]
     }
 
     @objc func searchNearbyButton() {
-        
+
         self.mapViewController!
             .searchAround { [weak self] (results: [LandmarkObject]) in
-                
+
                 guard let strongSelf = self else { return }
-                
+
                 strongSelf.mapViewController!.removeHighlights()
-                
+
                 let settings = HighlightRenderSettings.init()
                 settings.options = Int32(HighlightOption.group.rawValue)
                 settings.showPin = true
                 settings.imageSize = 7
-                
+
                 strongSelf.mapViewController!.presentHighlights(results, settings: settings, highlightId: strongSelf.defaultHighlightId)
-                
+
                 strongSelf.centerOnHighlightArea()
             }
     }
-    
+
     @objc func searchQueryButton() {
-        
+
         self.mapViewController!
             .search(withQuery: "restaurant") { [weak self] (results: [LandmarkObject]) in
-                
+
                 guard let strongSelf = self else { return }
-                
+
                 guard let landmark = results.first else { return }
-                
+
                 strongSelf.mapViewController!.removeHighlights()
-                
+
                 let settings = HighlightRenderSettings.init()
                 settings.options = Int32(HighlightOption.group.rawValue)
                 settings.showPin = true
                 settings.imageSize = 7
-                
+
                 strongSelf.mapViewController!.presentHighlights([landmark], settings: settings, highlightId: strongSelf.defaultHighlightId)
-                
+
                 strongSelf.centerOnHighlightArea()
             }
     }
@@ -121,12 +121,12 @@ class ViewController: UIViewController {
 
         self.mapViewController!.removeHighlights()
     }
-    
+
     func centerOnHighlightArea() {
         let list = self.mapViewController!.getHighlight(self.defaultHighlightId)
         guard !list.isEmpty else { return }
         guard let area = self.mapViewController!.getHighlightArea(self.defaultHighlightId) else { return }
-        
+
         self.mapViewController!.center(onArea: area, zoomLevel: 75, animationDuration: 1200)
     }
 }

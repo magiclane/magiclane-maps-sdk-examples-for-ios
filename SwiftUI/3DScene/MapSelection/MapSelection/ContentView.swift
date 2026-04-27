@@ -7,24 +7,24 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
-    
+
     @Environment(\.displayScale) private var displayScale
-    
+
     @State private var selectedLandmark: LandmarkObject?
     @State private var zoom = 74
-    
+
     var body: some View {
         MapReader { proxy in
             ZStack(alignment: .bottom) {
                 MapBase()
                     .didSelectStreets { streets, touchPoint, isLongTouch in
                         proxy.present(highlights: streets, settings: getRenderSettings())
-                        
+
                         selectedLandmark = streets.first
                     }
                     .didSelectLandmarks { landmarks, touchPoint, isLongTouch in
                         proxy.present(highlights: landmarks, settings: getRenderSettings())
-                        
+
                         selectedLandmark = landmarks.first
                     }
                     .didSelectOverlays { overlays, touchPoint, isLongTouch in
@@ -37,16 +37,16 @@ struct ContentView: View {
                         goToPosition(proxy)
                     }
                     .ignoresSafeArea()
-                
+
                 if let selectedLandmark = selectedLandmark {
-                    
+
                     HStack {
-                        
+
                         Image(uiImage: getLandmarkImage(landmark: selectedLandmark))
                             .frame(width: 40, height: 40)
-                        
+
                         Text(selectedLandmark.getLandmarkName() + "\n" + selectedLandmark.getLandmarkDescription())
-                        
+
                         Spacer()
                     }
                     .padding(10)
@@ -56,19 +56,19 @@ struct ContentView: View {
             }
         }
     }
-    
+
     func getRenderSettings() -> HighlightRenderSettings {
         let settings = HighlightRenderSettings.init()
         settings.showPin = true
         settings.imageSize = 7
-        
+
         return settings
     }
-    
+
     func getLandmarkImage(landmark: LandmarkObject) -> UIImage {
-        
+
         let image = landmark.getLandmarkImage(CGSize(width: 40 * displayScale, height: 40 * displayScale)) ?? UIImage()
-        
+
         return image
     }
 

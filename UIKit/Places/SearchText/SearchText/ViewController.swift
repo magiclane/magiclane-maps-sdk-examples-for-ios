@@ -108,13 +108,13 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
             self.searchContext?.setSearchMapPOIs(true)
             self.searchContext?.setSearchAddresses(true)
         }
-        
+
         // Location Hint support: narrow the search area to a specific radius
         self.searchContext?.setLocationHint(
             RectangleGeographicAreaObject(
                 location: self.getMapCenterLocation(),
                 horizontalRadius: 2000, verticalRadius: 2000))
-        
+
         let location = self.getMapCenterLocation()
 
         self.searchContext?
