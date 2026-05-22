@@ -367,7 +367,7 @@
 			repositoryURL = "https://github.com/magiclane/magiclane-maps-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.6;
+				minimumVersion = 2.1.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
