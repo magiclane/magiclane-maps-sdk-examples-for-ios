@@ -12,7 +12,7 @@ struct ContentView: View {
         MapReader { proxy in
             MapBase()
                 .mapCompass(true)
-                .mapCompassSize(60)
+                .mapCompassSize(36)
                 .mapCompassInsets(getInsets())
                 .mapCompassFollowInterfaceStyle(true)
                 .didTapCompass { mode in
@@ -24,7 +24,7 @@ struct ContentView: View {
 
     func getInsets() -> UIEdgeInsets {
 
-        return UIEdgeInsets.init(top: 40, left: 0, bottom: 0, right: 40)
+        return UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 18)
     }
 }
 

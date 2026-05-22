@@ -28,7 +28,7 @@ struct MapSelectionApp: App {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate, GEMSdkExceptions {
 
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -36,11 +36,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate {
 
         let token = "" // YOUR_TOKEN
 
-        let success = GEMSdk.shared().initSdk(token)
+        let parameters = GEMSdkParameters.init(exceptions: self)
+        parameters.activationToken = token
 
-        if success {
+        let _ = GEMSdk.shared().initSdk(with: parameters) { code in
 
-            GEMSdk.shared().delegate = self
+            print("AppDelegate: GEMKit init phase finished, code:\(code.rawValue)")
+
+            if code == .kNoError {
+
+                GEMSdk.shared().delegate = self
+            }
         }
 
         return true
@@ -51,6 +57,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate {
     func onConnectionStatusUpdated(_ connected: Bool) {
 
         print("AppDelegate: onConnectionStatusUpdated:", connected)
+    }
+
+    // MARK: - GEMSdkExceptions
+
+    func onSdkActivationDetails(_ reason: ActivationAboutToExpireType, remainingTime remainingTimeInSeconds: Int) {
+
+        print("AppDelegate: activation expiring: \(remainingTimeInSeconds)s remaining")
     }
 }
 

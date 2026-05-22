@@ -12,7 +12,8 @@ struct ContentView: View {
     var body: some View {
         MapReader { proxy in
             ZStack(alignment: .top) {
-                MapBase {
+                MapBase(initialPosition: .milano, 
+                        initialZoomLevel: 72) {
                     if model.isNavigating, let mainRoute = model.mainRoute {
                         MapRoute(
                             routes: [mainRoute],
@@ -137,5 +138,11 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    NavigationStack {
+        ContentView()
+    }
+}
+
+extension CoordinatesObject {
+    static let milano = CoordinatesObject.coordinates(withLatitude: 45.462514, longitude: 9.188443)
 }

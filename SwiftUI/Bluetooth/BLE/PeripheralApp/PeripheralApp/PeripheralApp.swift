@@ -30,29 +30,44 @@ struct PeripheralApp: App {
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate {
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        let token = ""
-        
-        let success = GEMSdk.shared().initSdk(token)
-        
-        if success {
-            
-            GEMSdk.shared().delegate = self
-            
-            AppManager.shared.prepareServices()
+class AppDelegate: NSObject, UIApplicationDelegate, GEMSdkDelegate, GEMSdkExceptions {
+
+    func application(
+        _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+
+        let token = "" // YOUR_TOKEN
+
+        let parameters = GEMSdkParameters.init(exceptions: self)
+        parameters.activationToken = token
+
+        let _ = GEMSdk.shared().initSdk(with: parameters) { code in
+
+            print("AppDelegate: GEMKit init phase finished, code:\(code.rawValue)")
+
+            if code == .kNoError {
+
+                GEMSdk.shared().delegate = self
+
+                AppManager.shared.prepareServices()
+            }
         }
-        
+
         return true
     }
-    
+
     // MARK: - GEMSdkDelegate
-    
+
     func onConnectionStatusUpdated(_ connected: Bool) {
-        
+
         print("AppDelegate: onConnectionStatusUpdated:", connected)
+    }
+
+    // MARK: - GEMSdkExceptions
+
+    func onSdkActivationDetails(_ reason: ActivationAboutToExpireType, remainingTime remainingTimeInSeconds: Int) {
+
+        print("AppDelegate: activation expiring: \(remainingTimeInSeconds)s remaining")
     }
 }
 

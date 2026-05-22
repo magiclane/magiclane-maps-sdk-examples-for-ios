@@ -164,5 +164,7 @@ struct EdgeAreaOverlay: View {
 }
 
 #Preview {
-    ContentView()
+    NavigationStack {
+        ContentView()
+    }
 }

@@ -7,7 +7,7 @@ import UIKit
 import GEMKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GEMSdkDelegate, GEMSdkExceptions {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool
@@ -16,14 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let token = self.getProjectApiToken()
 
-        let success = GEMSdk.shared().initSdk(token)
+        let parameters = GEMSdkParameters.init(exceptions: self)
+        parameters.activationToken = token
 
-        if success {
+        let _ = GEMSdk.shared().initSdk(with: parameters) { code in
 
-            AppManager.shared.prepareServices()
+            print("AppDelegate: GEMKit init phase finished, code:\(code.rawValue)")
+
+            if code == .kNoError {
+
+                GEMSdk.shared().delegate = self
+
+                AppManager.shared.prepareServices()
+            }
         }
-
-        NSLog("GEMKit init with success:%@", String(success))
 
         self.addSkipBackupAttribute()
 
@@ -83,4 +89,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+
+    // MARK: - GEMSdkDelegate
+
+    func onConnectionStatusUpdated(_ connected: Bool) {
+
+        print("AppDelegate: onConnectionStatusUpdated:", connected)
+    }
+
+    // MARK: - GEMSdkExceptions
+
+    func onSdkActivationDetails(_ reason: ActivationAboutToExpireType, remainingTime remainingTimeInSeconds: Int) {
+
+        print("AppDelegate: activation expiring: \(remainingTimeInSeconds)s remaining")
+    }
+
 }
