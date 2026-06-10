@@ -230,7 +230,11 @@ struct ContentView: View {
 
 struct MarkerSelection: Identifiable {
 
-    let id = UUID()
+    // Constant identity so .sheet(item:) updates the existing sheet in
+    // place when a new cluster is tapped, instead of dismissing the
+    // current sheet and re-presenting (which would reset the detent
+    // back to the largest one in the array).
+    let id = "selection"
     let markers: [MarkerInfo]
 }
 
@@ -337,6 +341,7 @@ struct MarkersListView: View {
             }
         }
         .presentationDetents([.height(190), .medium, .large], selection: $detent)
+        .presentationBackgroundInteraction(.enabled(upThrough: .medium))
     }
 }
 

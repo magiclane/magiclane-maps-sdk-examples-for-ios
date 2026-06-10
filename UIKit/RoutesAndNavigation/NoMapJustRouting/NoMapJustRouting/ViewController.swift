@@ -75,7 +75,7 @@ class ViewController: UIViewController, NavigationContextDelegate, GEMSdkDelegat
 
         self.timesLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.timesLabel.numberOfLines = 0
-        self.timesLabel.backgroundColor = UIColor.white
+        self.timesLabel.backgroundColor = UIColor.systemBackground
         self.timesLabel.isHidden = true
         self.timesLabel.textAlignment = .center
         self.timesLabel.isUserInteractionEnabled = true
@@ -275,6 +275,7 @@ class ViewController: UIViewController, NavigationContextDelegate, GEMSdkDelegat
 
         self.timesLabel.text = text
         self.timesLabel.isHidden = false
+        self.timesLabel.textColor = UIColor.label
 
         if self.panelNavigationViewController == nil {
 

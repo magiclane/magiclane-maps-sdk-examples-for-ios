@@ -20,13 +20,11 @@ struct ContentView: View {
     var body: some View {
         MapReader { proxy in
             MapBase {
-                if !routeResults.isEmpty {
-                    MapRoute(
-                        routes: routeResults,
-                        bubbleSummary: true,
-                        animationDuration: 800
-                    )
-                }
+                MapRoute(
+                    routes: routeResults,
+                    bubbleSummary: true,
+                    animationDuration: 800
+                )
                 MapLandmark(
                     landmarks: searchResultLandmarks,
                     renderSettings: getHighlightSettings(),
@@ -46,8 +44,9 @@ struct ContentView: View {
                     Button("", systemImage: "point.topleft.down.curvedto.point.bottomright.up") {
                         calculateRoute(proxy)
                     }
-                    .disabled(isCalculating)
                     .buttonStyle(.borderedProminent)
+                    .disabled(isCalculating)
+                    .allowsHitTesting(!isCalculating)                    
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("", systemImage: "clear") {
@@ -94,23 +93,29 @@ struct ContentView: View {
 
         isCalculating = true
 
+        // let state = navigationContext?.isCalculatingRoute()
+        // print("isCalculatingRoute:\(state, default: "")")
+
         navigationContext?.calculateRoute(withWaypoints: waypoints) { results in
-            routeResults = results
-
-            for route in results {
-                if let td = route.getTimeDistance() {
-                    let time = td.getTotalTimeFormatted() + td.getTotalTimeUnitFormatted()
-                    let distance = td.getTotalDistanceFormatted() + td.getTotalDistanceUnitFormatted()
-                    NSLog("route time:%@, distance:%@", time, distance)
-                }
-            }
-
-            if !results.isEmpty {
-                mainRoute = results.first
+            Task { @MainActor in
+                proxy.mapViewController?.removeAllRoutes()
                 routeResults = results
-            }
 
-            isCalculating = false
+                for route in results {
+                    if let td = route.getTimeDistance() {
+                        let time = td.getTotalTimeFormatted() + td.getTotalTimeUnitFormatted()
+                        let distance = td.getTotalDistanceFormatted() + td.getTotalDistanceUnitFormatted()
+                        NSLog("route time:%@, distance:%@", time, distance)
+                    }
+                }
+
+                if !results.isEmpty {
+                    mainRoute = results.first
+                    routeResults = results
+                }
+
+                isCalculating = false
+            }
         }
     }
 
@@ -134,9 +139,10 @@ struct ContentView: View {
     // MARK: - Utils
 
     private func clearAll(_ proxy: MapProxy) {
+        proxy.mapViewController?.removeAllRoutes()
         searchResultLandmarks = []
         routeResults = []
-        mainRoute = nil
+        mainRoute = nil        
     }
 
     private func getHighlightSettings() -> HighlightRenderSettings {
@@ -148,5 +154,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    NavigationStack {
+        ContentView()
+    }
 }

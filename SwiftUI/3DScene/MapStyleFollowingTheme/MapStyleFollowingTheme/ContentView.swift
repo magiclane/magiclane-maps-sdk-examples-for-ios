@@ -14,6 +14,7 @@ struct ContentView: View {
         MapReader { proxy in
             MapBase()
                 .mapStyle(getStyleFollowingOS())
+                .mapCompassFollowInterfaceStyle(true)
                 .ignoresSafeArea()
         }
     }
