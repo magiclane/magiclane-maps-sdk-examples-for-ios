@@ -12,3 +12,6 @@
 **/Build
 **/Frameworks/
 !**/Data
+
+# Claude / Cowork local agent folder
+.claude/
