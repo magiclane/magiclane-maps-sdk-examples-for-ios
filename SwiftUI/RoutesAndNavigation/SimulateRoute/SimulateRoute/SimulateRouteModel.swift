@@ -19,8 +19,7 @@ class SimulateRouteModel: NSObject, ObservableObject {
     @Published var labelText: String = ""
     @Published var navigationInstruction: NavigationInstructionObject?
     @Published var alarmItems: [OverlayItemObject] = []
-    
-    @Published var presentedRoutes: [RouteObject] = []
+    @Published var mapConfiguration = MapRouteConfiguration.init()
 
     // MARK: GEMKit Contexts
 
@@ -51,10 +50,21 @@ class SimulateRouteModel: NSObject, ObservableObject {
         self.mainRoute = route
         proxy.setMain(route: route)
     }
+    
+    func startFollowLocation(_ proxy: MapProxy, animation: TimeInterval = 0) {
+
+        proxy.mapViewController?.startFollowingPosition(withAnimationDuration: animation, zoomLevel: -1) { _ in }
+    }
 
     // MARK: - Route Calculation
 
     func calculateRoute(_ proxy: MapProxy) {
+
+        if trafficContext == nil {
+
+            trafficContext = TrafficContext()
+            trafficContext?.setUseTraffic(.useOnline)
+        }
 
         if navigationContext == nil {
 
@@ -65,14 +75,9 @@ class SimulateRouteModel: NSObject, ObservableObject {
             preferences.setAvoidTollRoads(false)
             preferences.setAvoidFerries(false)
             preferences.setAvoidUnpavedRoads(true)
-
+            preferences.setAvoidTraffic(true)
+            
             navigationContext = NavigationContext(preferences: preferences)
-        }
-
-        if trafficContext == nil {
-
-            trafficContext = TrafficContext()
-            trafficContext?.setUseTraffic(.useOnline)
         }
 
         if soundContext == nil {
@@ -96,14 +101,24 @@ class SimulateRouteModel: NSObject, ObservableObject {
             })
         }
 
-        let departure = LandmarkObject.landmark(
+        let waypoints = [
+            LandmarkObject.landmark(
+                withName: "Departure",
+                location: CoordinatesObject.coordinates(withLatitude: 52.44391, longitude: 13.28910)),
+            LandmarkObject.landmark(
+                withName: "Destination",
+                location: CoordinatesObject.coordinates(withLatitude: 52.59283, longitude: 13.50746))
+        ]
+        
+        /*let departure = LandmarkObject.landmark(
             withName: "Munich 1",
             location: CoordinatesObject.coordinates(withLatitude: 48.15741, longitude: 11.53739))
         let destination = LandmarkObject.landmark(
             withName: "Munich 2",
             location: CoordinatesObject.coordinates(withLatitude: 48.166730, longitude: 11.53687))
 
-        let waypoints = [departure, destination]
+        let waypoints = [departure, destination]*/
+        
         isCalculating = true
 
         navigationContext?.calculateRoute(withWaypoints: waypoints, completionHandler: { [weak self] results in
@@ -114,6 +129,8 @@ class SimulateRouteModel: NSObject, ObservableObject {
                 NSLog("Found %d routes.", results.count)
 
                 self.routeResults = results
+                self.mapConfiguration.bubbleSummary = results.count > 0
+                self.mapConfiguration.routes = results
 
                 for route in results {
                     if let timeDuration = route.getTimeDistance() {
@@ -124,8 +141,6 @@ class SimulateRouteModel: NSObject, ObservableObject {
                 }
 
                 if !results.isEmpty {
-
-                    self.presentedRoutes = results
                     self.mainRoute = results.first
                 }
 
@@ -144,7 +159,10 @@ class SimulateRouteModel: NSObject, ObservableObject {
         else { return }
 
         mapViewController.restoreFollowingPosition(withAnimationDuration: 0) { _ in }
-        mapViewController.removeAllRoutes()
+        mapViewController.removeHighlights()
+
+        mapConfiguration.bubbleSummary = false
+        mapConfiguration.routes.removeAll()
 
         let navDelegate = NavigationHandler(
             onNavigationStarted: { [weak self] context, route in
@@ -184,9 +202,15 @@ class SimulateRouteModel: NSObject, ObservableObject {
 
                 if success {
 
-                    proxy.removeAllRoutes()
+                    self.mapConfiguration.bubbleSummary = false
+                    self.mapConfiguration.routes = [mainRoute]
+                    
                     mapViewController.hideCompass()
-                    self.presentedRoutes = [mainRoute]
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(500)) {
+                        guard let _ = self.navigationContext else { return }
+                        self.startFollowPosition(proxy)
+                    }
                 }
             }
         }
@@ -221,13 +245,18 @@ class SimulateRouteModel: NSObject, ObservableObject {
 
     func clearRoute(_ proxy: MapProxy) {
 
+        if let context = navigationContext {
+            context.cancelCalculateRoute()
+        }
+
         mainRoute = nil
-        presentedRoutes = []
-        
         proxy.removeAllHighlights()
-        proxy.removeAllRoutes()
+        mapConfiguration.routes.removeAll()
+
+        proxy.removeAllHighlights()        
 
         showLabel = false
+        isCalculating = false
     }
 
     // MARK: - Utils

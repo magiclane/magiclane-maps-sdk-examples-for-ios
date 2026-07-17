@@ -13,18 +13,14 @@ struct ContentView: View {
     @State private var navigationContext: NavigationContext?
     @State private var searchContext: SearchContext?
     @State private var mainRoute: RouteObject?
-    @State private var routeResults: [RouteObject] = []
     @State private var searchResultLandmarks: [LandmarkObject] = []
     @State private var isCalculating = false
-
+    @State private var mapConfiguration = MapRouteConfiguration.init()
+    
     var body: some View {
         MapReader { proxy in
             MapBase {
-                MapRoute(
-                    routes: routeResults,
-                    bubbleSummary: true,
-                    animationDuration: 800
-                )
+                MapRoute(configuration: mapConfiguration)
                 MapLandmark(
                     landmarks: searchResultLandmarks,
                     renderSettings: getHighlightSettings(),
@@ -98,8 +94,8 @@ struct ContentView: View {
 
         navigationContext?.calculateRoute(withWaypoints: waypoints) { results in
             Task { @MainActor in
-                proxy.mapViewController?.removeAllRoutes()
-                routeResults = results
+                mapConfiguration.bubbleSummary = results.count > 0
+                mapConfiguration.routes = results
 
                 for route in results {
                     if let td = route.getTimeDistance() {
@@ -111,7 +107,6 @@ struct ContentView: View {
 
                 if !results.isEmpty {
                     mainRoute = results.first
-                    routeResults = results
                 }
 
                 isCalculating = false
@@ -141,7 +136,7 @@ struct ContentView: View {
     private func clearAll(_ proxy: MapProxy) {
         proxy.mapViewController?.removeAllRoutes()
         searchResultLandmarks = []
-        routeResults = []
+        mapConfiguration.routes.removeAll()
         mainRoute = nil        
     }
 

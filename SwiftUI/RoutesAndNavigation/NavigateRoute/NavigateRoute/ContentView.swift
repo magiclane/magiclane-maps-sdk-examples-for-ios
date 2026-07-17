@@ -12,24 +12,10 @@ struct ContentView: View {
     var body: some View {
         MapReader { proxy in
             ZStack(alignment: .top) {
-                MapBase(initialPosition: .milano, 
-                        initialZoomLevel: 72) {
-                    if model.isNavigating, let mainRoute = model.mainRoute {
-                        MapRoute(
-                            routes: [mainRoute],
-                            bubbleSummary: false,
-                            animationDuration: -1
-                        )
-                    } else {
-                        if !model.presentedRoutes.isEmpty {
-                            MapRoute(
-                                routes: model.presentedRoutes,
-                                bubbleSummary: true,
-                                animationDuration: 800
-                            )
-                        }
-                    }
+                MapBase(initialPosition: .milano, initialZoomLevel: 70) {
+                    MapRoute(configuration: model.mapConfiguration)
                 }
+                .mapEdgeInsets(adjustRouteInsets())
                 .didSelectLandmarks { landmarks, point, longTouch in
                     
                     guard let landmark = landmarks.first else { return }
@@ -127,13 +113,21 @@ struct ContentView: View {
                     Button("", systemImage: "play") {
                         model.startNavigation(proxy)
                     }
-                    .disabled(model.mainRoute == nil)
+                    .disabled(model.mapConfiguration.routes.count == 0)
                     .buttonStyle(.borderedProminent)
                 }
             }
         }
         .navigationTitle("Navigate Route")
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func adjustRouteInsets() -> UIEdgeInsets {
+        let scale = UIScreen.main.scale
+        let insets = UIEdgeInsets(
+            top: 60 * scale, left: 60 * scale,
+            bottom: 60 * scale, right: 60 * scale)
+        return insets
     }
 }
 

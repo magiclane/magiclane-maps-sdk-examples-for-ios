@@ -7,6 +7,8 @@ import SwiftUI
 import GEMKit
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var isLoaded = false
     @State private var markerSelection: MarkerSelection?
     @State private var presentationDetent: PresentationDetent = .medium
@@ -22,6 +24,7 @@ struct ContentView: View {
                               renderSettings: coffeeRenderSettings)
                 })
                 .mapCompass(false)
+                .mapStyle(getStyleFollowingOS())
                 .didSelectMarkers { markers, touchPoint, isLongTouch in
                     handleSelectedMarkers(markers)
                 }
@@ -62,6 +65,10 @@ struct ContentView: View {
         .ignoresSafeArea()
     }
 
+    func getStyleFollowingOS() -> Int {
+        return colorScheme == .dark ? MapStyleIdentifiers.night.rawValue : MapStyleIdentifiers.day.rawValue
+    }
+    
     func loadFile(_ proxy: MapProxy) {
 
         guard let mapViewController = proxy.mapViewController else { return }
@@ -150,6 +157,7 @@ struct ContentView: View {
 
         renderSettings.labelGroupTextColor = .white
         renderSettings.labelGroupTextSize = NSNumber(value: 2.4)
+        renderSettings.pointsGroupingZoomLevel = 66
 
         renderSettings.labelingMode = NSNumber(value: MarkerLabelingMode.group.rawValue
                                                | MarkerLabelingMode.groupCenter.rawValue

@@ -21,8 +21,7 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var labelText: String = "Select a point on the map and tap the route button."
     @Published var navigationInstruction: NavigationInstructionObject?
     @Published var alarmItems: [OverlayItemObject] = []
-
-    @Published var presentedRoutes: [RouteObject] = []
+    @Published var mapConfiguration = MapRouteConfiguration.init()
 
     // MARK: GEMKit Contexts
 
@@ -120,7 +119,7 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     // MARK: - Location Following
 
-    func startFollowLocation(_ proxy: MapProxy, animation: TimeInterval = 1000) {
+    func startFollowLocation(_ proxy: MapProxy, animation: TimeInterval = 0) {
 
         guard isLocationAvailable else {
             requestLocationPermission()
@@ -142,6 +141,12 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         let departure = LandmarkObject.landmark(withName: "My Position", location: location)
         guard let destination = destination else { return }
 
+        if trafficContext == nil {
+
+            trafficContext = TrafficContext()
+            trafficContext?.setUseTraffic(.useOnline)
+        }
+
         if navigationContext == nil {
 
             let preferences = RoutePreferencesObject()
@@ -151,14 +156,9 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             preferences.setAvoidTollRoads(false)
             preferences.setAvoidFerries(false)
             preferences.setAvoidUnpavedRoads(true)
+            preferences.setAvoidTraffic(true)
 
             navigationContext = NavigationContext(preferences: preferences)
-        }
-
-        if trafficContext == nil {
-
-            trafficContext = TrafficContext()
-            trafficContext?.setUseTraffic(.useOnline)
         }
 
         if soundContext == nil {
@@ -193,7 +193,9 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
                 NSLog("Found %d routes.", results.count)
 
                 self.routeResults = results
-
+                self.mapConfiguration.bubbleSummary = results.count > 0
+                self.mapConfiguration.routes = results
+                
                 for route in results {
                     if let timeDuration = route.getTimeDistance() {
                         let time = timeDuration.getTotalTimeFormatted() + timeDuration.getTotalTimeUnitFormatted()
@@ -203,8 +205,6 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
                 }
 
                 if !results.isEmpty {
-
-                    self.presentedRoutes = results
                     self.mainRoute = results.first
                 }
 
@@ -224,7 +224,10 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
         // Restore follow position in case it was changed by pinch gesture
         mapViewController.restoreFollowingPosition(withAnimationDuration: 0) { _ in }
-        mapViewController.removeAllRoutes()
+        mapViewController.removeHighlights()
+
+        self.mapConfiguration.bubbleSummary = false
+        self.mapConfiguration.routes.removeAll()
 
         // Set navigation delegate
         let navDelegate = NavigationHandler(
@@ -262,11 +265,15 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
                 if success {
 
-                    proxy.removeAllRoutes()
-                    mapViewController.hideCompass()
-                    
-                    self.presentedRoutes = [mainRoute]
-                    self.startFollowLocation(proxy)
+                    self.mapConfiguration.bubbleSummary = false
+                    self.mapConfiguration.routes = [mainRoute]
+
+                    mapViewController.hideCompass()                    
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(500)) {
+                        guard let _ = self.navigationContext else { return }
+                        self.startFollowLocation(proxy, animation: 1000)
+                    }
                 }
             }
         }
@@ -301,15 +308,20 @@ class NavigateRouteModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     func clearRoute(_ proxy: MapProxy) {
 
+        if let context = navigationContext {
+            context.cancelCalculateRoute()
+        }
+
         mainRoute = nil
         destination = nil
-        presentedRoutes = []
 
         proxy.removeAllHighlights()
-        proxy.removeAllRoutes()
 
+        mapConfiguration.routes.removeAll()
+        
         showLabel = true
         labelText = "Select a point on the map and tap the route button."
+        isCalculating = false
     }
 
     // MARK: - Utils
@@ -369,7 +381,9 @@ class NavigationHandler: NSObject, NavigationContextDelegate {
         }
     }
 
-    func navigationContext(_ navigationContext: NavigationContext, navigationRouteUpdated route: RouteObject) {}
+    func navigationContext(_ navigationContext: NavigationContext, navigationRouteUpdated route: RouteObject) {
+        
+    }
 
     func navigationContext(_ navigationContext: NavigationContext, route: RouteObject, navigationWaypointReached waypoint: LandmarkObject) {}
 

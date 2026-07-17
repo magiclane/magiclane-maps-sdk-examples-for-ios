@@ -10,29 +10,36 @@ struct ContentView: View {
     @State private var navigationContext: NavigationContext?
     @State private var trafficContext: TrafficContext?
     @State private var isCalculating: Bool = false
-    @State private var edgeInsets: UIEdgeInsets?
-    @State private var calculatedRoutes: [RouteObject] = []
-
+    @State var isVisible: Bool = true
+    @State var mapConfiguration: MapRouteConfiguration = MapRouteConfiguration.init()
+    
     var body: some View {
         MapReader { proxy in
             ZStack {
                 MapBase{
-                    MapRoute(
-                        routes: calculatedRoutes,
-                        traffic: trafficContext,
-                        animationDuration: 800
-                    )
+                    MapRoute(configuration: mapConfiguration)
                 }
+                .mapCompassSize(38)
+                .mapCompass(isVisible)
+                .mapEdgeInsets(adjustRouteInsets())
+                .didSelectRoutes({ routes, touchPoint in
+                    guard let route = routes.first else { return }
+                    routeSelected(proxy, route: route)
+                })
                 .ignoresSafeArea(edges: [.bottom, .horizontal])
-
+                
                 // visually indicate the edge area padding after route is presented
-                if let insets = edgeInsets {
-                    EdgeAreaOverlay(insets: insets)
-                        .ignoresSafeArea(edges: [.bottom, .horizontal])
-                        .allowsHitTesting(false)
-                }
+                EdgeAreaOverlay(insets: adjustRouteInsets())
+                    .ignoresSafeArea(edges: [.bottom, .horizontal])
+                    .allowsHitTesting(false)
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("", systemImage: "safari") {
+                        isVisible.toggle()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("", systemImage: "point.topleft.down.curvedto.point.bottomright.up") {
                         calculateRoute(proxy)
@@ -47,7 +54,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                 }
             }
-        }
+        }            
         .navigationTitle("Calculate Route")
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea()
@@ -55,7 +62,11 @@ struct ContentView: View {
 
     func calculateRoute(_ proxy: MapProxy) {
 
-        guard let mapViewController = proxy.mapViewController else { return }
+        if trafficContext == nil {
+
+            trafficContext = TrafficContext()
+            trafficContext?.setUseTraffic(.useOnline)
+        }
 
         if navigationContext == nil {
 
@@ -66,27 +77,23 @@ struct ContentView: View {
             preferences.setAvoidTollRoads(false)
             preferences.setAvoidFerries(false)
             preferences.setAvoidUnpavedRoads(true)
+            preferences.setAvoidTraffic(true)
 
             navigationContext = NavigationContext(preferences: preferences)
         }
-
-        if trafficContext == nil {
-
-            trafficContext = TrafficContext()
-            trafficContext?.setUseTraffic(.useOnline)
-        }
-
+        
         let waypoints = [
             LandmarkObject.landmark(
-                withName: "San Francisco",
-                location: CoordinatesObject.coordinates(withLatitude: 37.77903, longitude: -122.41991)),
+                withName: "Departure",
+                location: CoordinatesObject.coordinates(withLatitude: 52.44391, longitude: 13.28910)),
             LandmarkObject.landmark(
-                withName: "San Jose",
-                location: CoordinatesObject.coordinates(withLatitude: 37.33619, longitude: -121.89058))
+                withName: "Destination",
+                location: CoordinatesObject.coordinates(withLatitude: 52.59283, longitude: 13.50746))
         ]
 
+        mapConfiguration.routes = []
+        
         isCalculating = true
-
         navigationContext?.calculateRoute(withWaypoints: waypoints, completionHandler: { results in
 
             NSLog("Found %d routes.", results.count)
@@ -97,31 +104,38 @@ struct ContentView: View {
                     let distance = timeDuration.getTotalDistanceFormatted() + timeDuration.getTotalDistanceUnitFormatted()
                     NSLog("route time:%@, distance:%@", time, distance)
                 }
+                
+                let trafficEvents = route.getTrafficEvents()                
+                for event in trafficEvents {
+                    NSLog("route traffic event delay:%d(sec.) length:%d(m)", event.getDelay(), event.getLength())
+                }
             }
 
-            if !results.isEmpty {
-
-                let scale = UIScreen.main.scale
-                let insets = UIEdgeInsets(
-                    top: 120 * scale, left: 70 * scale,
-                    bottom: 70 * scale, right: 70 * scale)
-
-                edgeInsets = insets
-
-                mapViewController.setEdgeAreaInsets(insets)
-                mapViewController.presentRoutes(results, withTraffic: trafficContext, showSummary: true, animationDuration: 1600)
-            }
-
+            mapConfiguration.routes = results
+            mapConfiguration.bubbleSummary = true
             isCalculating = false
         })
     }
+    
+    func adjustRouteInsets() -> UIEdgeInsets {
+        if mapConfiguration.routes.isEmpty {
+            return .zero
+        }
+        let scale = UIScreen.main.scale
+        let insets = UIEdgeInsets(
+            top: 120 * scale, left: 60 * scale,
+            bottom: 70 * scale, right: 60 * scale)
+        return insets
+    }
+    
+    func routeSelected(_ proxy: MapProxy, route: RouteObject) {
+        proxy.setMain(route: route)
+    }
 
-    func clearRoute(_ proxy: MapProxy) {
-
-        guard let mapViewController = proxy.mapViewController else { return }
-
-        edgeInsets = nil
-        mapViewController.removeAllRoutes()
+    func clearRoute(_ proxy: MapProxy) {        
+        isCalculating = false
+        mapConfiguration.routes = []
+        navigationContext?.cancelCalculateRoute()
     }
 }
 

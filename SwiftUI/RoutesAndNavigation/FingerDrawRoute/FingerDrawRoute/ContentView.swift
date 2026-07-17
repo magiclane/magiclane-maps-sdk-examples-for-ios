@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var routeTransportMode: RouteTransportMode = .bicycle
     @State private var routeStatus: RouteStatus = .uninitialized
     @State private var markerCollections: [MarkerCollectionObject] = []
-
+    @State private var routeConfiguration = MapRouteConfiguration.init()
     @State var gpxFileURL: URL?
 
     @State var refreshTitleMenuId: UUID = UUID()
@@ -23,11 +23,14 @@ struct ContentView: View {
     var body: some View {
         MapReader { proxy in
             ZStack(alignment: .leading) {
-                MapBase()
-                    .onAppear {
-                        proxy.centerOn(coordinates: .milano, zoomLevel: 70)
-                    }
-                    .ignoresSafeArea(edges: [.bottom, .horizontal])
+                MapBase{
+                    MapRoute(configuration: routeConfiguration)
+                }
+                .mapEdgeInsets(adjustRouteInsets())
+                .onAppear {
+                    proxy.centerOn(coordinates: .milano, zoomLevel: 70)
+                }
+                .ignoresSafeArea(edges: [.bottom, .horizontal])
 
                 if drawPathOn == false {
                     VStack {
@@ -225,9 +228,9 @@ struct ContentView: View {
 
         mapViewController.showCompass()
         mapViewController.setTouchViewBehaviour(.default)
-
         mapViewController.removeAllMarkers()
-        mapViewController.removeAllRoutes()
+        
+        routeConfiguration.routes.removeAll()
     }
 
     func createShareRoute(path: PathObject) {
@@ -272,25 +275,24 @@ struct ContentView: View {
         } completionHandler: { results, code in
 
             if let route = results.first {
-
-                let scale = UIScreen.main.scale
-                let insets = UIEdgeInsets.init(
-                    top: 120 * scale, left: 60 * scale,
-                    bottom: 120 * scale, right: 60 * scale)
-                mapViewController.setEdgeAreaInsets(insets)
-                mapViewController.presentRoutes(results, withTraffic: nil, showSummary: true, animationDuration: 1600)
-
-                let preferences = mapViewController.getPreferences()
-                if let settings = preferences.getRenderSettings(route) {
-                    settings.textSize = 3.6
-                    settings.imageSize = 3.6
-                    preferences.setRenderSettings(settings, route: route)
-                }
+                routeConfiguration.bubbleSummary = true
+                routeConfiguration.routes = [route]
             }
 
             routeCalculated = true
             drawPathOn = false
         }
+    }
+    
+    func adjustRouteInsets() -> UIEdgeInsets {
+        if routeConfiguration.routes.isEmpty {
+            return .zero
+        }
+        let scale = UIScreen.main.scale
+        let insets = UIEdgeInsets(
+            top: 120 * scale, left: 60 * scale,
+            bottom: 120 * scale, right: 60 * scale)
+        return insets
     }
 }
 

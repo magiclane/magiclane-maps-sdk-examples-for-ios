@@ -10,19 +10,23 @@ struct ContentView: View {
 
     @State private var navigationContext: NavigationContext?
     @State private var trafficContext: TrafficContext?
-    
-    @State private var presentedRoutes: [RouteObject] = []
+
     @State private var mainRoute: RouteObject?
     
     @State private var isCalculating: Bool = false
     @State private var showInstructions: Bool = false
     @State private var selectedItem: InstructionItem?
-
+    
+    @State var mapConfiguration = MapRouteConfiguration.init()
+    
     var body: some View {
         MapReader { proxy in
             MapBase {
-                
-                MapRoute(routes: presentedRoutes)
+                MapRoute(configuration: mapConfiguration)
+            }
+            .didSelectRoutes { routes, point in
+                guard let route = routes.first else { return }
+                routeSelected(proxy, route: route)
             }
             .ignoresSafeArea()
             .toolbar {
@@ -72,9 +76,20 @@ struct ContentView: View {
         }
     }
 
+    func routeSelected(_ proxy: MapProxy, route: RouteObject) {
+        mainRoute = route
+        proxy.setMain(route: route)
+    }
+    
     // MARK: - Route Calculation
 
     func calculateRoute(_ proxy: MapProxy) {
+
+        if trafficContext == nil {
+
+            trafficContext = TrafficContext()
+            trafficContext?.setUseTraffic(.useOnline)
+        }
 
         if navigationContext == nil {
 
@@ -85,14 +100,9 @@ struct ContentView: View {
             preferences.setAvoidTollRoads(false)
             preferences.setAvoidFerries(false)
             preferences.setAvoidUnpavedRoads(true)
+            preferences.setAvoidTraffic(true)
 
             navigationContext = NavigationContext(preferences: preferences)
-        }
-
-        if trafficContext == nil {
-
-            trafficContext = TrafficContext()
-            trafficContext?.setUseTraffic(.useOnline)
         }
 
         let waypoints = [
@@ -118,10 +128,11 @@ struct ContentView: View {
                 }
             }
 
-            if !results.isEmpty {
+            mapConfiguration.bubbleSummary = true
+            mapConfiguration.routes = results
 
-                mainRoute = results.first
-                presentedRoutes = results
+            if !results.isEmpty {
+                mainRoute = results.first                
             }
 
             isCalculating = false
@@ -131,8 +142,7 @@ struct ContentView: View {
     func clearRoute(_ proxy: MapProxy) {
 
         mainRoute = nil
-        presentedRoutes = []
-        proxy.removeAllRoutes()
+        mapConfiguration.routes.removeAll()
     }
 }
 

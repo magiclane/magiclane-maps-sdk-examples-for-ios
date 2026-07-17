@@ -13,22 +13,9 @@ struct ContentView: View {
         MapReader { proxy in
             ZStack(alignment: .top) {
                 MapBase {
-                    if model.isSimulating, let mainRoute = model.mainRoute {
-                        MapRoute(
-                            routes: [mainRoute],
-                            bubbleSummary: false,
-                            animationDuration: -1
-                        )
-                    } else {
-                        if !model.presentedRoutes.isEmpty {
-                            MapRoute(
-                                routes: model.presentedRoutes,
-                                bubbleSummary: true,
-                                animationDuration: 800
-                            )
-                        }
-                    }
+                    MapRoute(configuration: model.mapConfiguration)
                 }
+                .mapEdgeInsets(adjustRouteInsets())
                 .didSelectRoutes { routes, point in
                     
                     guard let route = routes.first else { return }
@@ -68,6 +55,10 @@ struct ContentView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .padding(.horizontal, 10)
                             .padding(.bottom, 10)
+                            .onTapGesture {
+                                model.startFollowLocation(proxy)
+                            }
+
                     }
                 }
             }
@@ -99,6 +90,14 @@ struct ContentView: View {
         }
         .navigationTitle("Simulate Route")
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func adjustRouteInsets() -> UIEdgeInsets {
+        let scale = UIScreen.main.scale
+        let insets = UIEdgeInsets(
+            top: 60 * scale, left: 60 * scale,
+            bottom: 60 * scale, right: 60 * scale)
+        return insets
     }
 }
 
