@@ -29,6 +29,9 @@
       location = "group:MapStyleFollowingTheme/MapStyleFollowingTheme.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:MarkerClustering/MarkerClustering.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Shapes/Shapes.xcodeproj">
    </FileRef>
 </Workspace>
