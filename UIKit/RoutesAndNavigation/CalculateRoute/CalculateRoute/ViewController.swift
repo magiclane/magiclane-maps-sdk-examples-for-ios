@@ -100,11 +100,14 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
         self.navigationContext?
             .calculateRoute(
-                withWaypoints: waypoints,
-                completionHandler: { [weak self] (results: [RouteObject]) in
+                withWaypoints: waypoints) { routeStatus in
+                    
+                    NSLog("CalculateRoute, routeStatus:%@", routeStatus.name)
+                 
+                } completionHandler: {  [weak self]  results, code in
 
                     guard let strongSelf = self else { return }
-
+                    
                     NSLog("Found %d routes.", results.count)
 
                     for route in results {
@@ -126,12 +129,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
                         strongSelf.mapViewController?.setEdgeAreaInsets(insets)
 
-                        strongSelf.mapViewController?
-                            .presentRoutes(results, withTraffic: strongSelf.trafficContext, showSummary: true, animationDuration: 1600)
+                        strongSelf.mapViewController?.presentRoutes(results, withTraffic: strongSelf.trafficContext, 
+                                                                    showSummary: true, animationDuration: 1600)
                     }
 
                     item.isEnabled = true
-                })
+                }
     }
 
     @objc func clearRouteButtonAction(item: UIBarButtonItem) {
@@ -234,5 +237,32 @@ class ViewController: UIViewController, UISearchBarDelegate {
             viewRight.widthAnchor.constraint(equalToConstant: insetsPoints.right),
             viewRight.bottomAnchor.constraint(equalTo: viewBottom.topAnchor, constant: 0)
         ])
+    }
+}
+
+extension RouteStatus {
+    
+    var name: String {
+        
+        switch self {
+            
+        case .uninitialized:
+            return "uninitialized"
+            
+        case .calculating:
+            return "calculating"
+            
+        case .waitingInternetConnection:
+            return "waitingInternetConnection"
+            
+        case .ready:
+            return "ready"
+            
+        case .error:
+            return "error"
+            
+        @unknown default:
+            return "unknown(\(self.rawValue))"
+        }
     }
 }

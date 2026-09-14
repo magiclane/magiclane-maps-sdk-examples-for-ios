@@ -578,7 +578,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MapViewContro
         let settings = HighlightRenderSettings.init()
         settings.showPin = true
 
-        if landmark.isContourGeograficAreaEmpty() == false {
+        if landmark.isContourGeographicAreaEmpty() == false {
 
             settings.options = Int32(
                 HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)

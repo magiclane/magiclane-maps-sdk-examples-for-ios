@@ -162,7 +162,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
 
         guard let mapViewController = self.mapViewController else { return }
 
-        if let contour = landmark.getContourGeograficArea(), !contour.isEmpty() {
+        if let contour = landmark.getContourGeographicArea(), !contour.isEmpty() {
 
             // default
             mapViewController.center(

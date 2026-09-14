@@ -47,7 +47,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         // Paris
         let location = CoordinatesObject.coordinates(withLatitude: 48.840827, longitude: 2.381899)
 
-        self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 1200)
+        self.mapViewController!.center(onCoordinates: location, zoomLevel: 70, animationDuration: 0)
     }
 
     // MARK: - Map View
@@ -625,7 +625,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
         settings.showPin = true
         settings.imageSize = 7
 
-        if landmark.isContourGeograficAreaEmpty() == false {
+        if landmark.isContourGeographicAreaEmpty() == false {
 
             settings.options = Int32(
                 HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)

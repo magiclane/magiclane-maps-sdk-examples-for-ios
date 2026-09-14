@@ -356,7 +356,7 @@ class ViewController: UIViewController, MapViewControllerDelegate {
                     settings.showPin = true
                     settings.imageSize = 7
 
-                    if houseNumber.isContourGeograficAreaEmpty() == false {
+                    if houseNumber.isContourGeographicAreaEmpty() == false {
 
                         settings.options = Int32(
                             HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)

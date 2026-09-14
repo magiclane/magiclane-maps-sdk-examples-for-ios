@@ -361,7 +361,7 @@ class ViewController: UIViewController, MapViewControllerDelegate, UITableViewDa
         settings.showPin = true
         settings.imageSize = 7
 
-        if landmark.isContourGeograficAreaEmpty() == false {
+        if landmark.isContourGeographicAreaEmpty() == false {
 
             settings.options = Int32(
                 HighlightOption.showLandmark.rawValue | HighlightOption.overlap.rawValue | HighlightOption.showContour.rawValue)
