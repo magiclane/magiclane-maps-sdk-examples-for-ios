@@ -38,7 +38,7 @@ struct ContentView: View {
                     model.setupLocation()
                     model.setupFollowPositionPreferences(proxy)
                 }
-                .onChange(of: model.isLocationAvailable) { available in
+                .onChange(of: model.isLocationAvailable) { _, available in
                     if available {
                         model.onLocationBecameAvailable(proxy)
                     }

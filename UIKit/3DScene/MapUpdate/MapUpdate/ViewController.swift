@@ -6,8 +6,8 @@
 import UIKit
 import GEMKit
 
-class ViewController: UIViewController, GEMSdkDelegate {
-
+class ViewController: UIViewController, GEMSdkDelegate, GEMSdkExceptions {
+    
     var mapViewController: MapViewController?
 
     var mapsContext: MapsContext?
@@ -190,12 +190,26 @@ class ViewController: UIViewController, GEMSdkDelegate {
         self.mapViewController = nil
 
         GEMSdk.shared().cleanDestroy()
-        GEMSdk.shared().initSdk(getProjectApiToken())
-        GEMSdk.shared().delegate = self
+        let parameters = GEMSdkParameters.init(exceptions: self)
+        parameters.activationToken = getProjectApiToken()
+        let _ = GEMSdk.shared().initSdk(with: parameters) { code in
+
+            print("AppDelegate: GEMKit init phase finished, code:\(code.rawValue)")
+
+            if code == .kNoError {
+
+                GEMSdk.shared().delegate = self
+            }
+        }        
 
         self.createMapView()
         self.mapViewController!.startRender()
 
         self.mapsContext = MapsContext.init()
     }
+    
+    // MARK: - GEMSdkExceptions
+    
+    func onSdkActivationDetails(_ reason: ActivationAboutToExpireType, remainingTime remainingTimeInSeconds: Int) {
+    }    
 }

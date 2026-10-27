@@ -139,7 +139,7 @@ class ViewController: UIViewController, UISearchBarDelegate, ResultsViewControll
 
         searchController.dismiss(animated: true) {}
 
-        let text = landmark.getLandmarkName()
+        let text = landmark.getLandmarkNameFormatted()
         searchController.searchBar.text = text
 
         mapViewController.removeHighlights()
@@ -227,7 +227,7 @@ class ResultsViewController: UITableViewController {
 
         let landmark = self.dataModel[indexPath.row]
 
-        let text = landmark.getLandmarkName()
+        let text = landmark.getLandmarkNameFormatted()
         let desc = landmark.getLandmarkDescription()
         let img = landmark.getLandmarkImage(size)
 

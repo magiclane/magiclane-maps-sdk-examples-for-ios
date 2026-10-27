@@ -879,7 +879,7 @@ struct RangeToggleItemView: View {
 
         }
         .frame(minHeight: 50)
-        .onChange(of: item.toggleState) { value in
+        .onChange(of: item.toggleState) { _, value in
 
             model.settings[item.itemKey] = NSNumber(value: value)
         }

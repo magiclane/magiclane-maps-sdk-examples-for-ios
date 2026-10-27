@@ -109,7 +109,9 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
             return
         }
 
-        context.checkForUpdate { (status: ContentStoreOnlineSupportStatus) in
+        context.checkForUpdate { [weak self] (status: ContentStoreOnlineSupportStatus) in
+
+            guard let self else { return }
 
             if status == .upToDate {
 
@@ -120,17 +122,17 @@ class MapsViewController: UITableViewController, ContentStoreObjectDelegate, Con
 
             } else if status == .oldData || status == .expiredData {
 
-                let action1 = UIAlertAction.init(title: "Update", style: .default) { [weak self] action in
+                let action1 = UIAlertAction.init(title: "Update", style: .default) { [weak self] _ in
 
-                    guard let strongSelf = self else { return }
+                    guard let self else { return }
 
                     let activity = UIActivityIndicatorView.init(style: .medium)
                     let button = UIBarButtonItem.init(customView: activity)
-                    strongSelf.navigationItem.rightBarButtonItem = button
+                    self.navigationItem.rightBarButtonItem = button
 
                     activity.startAnimating()
 
-                    strongSelf.updateMaps()
+                    self.updateMaps()
                 }
 
                 let action2 = UIAlertAction.init(title: "Later", style: .default) { action in }

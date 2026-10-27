@@ -51,7 +51,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                 }
             }
-            .onChange(of: showInstructions) { newValue in
+            .onChange(of: showInstructions) { _, newValue in
                 if !newValue, let item = selectedItem {
                     selectedItem = nil
                     if let instruction = item.routeInstruction {
